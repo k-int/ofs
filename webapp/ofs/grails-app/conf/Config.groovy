@@ -90,4 +90,4 @@ log4j = {
     warn   'org.mortbay.log'
 }
 
-ofs.solr.url=http://localhost:8080/index/aggr
+ofs.solr.url='http://localhost:8080/index/aggr'

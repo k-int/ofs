@@ -1,12 +1,45 @@
 package com.k_int.ofsd
 
+
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.params.ModifiableSolrParams;
+import org.apache.solr.common.*;
+import grails.converters.*
+import groovy.text.Template
+import groovy.text.SimpleTemplateEngine
+import groovy.xml.MarkupBuilder
+
+
 class SearchController {
+
+  def solrServerBean
 
   def index = { 
   }
 
-  def doSearch(solr_base_url, qry, records_per_page,defaultSortString) {
-    SolrServer solr = new CommonsHttpSolrServer(solr_base_url);
+  def search = {
+    println "Search action Conf=${params.conf}"
+
+    def result = [:]
+    def search_results = null;
+    def resp = null;
+    def records_per_page = params.pagesize ?: 20;
+
+    // def qry = buildLuceneQuery(qry_props);
+
+    result['noqry'] = false
+    result['qry'] = 'childcare'
+
+    result['search_results'] = doSearch("childcare", 10, null)
+
+    result
+  }
+
+  def doSearch(qry, records_per_page, defaultSortString) {
+    // SolrServer solr = new CommonsHttpSolrServer(solr_base_url);
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
 
     def lucene_query = qry;
@@ -30,7 +63,7 @@ class SearchController {
     println "solr params : ${solr_params}"
 
 
-    QueryResponse response = solr.query(solr_params);
+    QueryResponse response = solrServerBean.query(solr_params);
     // println("solr response = " + response);
     SolrDocumentList sdl = response.getResults();
     long record_count = sdl.getNumFound();
