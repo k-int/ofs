@@ -95,6 +95,11 @@
                     </g:each>
                 </ul>
             </div>
+
+<p>OFS End User App : ${grailsApplication.metadata['app.version']} (Build #${grailsApplication.metadata['app.buildNumber']}
+Build Date: ${grailsApplication.metadata['app.buildDate']},
+Build Profile: ${grailsApplication.metadata['app.buildProfile']})</p>
+
         </div>
     </body>
 </html>

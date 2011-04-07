@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.13'
+        runtime 'mysql:mysql-connector-java:5.1.14'
+        runtime 'org.apache.solr:solr-solrj:1.4.1'
     }
 }
