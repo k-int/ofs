@@ -30,12 +30,22 @@ class SearchController {
 
     // def qry = buildLuceneQuery(qry_props);
 
-    result['noqry'] = false
-    result['qry'] = 'childcare'
 
-    result['search_results'] = doSearch("childcare", 10, null)
+    def lucene_query = buildQuery(params)
+
+    if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
+      result['search_results'] = doSearch(lucene_query, 10, null)
+      result['qry'] = lucene_query
+    }
+    else {
+      result['noqry'] = true
+    }
 
     result
+  }
+
+  def buildQuery(params) {
+    params.q
   }
 
   def doSearch(qry, records_per_page, defaultSortString) {
