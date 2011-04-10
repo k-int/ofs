@@ -34,15 +34,15 @@
         <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
         <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
       </li>
-      <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}"><li>Telephone: ${sr['telephone']}</li></g:if>
-      <g:if test="${(sr['email'] != null ) && ( sr['email'].length() > 0 )}"><li>Email: ${sr['email']}</li></g:if>
-      <g:if test="${(sr['fax'] != null ) && ( sr['fax'].length() > 0 )}"><li>Email: ${sr['fax']}</li></g:if>
+      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}"><li>Telephone: ${entry['telephone']}</li></g:if>
+      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}"><li>Email: ${entry['email']}</li></g:if>
+      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}"><li>Email: ${entry['fax']}</li></g:if>
 
-      <g:if test="${( sr['ispp.age_min'] != null ) && ( sr['ispp.age_max'] != null )}">
-         <li>Age Range: from ${sr['ispp.age_min']} to ${sr['ispp.age_max']} years
+      <g:if test="${( entry['ispp.age_min'] != null ) && ( entry['ispp.age_max'] != null )}">
+         <li>Age Range: from ${entry['ispp.age_min']} to ${entry['ispp.age_max']} years
       </g:if>
 
-      <g:if test="${(sr['childcare_type_s'] != null ) && ( sr['childcare_type_s'].length() > 0 )}"><li>Childcare Type: ${sr['childcare_type_s']}</li></g:if>
+      <g:if test="${(entry['childcare_type_s'] != null ) && ( entry['childcare_type_s'].length() > 0 )}"><li>Childcare Type: ${entry['childcare_type_s']}</li></g:if>
 
       <li>Flags
         <g:if test="${entry['flags'] != null}">
@@ -60,7 +60,7 @@
         </g:if>
       </li>
 
-     <g:if test="${(sr['other_info_s'] != null ) && ( sr['other_info_s'].length() > 0 )}"><li>Other Information: ${sr['other_info_s']}</li></g:if>
+     <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
 
     </ul>
   </li>

@@ -25,8 +25,12 @@ class EntryController {
     QueryResponse response = solrServerBean.query(solr_params);
     SolrDocumentList sdl = response.getResults();
     long record_count = sdl.getNumFound();
+
     if ( record_count==1 ) {
-      result['entry'] = sdl.get(0);
+      def target_solr_doc = sdl.get(0);
+      result['entry'] = target_solr_doc
+      def dpp_url = target_solr_doc['repo_url_s']
+      println "Got repo url: ${dpp_url}"
     }
 
     result
