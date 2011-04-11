@@ -70,6 +70,10 @@ class SearchController {
       solr_params.set("sort",defaultSortString)
     }
 
+    solr_params.set("facet","true")
+    solr_params.set("facet.field","extra_index_words_s","flags","authority")
+    solr_params.set("facet.limit",10)
+
     println "solr params : ${solr_params}"
 
 
