@@ -17,7 +17,8 @@
     </tr>
   </table>
 </g:form>
-
+<div id="Results"
+<div id="SearchResults">
 <g:if test="${noqry != true}">
   There was a query: ${qry}<br/>
   Search found ${search_results.results.numFound} records, showing items starting at ${search_results.results.start}.
@@ -56,7 +57,21 @@
 <g:else>
   No query, show the search form.
 </g:else>
+</div><!--SearchResults-->
 
+<div id="facets">
+  <g:each in="${search_results.facetFields}" var="fl">
+    <div class="facet">facet ${fl.name} ${fl.valueCount} ${fl.values.size()}
+      <ul>
+        <f:each in="${fl.values}" var="flv">
+          <li>**${flv}</li>
+        </f:each>
+      </ul>
     </div>
+  </g:each>
+</div>
+
+    </div><!--Results-->
+    </div><!-- top -->
   </body>
 </html>
