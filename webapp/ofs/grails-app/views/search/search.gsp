@@ -61,11 +61,11 @@
 
 <div id="facets">
   <g:each in="${search_results.facetFields}" var="fl">
-    <div class="facet">facet ${fl.name} ${fl.valueCount} ${fl.values.size()}
+    <div class="facet">facet ${fl.name}
       <ul>
-        <f:each in="${fl.values}" var="flv">
-          <li>**${flv}</li>
-        </f:each>
+        <g:each in="${fl.values}" var="flv">
+          <li>${flv.name} ${flv.count}</li>
+        </g:each>
       </ul>
     </div>
   </g:each>
