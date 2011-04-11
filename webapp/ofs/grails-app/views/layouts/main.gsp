@@ -8,7 +8,6 @@
         <g:javascript library="application" />
     </head>
     <body>
-        This is the main template
         <g:layoutBody />
     </body>
 </html>

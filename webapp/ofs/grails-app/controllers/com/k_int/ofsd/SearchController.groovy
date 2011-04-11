@@ -39,6 +39,7 @@ class SearchController {
     }
     else {
       result['noqry'] = true
+      render(view:'searchfront',model:result)
     }
 
     result

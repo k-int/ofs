@@ -6,7 +6,7 @@
     <title>OFS Search</title>
   </head>
   <body>
-    <div>
+    <div id="main">
 
 <g:form controller="search" action="search" method="get">
   <table>
@@ -17,8 +17,11 @@
     </tr>
   </table>
 </g:form>
-<div id="Results"
+
+<div id="wrap">
+
 <div id="SearchResults">
+
 <g:if test="${noqry != true}">
   There was a query: ${qry}<br/>
   Search found ${search_results.results.numFound} records, showing items starting at ${search_results.results.start}.
@@ -60,18 +63,22 @@
 </div><!--SearchResults-->
 
 <div id="facets">
-  <g:each in="${search_results.facetFields}" var="fl">
-    <div class="facet">facet ${fl.name}
-      <ul>
-        <g:each in="${fl.values}" var="flv">
-          <li>${flv.name} ${flv.count}</li>
-        </g:each>
-      </ul>
-    </div>
-  </g:each>
+  <g:if test="${((search_results != null) && (search_results.facetFields != null))}">
+    <g:each in="${search_results.facetFields}" var="fl">
+      <div class="facet">facet ${fl.name}
+        <ul>
+          <g:each in="${fl.values}" var="flv">
+            <li>${flv.name} ${flv.count}</li>
+          </g:each>
+        </ul>
+      </div>
+    </g:each>
+  </g:if>
 </div>
 
+&nbsp;
     </div><!--Results-->
-    </div><!-- top -->
+
+    </div><!-- main -->
   </body>
 </html>
