@@ -9,6 +9,8 @@ class UrlMappings {
     //    }
     //  }
 
+    "/sitemap" (controller:"siteMapindex", action:"index")
+
     "/directory/$id" (controller:"entry", action:"index")
 
     "/" (controller:"search", action:"search")
