@@ -34,6 +34,7 @@
           <li>title: <g:link controller="entry" action="index" id="${sr['aggregator.internal.id']}">${sr['dc.title']}</g:link></li>
 
           <g:if test="${(sr['dc.description'] != null ) && ( sr['dc.description'].length() > 0 )}"><li>${sr['dc.description']}</li></g:if>
+          <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><li><img src="${sr['icon_url_s']}"/></li></g:if>
 
           <li>Address:<br/>
             <g:if test="${(sr['address.line1'] != null ) && ( sr['address.line1'].length() > 0 )}"><li>${sr['address.line1']}</li></g:if>
@@ -89,7 +90,7 @@
 <div style="clear:both;">&nbsp;</div>
 
 <div id="pagination">
-  <g:paginate next="Forward" prev="Back" maxsteps="0" controller="search" action="search" total="${search_results.results.numFound}" params="[q:params.q]" />
+  <g:paginate next="Forward" prev="Back" maxsteps="0" controller="search" action="search" total="${search_results.results.numFound}" params="[q:params.q]"> </g:paginate>
 </div>
 
     </div><!-- main -->

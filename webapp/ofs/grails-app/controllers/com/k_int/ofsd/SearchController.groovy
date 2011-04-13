@@ -58,11 +58,11 @@ class SearchController {
 
     solr_params.set("q", lucene_query)
 
-    if ( ( params.start != null ) && ( params.start.length() > 0 ) )
-      solr_params.set("start",params.start);
+    if ( ( params.offset != null ) && ( params.offset.length() > 0 ) )
+      solr_params.set("start",params.offset);
 
-    if ( ( params.rows != null ) && ( params.rows.length() > 0 ) )
-      solr_params.set("rows",params.rows);
+    if ( ( params.max != null ) && ( params.max.length() > 0 ) )
+      solr_params.set("rows",params.max);
 
     if ( ( params.sort != null ) && ( params.sort.length() > 0 ) ) {
       solr_params.set("sort",params.sort)
