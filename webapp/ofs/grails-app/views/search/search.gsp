@@ -86,6 +86,12 @@
 &nbsp;
     </div><!--Results-->
 
+<div style="clear:both;">&nbsp;</div>
+
+<div id="pagination">
+  <g:paginate next="Forward" prev="Back" maxsteps="0" controller="search" action="search" total="${search_results.results.numFound}" params="[q:params.q]" />
+</div>
+
     </div><!-- main -->
   </body>
 </html>
