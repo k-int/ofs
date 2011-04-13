@@ -50,9 +50,11 @@
             <li>Age Range: from ${sr['ispp.age_min']} to ${sr['ispp.age_max']} years
           </g:if>
 
+          <!--
           <g:each in="${sr}" var="fv">
             <li> ${fv.key} : ${fv.value}</li>
           </g:each>
+          -->
 
         </ul>
       </li>
