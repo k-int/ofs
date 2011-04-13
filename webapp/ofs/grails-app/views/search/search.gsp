@@ -8,17 +8,19 @@
   <body>
     <div id="main">
 
-<g:form controller="search" action="search" method="get">
-  <table>
-    <tr>
-      <td>
-        Search for: <input type="text" name="q"/> <input type="submit"/>
-      </td>
-    </tr>
-  </table>
-</g:form>
-
 <div id="wrap">
+
+  <div id="SearchPanel">
+    <g:form controller="search" action="search" method="get">
+      <table>
+        <tr>
+          <td>
+            Search for: <input type="text" name="q"/> <input type="submit"/>
+          </td>
+        </tr>
+      </table>
+    </g:form>
+  </div>
 
 <div id="SearchResults">
 
@@ -65,15 +67,18 @@
 <div id="facets">
   <g:if test="${((search_results != null) && (search_results.facetFields != null))}">
     <g:each in="${search_results.facetFields}" var="fl">
-      <div class="facet">facet ${fl.name}
+      <div class="facet">facet <g:message code="cv.${fl.name}"/>
         <ul>
           <g:each in="${fl.values}" var="flv">
-            <li>${flv.name} ${flv.count}</li>
+            <li><g:message code="cv.${fl.name}.${flv.name}"/> - ${flv.count}</li>
           </g:each>
         </ul>
       </div>
     </g:each>
   </g:if>
+  <g:else>
+    No facets....
+  </g:else>
 </div>
 
 &nbsp;

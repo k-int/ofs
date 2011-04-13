@@ -7,15 +7,19 @@
   </head>
   <body>
     <div id="main">
-      <g:form controller="search" action="search" method="get">
-        <table>
-          <tr>
-            <td>
-              Search for: <input type="text" name="q"/> <input type="submit"/>
-            </td>
-          </tr>
-        </table>
-      </g:form>
+      <div id="wrap">
+        <div id="SearchPanel">
+          <g:form controller="search" action="search" method="get">
+            <table>
+              <tr>
+                <td>
+                  Search for: <input type="text" name="q"/> <input type="submit"/>
+                </td>
+              </tr>
+            </table>
+          </g:form>
+        </div>
+      </div>
     </div><!-- main -->
   </body>
 </html>
