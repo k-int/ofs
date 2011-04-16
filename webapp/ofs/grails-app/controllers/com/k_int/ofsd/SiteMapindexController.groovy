@@ -18,7 +18,7 @@ class SiteMapindexController {
 
   // http://wiki.apache.org/solr/CommonQueryParameters
 
-  def index = {
+  def siteindex = {
 
     println "SiteMapindexController::index"
 
@@ -49,13 +49,41 @@ class SiteMapindexController {
     xml.sitemapindex(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
       auth_codes.each { auth ->
         sitemap() {
-          loc("${grailsApplication.config.grails.serverURL}/directory/${auth.name}")
+          loc("${grailsApplication.config.grails.serverURL}/directory/${auth.name}/sitemap")
           lastmod("the last modified date")
         }
       }
     }
 
+    println "Render...siteindex"
+
     render(contentType:'application/xml', text: writer.toString())
+
+    println "Complete - siteindex"
+  }
+
+
+  def authsitemap = {
+
+    println "Sitemap for ${params.authority}"
+
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+
+    xml.urlset(xmlns:'http://www.example.com/sitemap/0.9') {
+      url() {
+        log('hello')
+        lastmod('hello')
+        changefreq('hello')
+        priority('hello')
+      }
+    }
+
+    println "Render - sitemap"
+
+    render(contentType:'application/xml', text: writer.toString())
+
+    println "Complete - siteindex"
   }
 
 }
