@@ -45,13 +45,12 @@ class SiteMapindexController {
     def auth_codes = response.facetFields[0].values;
 
     // http://en.wikipedia.org/wiki/Site_map
+    // http://en.wikipedia.org/wiki/Sitemap_index
     xml.sitemapindex(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
-      sitemap() {
-        auth_codes.each { auth ->
-          url {
-            loc("the location url ${auth.name}")
-            lastmod("the last modified date")
-          }
+      auth_codes.each { auth ->
+        sitemap() {
+          loc("${grailsApplication.config.grails.serverURL}/directory/${auth.name}")
+          lastmod("the last modified date")
         }
       }
     }
