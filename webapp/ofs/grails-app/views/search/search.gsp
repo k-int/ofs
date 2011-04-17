@@ -31,7 +31,7 @@
     <g:each status="s" in="${search_results.results}" var="sr">
       <li>[${s+search_results.results.start}]
         <ul>
-          <li>title: <g:link controller="entry" action="index" id="${sr['aggregator.internal.id']}">${sr['dc.title']}</g:link></li>
+          <li>title: <a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></li>
 
           <g:if test="${(sr['dc.description'] != null ) && ( sr['dc.description'].length() > 0 )}"><li>${sr['dc.description']}</li></g:if>
           <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><li><img src="${sr['icon_url_s']}"/></li></g:if>
