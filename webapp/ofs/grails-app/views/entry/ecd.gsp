@@ -16,10 +16,11 @@
       <meta name="geo.position" content="${entry['lat']}, ${entry['lng']}" />
     </g:if>
 
-    <meta name="geo.region" content="${entry['address.line1']} ${entry['address.line2']} ${entry['address.line3']} ${entry['address.line4']} ${entry['address.line5']}" />
-    <meta name="geo.placename" content="${entry['address.line1']} ${entry['address.line2']} ${entry['address.line3']} ${entry['address.line4']} ${entry['address.line5']}" />
+    <meta name="geo.region" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
+    <meta name="geo.placename" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
 
-    <title>${entry['dc.title']}</title>
+    <title>${g.message(code: 'ofs.details.prefix')} ${entry['dc.title']}</title>
+
   </head>
   <body>
     <div>
