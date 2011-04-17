@@ -1,28 +1,36 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="site_files/reset.css" type="text/css"/> 
+    <link rel="stylesheet" href="site_files/fonts.css" type="text/css"/> 
+    <link rel="stylesheet" href="site_files/base.css" type="text/css"/> 
+        
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssgrids/grids-min.css"> 
+ 
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="main" />
+    
     <title>OFS Search</title>
   </head>
-  <body>
-    <div id="main">
+  <body class="search-results">
 
-<div id="wrap">
-
-  <div id="SearchPanel">
-    <g:form controller="search" action="search" method="get">
-      <table>
-        <tr>
-          <td>
-            Search for: <input type="text" name="q"/> <input type="submit"/>
-          </td>
-        </tr>
-      </table>
-    </g:form>
-  </div>
-
-<div id="SearchResults">
+    <div class="yui3-g"> 
+      <div class="yui3-u" style="width:100%"> 
+        <div class="yui3-g"> 
+          <div class="yui3-u" style="width:100%"> 
+            <form action="/ofs/" method="get" > 
+              <div class="search-box"> 
+                OFS <input class="uiw-input" type="text" name="q" value="Childcare sheffield" /><input class="uiw-button" value="Search" type="submit"/> 
+              </div> 
+            </form> 
+          </div> 
+        </div>  
+      </div> 
+    </div> 
+  
+    <div class="yui3-g"> 
+      <div class="yui3-u-19-24" style="float:right"> 
+        <div id="SearchResults"> 
 
 <g:if test="${noqry != true}">
   There was a query: ${qry}<br/>
@@ -65,34 +73,34 @@
 <g:else>
   No query, show the search form.
 </g:else>
-</div><!--SearchResults-->
 
-<div id="facets">
-  <g:if test="${((search_results != null) && (search_results.facetFields != null))}">
-    <g:each in="${search_results.facetFields}" var="fl">
-      <div class="facet">facet <g:message code="cv.${fl.name}"/>
-        <ul>
-          <g:each in="${fl.values}" var="flv">
-            <li><g:message code="cv.${fl.name}.${flv.name}"/> - ${flv.count}</li>
-          </g:each>
-        </ul>
+
+          <div id="pagination"> 
+            <g:paginate next="Forward" prev="Back" maxsteps="0" controller="search" action="search" total="${search_results.results.numFound}" params="[q:params.q]"> </g:paginate>
+            <span class="currentStep">1</span><a href="/ofs/?q=Childcare+sheffield&amp;offset=10&amp;max=10" class="step">2</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=20&amp;max=10" class="step">3</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=30&amp;max=10" class="step">4</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=40&amp;max=10" class="step">5</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=50&amp;max=10" class="step">6</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=10&amp;max=10" class="nextLink">Forward</a> 
+          </div> 
+        </div>
       </div>
-    </g:each>
-  </g:if>
-  <g:else>
-    No facets....
-  </g:else>
-</div>
+    </div>
+                
+    <div class="yui3-u-5-24"> 
+      <div id="facets">
+        <g:if test="${((search_results != null) && (search_results.facetFields != null))}">
+          <g:each in="${search_results.facetFields}" var="fl">
+            <div class="facet">facet <g:message code="cv.${fl.name}"/>
+              <ul>
+                <g:each in="${fl.values}" var="flv">
+                  <li><g:message code="cv.${fl.name}.${flv.name}"/> - ${flv.count}</li>
+                </g:each>
+              </ul>
+            </div>
+          </g:each>
+        </g:if>
+        <g:else>
+          No facets....
+        </g:else>
+      </div><!--SearchResults-->
+    </div>
 
-&nbsp;
-    </div><!--Results-->
-
-<div style="clear:both;">&nbsp;</div>
-
-<div id="pagination">
-  <g:paginate next="Forward" prev="Back" maxsteps="0" controller="search" action="search" total="${search_results.results.numFound}" params="[q:params.q]"> </g:paginate>
-</div>
-
-    </div><!-- main -->
   </body>
 </html>

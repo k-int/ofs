@@ -6,20 +6,16 @@
     <title>OFS Search</title>
   </head>
   <body>
-    <div id="main">
-      <div id="wrap">
-        <div id="SearchPanel">
-          <g:form controller="search" action="search" method="get">
-            <table>
-              <tr>
-                <td>
-                  Search for: <input type="text" name="q"/> <input type="submit"/>
-                </td>
-              </tr>
-            </table>
-          </g:form>
-        </div>
-      </div>
-    </div><!-- main -->
+
+    <div class="yui3-g"> 
+      <div class="yui3-u" style="width:100%"> 
+        <form action="/ofs/" method="get" > 
+          <div class="search-box"> 
+            OFS <input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
+          </div> 
+        </form> 
+      </div> 
+    </div>    
+
   </body>
 </html>
