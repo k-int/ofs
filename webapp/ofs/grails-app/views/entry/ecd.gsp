@@ -3,7 +3,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="main" />
-    <title>OFS Search - ECD Record</title>
+    <meta name="dc.title" content="${entry['dc.title']}" />
+    <meta name="title" content="${entry['dc.title']}" />
+
+    <g:if test="${(entry['dc.description'] != null )}">
+      <meta name="dc.description" content="${entry['dc.description']}" />
+      <meta name="description" content="${entry['dc.description']}" />
+    </g:if>
+
+    <g:if test="${(entry['lat'] != null ) && ( entry['lng'] != null ) }">
+      <meta name="ICBM" content="${entry['lat']}, ${entry['lng']}" />
+      <meta name="geo.position" content="${entry['lat']}, ${entry['lng']}" />
+    </g:if>
+
+    <meta name="geo.region" content="${entry['address.line1']} ${entry['address.line2']} ${entry['address.line3']} ${entry['address.line4']} ${entry['address.line5']}" />
+    <meta name="geo.placename" content="${entry['address.line1']} ${entry['address.line2']} ${entry['address.line3']} ${entry['address.line4']} ${entry['address.line5']}" />
+
+    <title>${entry['dc.title']}</title>
   </head>
   <body>
     <div>
