@@ -15,7 +15,7 @@
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '${grailsApplication.config.ofs.solr.url}']);
+  _gaq.push(['_setAccount', '${grailsApplication.config.ofs.analytics.code}']);
   _gaq.push(['_setDomainName', '.openfamilyservices.org.uk']);
   _gaq.push(['_trackPageview']);
 
