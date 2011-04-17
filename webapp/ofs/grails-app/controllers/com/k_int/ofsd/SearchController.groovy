@@ -76,6 +76,7 @@ class SearchController {
     solr_params.set("facet.field","dc.subject.orig_s","flags","authority_shortcode")
     solr_params.set("facet.limit",10)
     solr_params.set("facet.mincount",1)
+    solr_params.set("wt","javabin")
 
     println "solr params : ${solr_params}"
 

@@ -32,6 +32,7 @@ class SiteMapindexController {
     solr_params.set("facet.field","authority_shortcode")
     solr_params.set("facet.limit",300)
     solr_params.set("facet.mincount",1)
+    solr_params.set("wt","javabin")
 
     println "Searching..."
 
