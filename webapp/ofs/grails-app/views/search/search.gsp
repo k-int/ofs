@@ -20,7 +20,7 @@
           <div class="yui3-u" style="width:100%"> 
             <form action="/ofs/" method="get" > 
               <div class="search-box"> 
-                OFS <input class="uiw-input" type="text" name="q" value="Childcare sheffield" /><input class="uiw-button" value="Search" type="submit"/> 
+                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="Childcare sheffield" /><input class="uiw-button" value="Search" type="submit"/> 
               </div> 
             </form> 
           </div> 
@@ -38,7 +38,7 @@
   <ul>
     <g:each status="s" in="${search_results.results}" var="sr">
 
-      <li>[${s+search_results.results.start}]
+      <li><!--[${s+search_results.results.start}]-->
         <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
         <ul>
 
@@ -60,12 +60,6 @@
           <g:if test="${( sr['ispp.age_min'] != null ) && ( sr['ispp.age_max'] != null )}">
             <li>Age Range: from ${sr['ispp.age_min']} to ${sr['ispp.age_max']} years
           </g:if>
-
-          <!--
-          <g:each in="${sr}" var="fv">
-            <li> ${fv.key} : ${fv.value}</li>
-          </g:each>
-          -->
 
         </ul>
       </li>
