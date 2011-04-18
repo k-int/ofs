@@ -22,6 +22,7 @@ class EntryController {
 
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
     solr_params.set("q", "aggregator.internal.id:${params.id}")
+    solr_params.set("wt","javabin")
     QueryResponse response = solrServerBean.query(solr_params);
     SolrDocumentList sdl = response.getResults();
     long record_count = sdl.getNumFound();
