@@ -104,8 +104,10 @@
             <div class="facet">facet <g:message code="cv.${fl.name}"/>
               <ul>
                 <g:each in="${fl.values}" var="flv">
-                  <% request.ops."${fl.name}" = "${flv}" %>
-                  <li><g:link action="search" controller="search" params="${request.ops}"><g:message code="cv.${fl.name}.${flv.name}"/> - ${flv.count}</g:link>${ops}</li>
+
+                  <% request.ops."${facetFieldMappings[fl.name] ?: fl.name}" = "${flv.name}" %>
+
+                  <li><g:link action="search" controller="search" params="${request.ops}"><g:message code="cv.${fl.name}.${flv.name}"/></g:link> (${flv.count})</li>
                 </g:each>
               </ul>
             </div>

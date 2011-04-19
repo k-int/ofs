@@ -15,6 +15,9 @@ import groovy.xml.MarkupBuilder
 
 class SearchController {
 
+  def facetFieldMapping = [ 'dc.subject.orig_s':'subject', 'authority_shortcode' : 'authority' ]
+  def reversemap = ['subject':'dc.subject.orig_s', 'authority':'authority_shortcode', 'flags':'flags']
+
   def solrServerBean
 
   def index = { 
@@ -42,11 +45,28 @@ class SearchController {
       render(view:'searchfront',model:result)
     }
 
+    result['facetFieldMappings'] = facetFieldMapping
+
     result
   }
 
   def buildQuery(params) {
-    params.q
+    boolean conjunction = false;
+
+    StringWriter sw = new StringWriter()
+
+    sw.write(params.q)
+
+    reversemap.each { mapping ->
+      if ( params[mapping.key] != null ) {
+        sw.write(" AND ")
+	sw.write(mapping.value)
+        sw.write(":")
+        sw.write(params[mapping.key])
+      }
+    }
+
+    sw.toString()
   }
 
   def doSearch(qry, records_per_page, defaultSortString) {
@@ -91,34 +111,6 @@ class SearchController {
     //}
     //sdl
     response
-  }
-
-  def buildLuceneQuery(fields) {
-
-    // println "Build lucene query from : ${fields}"
-
-    boolean conjunction = false;
-
-    StringWriter sw = new StringWriter()
-    fields.each { field ->
-      if ( conjunction ) {
-        sw.write(" AND ")
-      }
-      else {
-        conjunction = true
-      }
-
-      if ( ( field.mapping.mappedTo != null ) && ( field.mapping.mappedTo.length() > 0 ) ) {
-        sw.write(field.mapping.mappedTo)
-        sw.write(":")
-        sw.write("\"${field.value}\"")
-      }
-      else {
-        sw.write("${field.value}")
-      }
-
-    }
-    sw.toString()
   }
 
 }
