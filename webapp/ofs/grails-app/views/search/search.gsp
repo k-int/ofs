@@ -66,6 +66,10 @@
             <li>Age Range: from ${sr['ispp.age_min']} to ${sr['ispp.age_max']} years
           </g:if>
 
+          <g:if test="${( sr['modified'] != null )}">
+	    <li>Last modified: ${sr['modified'].substring(0,sr['modified'].indexOf("T"))}</li>
+          </g:if>
+
           <g:if test="${( sr['feedback_url_s'] != null )}">
             <g:if test="${(sr['feedback_url_s'].indexOf('@') > 0)}">
               <li>Via: <a href="mailto:${sr['feedback_url_s']}">${sr['feedback_name_s']}</a></li>

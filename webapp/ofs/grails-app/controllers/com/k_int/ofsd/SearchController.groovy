@@ -33,7 +33,6 @@ class SearchController {
 
     // def qry = buildLuceneQuery(qry_props);
 
-
     def lucene_query = buildQuery(params)
 
     if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
@@ -52,17 +51,18 @@ class SearchController {
 
   def buildQuery(params) {
     boolean conjunction = false;
-
     StringWriter sw = new StringWriter()
 
-    sw.write(params.q)
+    if ( ( params != null ) && ( params.q != null ) ) {
+      sw.write(params.q)
 
-    reversemap.each { mapping ->
-      if ( params[mapping.key] != null ) {
-        sw.write(" AND ")
-	sw.write(mapping.value)
-        sw.write(":")
-        sw.write(params[mapping.key])
+      reversemap.each { mapping ->
+        if ( params[mapping.key] != null ) {
+          sw.write(" AND ")
+    	  sw.write(mapping.value)
+          sw.write(":")
+          sw.write(params[mapping.key])
+        }
       }
     }
 
