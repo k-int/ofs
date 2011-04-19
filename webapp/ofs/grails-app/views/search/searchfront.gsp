@@ -21,13 +21,22 @@
       </div> 
     </div>    
 
-    <div class="footerlinks">
+    <div class="footerlinks yui3-u">
       &nbsp;<br/>
       &nbsp;<br/>
       &nbsp;<br/>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorties</a>
-      <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a>
+      <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a> <br/>
+
+      <div id="google_translate_element"></div><script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+        }, 'google_translate_element');
+      }
+      </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
     </div>
   </body>
 </html>
