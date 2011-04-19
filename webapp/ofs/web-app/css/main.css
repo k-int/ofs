@@ -133,3 +133,8 @@ padding: 0;
 list-style: none;
 }
 
+div.splash {
+  background:url("/ofs/images/ofs_logo_1.svg") no-repeat center center; 
+  height:200px;
+  margin-top:20px
+}

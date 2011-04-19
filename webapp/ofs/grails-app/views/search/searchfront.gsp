@@ -10,7 +10,7 @@
 
     <div class="yui3-g"> 
 
-      <img src="${resource(dir:'images',file:'ofs_logo_1.svg')}" width="250" height="250"/>
+      <div class="splash"></div>
 
       <div class="yui3-u" style="width:100%"> 
         <form action="/ofs/" method="get" > 
