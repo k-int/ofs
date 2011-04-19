@@ -9,9 +9,10 @@
 
     <div class="yui3-g"> 
       <div class="yui3-u" style="width:100%"> 
+        <img src="${resource(dir:'images',file:'ofs_logo_1.svg')}"/>
         <form action="/ofs/" method="get" > 
           <div class="search-box"> 
-            OFS <input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
+            <g:message code=""/> <input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
           </div> 
         </form> 
       </div> 
