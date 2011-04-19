@@ -44,7 +44,16 @@ ECD
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><li>Description: ${entry['dc.description']}</li></g:if>
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><li>Last Modified: ${entry['dc.description']}</li></g:if>
 
-      <g:if test="${(entry['ofsted_urn_s'] != null)}"><li><a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/EY${entry['ofsted_urn_s']}">Latest ofsted report</a></li></g:if>
+      <g:if test="${(entry['ofsted_urn_s'] != null)}">
+        <li>
+          <g:if test="{entry['ofsted_urn_s'].startsWith('EY')}">
+            <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a>
+          </g:if>
+          <g:else>
+            <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/EY${entry['ofsted_urn_s']}">Latest ofsted report</a>
+          </g:else>
+        </li>
+      </g:if>
 
       <li>Contact Person</li>
       <li>Address:<br/>
