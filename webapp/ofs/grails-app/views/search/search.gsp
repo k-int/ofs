@@ -10,7 +10,7 @@
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="main" />
     
-    <title>OFS Search</title>
+    <title><g:message code="ofs.search.title"/></title>
   </head>
   <body class="search-results">
 
@@ -20,7 +20,7 @@
           <div class="yui3-u" style="width:100%"> 
             <form action="/ofs/" method="get" > 
               <div class="search-box"> 
-                OFS <input class="uiw-input" type="text" name="q" value="Childcare sheffield" /><input class="uiw-button" value="Search" type="submit"/> 
+                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="Childcare sheffield" /><input class="uiw-button" value="Search" type="submit"/> 
               </div> 
             </form> 
           </div> 
@@ -37,12 +37,14 @@
   Search found ${search_results.results.numFound} records, showing items starting at ${search_results.results.start}.
   <ul>
     <g:each status="s" in="${search_results.results}" var="sr">
-      <li>[${s+search_results.results.start}]
+
+      <li><!--[${s+search_results.results.start}]-->
+        <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
         <ul>
-          <li>title: <a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></li>
+
+          <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong></li>
 
           <g:if test="${(sr['dc.description'] != null ) && ( sr['dc.description'].length() > 0 )}"><li>${sr['dc.description']}</li></g:if>
-          <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><li><img src="${sr['icon_url_s']}"/></li></g:if>
 
           <li>Address:<br/>
             <g:if test="${(sr['address.line1'] != null ) && ( sr['address.line1'].length() > 0 )}"><li>${sr['address.line1']}</li></g:if>
@@ -58,12 +60,6 @@
           <g:if test="${( sr['ispp.age_min'] != null ) && ( sr['ispp.age_max'] != null )}">
             <li>Age Range: from ${sr['ispp.age_min']} to ${sr['ispp.age_max']} years
           </g:if>
-
-          <!--
-          <g:each in="${sr}" var="fv">
-            <li> ${fv.key} : ${fv.value}</li>
-          </g:each>
-          -->
 
         </ul>
       </li>

@@ -81,4 +81,55 @@ body {
     text-shadow: 1px 1px 4px #030;
 }
 
+#facets {
+background-color: #fcfcf0;
+margin-right: 10px;
+-moz-border-radius: 5px 0 0 0;
+border: 1px solid #ebebe0;
+border-width: 0 1px 1px 0;
+padding: 10px;
+}
+
+div.facet {
+border-bottom:1px dotted #eec;
+color: #993; 
+margin-bottom:10px;
+font-weight: bold;
+}
+
+div.facet ul {
+margin-left: 1.1em;
+}
+
+div.facet li {
+color: #535300; 
+font-weight: normal;
+list-style: circle;
+font-size: 85%;
+margin-bottom: 4px;
+}
+
+#SearchResults ul a {
+font-size: 120%;
+}
+
+#SearchResults ul {
+margin: 10px 0;
+}
+
+#SearchResults ul ul {
+margin: 10px 0 10px;
+padding-bottom: 10px;
+border-bottom: 1px solid #eee;
+}
+
+#SearchResults ul ul ul {
+margin: 10px;
+border:0;
+padding: 0;
+}
+
+#SearchResults ul li {
+list-style: none;
+}
 
