@@ -58,10 +58,20 @@ class SearchController {
 
       reversemap.each { mapping ->
         if ( params[mapping.key] != null ) {
-          sw.write(" AND ")
-    	  sw.write(mapping.value)
-          sw.write(":")
-          sw.write(params[mapping.key])
+          if ( params[mapping.key].class.isArray() ) {
+            params[mapping.key].each { p ->
+              sw.write(" AND ")
+              sw.write(mapping.value)
+              sw.write(":")
+              sw.write(p)
+            }
+          }
+          else {
+            sw.write(" AND ")
+            sw.write(mapping.value)
+            sw.write(":")
+            sw.write(params[mapping.key])
+          }
         }
       }
     }
