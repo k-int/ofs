@@ -90,7 +90,31 @@
           <div id="pagination"> 
             <g:paginate next="Forward" prev="Back" maxsteps="0" controller="search" action="search" total="${search_results.results.numFound}" params="[q:params.q]"> </g:paginate>
 
-            <span class="currentStep">1</span><a href="/ofs/?q=Childcare+sheffield&amp;offset=10&amp;max=10" class="step">2</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=20&amp;max=10" class="step">3</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=30&amp;max=10" class="step">4</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=40&amp;max=10" class="step">5</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=50&amp;max=10" class="step">6</a><a href="/ofs/?q=Childcare+sheffield&amp;offset=10&amp;max=10" class="nextLink">Forward</a> 
+<%
+  int firsthit
+  int currentpage
+  def hpp=10
+
+  if ( ( params.offset != null ) && ( params.offset > 0 ) ) {
+    firsthit = params.offset ?: 0
+    currentpage = ( ( search_results.results.numFound + hpp -1 ) / firsthit )
+  }
+  else {
+    firsthit = 0
+    currentpage = 1
+  }
+  int numpages = ( ( search_results.results.numFound + hpp -1 ) / hpp )
+%>
+
+   hpp: ${hpp} numpages:${numpages} currentpage:${currentpage}
+
+            <span class="currentStep">1</span>
+              <a href="/ofs/?q=Childcare+sheffield&amp;offset=10&amp;max=10" class="step">2</a>
+              <a href="/ofs/?q=Childcare+sheffield&amp;offset=20&amp;max=10" class="step">3</a>
+              <a href="/ofs/?q=Childcare+sheffield&amp;offset=30&amp;max=10" class="step">4</a>
+              <a href="/ofs/?q=Childcare+sheffield&amp;offset=40&amp;max=10" class="step">5</a>
+              <a href="/ofs/?q=Childcare+sheffield&amp;offset=50&amp;max=10" class="step">6</a>
+              <a href="/ofs/?q=Childcare+sheffield&amp;offset=10&amp;max=10" class="nextLink">Forward</a> 
 
           </div> 
         </div>
