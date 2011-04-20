@@ -12,10 +12,14 @@
 
       <div class="splash"></div>
 
+      <div> <!-- Search preamble -->
+        Enter your postcode, town, village or street into the search box below, and get instant access to details of your local services and activities.
+      </div>
+
       <div class="yui3-u" style="width:100%"> 
         <form action="/ofs/" method="get" > 
           <div class="search-box"> 
-            <g:message code="ofs.search.prompt"/> <input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
+            <g:message code="ofs.search.prompt"/> <input class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
           </div> 
         </form> 
       </div> 

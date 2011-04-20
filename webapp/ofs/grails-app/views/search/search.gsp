@@ -20,7 +20,7 @@
           <div class="yui3-u" style="width:100%"> 
             <form action="/ofs/" method="get" > 
               <div class="search-box"> 
-                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="Childcare sheffield" /><input class="uiw-button" value="Search" type="submit"/> 
+                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="placename" value="${params.placename}" /><input class="uiw-button" value="Search" type="submit"/> 
               </div> 
             </form> 
           </div> 
@@ -33,8 +33,7 @@
         <div id="SearchResults"> 
 
 <g:if test="${noqry != true}">
-  There was a query: ${qry}<br/>
-  Search found ${search_results.results.numFound} records, showing items starting at ${search_results.results.start}.
+  ${search_results.results.numFound} records found in ${elapsed} seconds
   <ul>
     <g:each status="s" in="${search_results.results}" var="sr">
 
@@ -108,7 +107,7 @@
               request.setAttribute("ops", params.clone())
             %>
 
-            <div class="facet">facet <g:message code="cv.${fl.name}"/>
+            <div class="facet"><g:message code="cv.${fl.name}"/>
               <ul>
                 <g:each in="${fl.values}" var="flv">
 
