@@ -62,26 +62,20 @@
   <li>Basic Details
     <ul>
 
-      <li>Categories
-        <g:if test="${entry['dc.subject.orig_s'] != null}">
+      <g:if test="${entry['dc.subject.orig_s'] != null}">
+        <li>Categories
           <ul>
             <!--outputSolrProperty is a custom taglib defined in grails-app/taglibs/ofs/OfsTagLib.groovy. It outputs li elements for scalar or list values -->
             <g:outputSolrProperty prop="${entry['dc.subject.orig_s']}" />
           </ul>
-        </g:if>
-      </li>
+        </li>
+      </g:if>
 
-      <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><li>Description: ${entry['dc.description']}</li></g:if>
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><li>Last Modified: ${entry['dc.description']}</li></g:if>
 
       <g:if test="${(entry['ofsted_urn_s'] != null)}">
         <li>
-          <g:if test="{entry['ofsted_urn_s'].startsWith('EY')}">
-            <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a>
-          </g:if>
-          <g:else>
-            <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/EY${entry['ofsted_urn_s']}">Latest ofsted report</a>
-          </g:else>
+          <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a>
         </li>
       </g:if>
 
