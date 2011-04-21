@@ -126,7 +126,7 @@
       &nbsp;<br/>
       &nbsp;<br/>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
-      <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorties</a>
+      <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a> <br/>
 
       <div id="google_translate_element"></div><script>
