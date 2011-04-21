@@ -21,16 +21,46 @@
 
     <title>${g.message(code: 'ofs.details.prefix')} ${entry['dc.title']}</title>
 
+    <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+
+      <script type="text/javascript">
+      //<![CDATA[
+
+      function map2() {
+        var myLatlng = new google.maps.LatLng(${entry['lat']},${entry['lng']});
+
+        var myOptions = {
+           zoom: 15,
+           center: myLatlng,
+           mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+    
+        var marker = new google.maps.Marker({
+             position: myLatlng, 
+             map: map, 
+             title:"${entry['dc.title']}"
+        });   
+      }
+      //]]>
+      </script>
+    </g:if>
+
   </head>
   <body>
-    <div>
+    <h1><strong>${entry['dc.title']}<g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if></strong></h1>
 
-ECD
+    <!-- Float this right? -->
+    <div id="map" style="width: 250px; height: 250px"></div>
+
+    <div>
+      <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>
+
 <ul>
   <li>Basic Details
     <ul>
-      <li>Title: ${entry['dc.title']}</li>
-      <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><li>Description: ${entry['dc.description']}</li></g:if>
 
       <li>Categories
         <g:if test="${entry['dc.subject.orig_s'] != null}">
@@ -143,5 +173,8 @@ ECD
 </ul>
 
 </div>
+    <script language="JavaScript">
+      map2();
+    </script>
 </body>
 </html>
