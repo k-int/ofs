@@ -134,11 +134,27 @@ list-style: none;
 }
 
 div.splash {
-  background:url("/ofs/images/ofs_logo_1.svg") no-repeat center center; 
-  height:200px;
-  margin-top:20px
+  background:url("/ofs/images/ofs_logo_2.svg") no-repeat center center; 
+  height:150px;
+  border-width: 10px 10px 50px 10px;
 }
 
 div.footerlinks {
   text-align:center;
 }
+
+div.maintitle {
+  text-align:center;
+  font-size:24px;
+}
+
+div.preamble {
+  text-align:center;
+  font-size:12px;
+}
+div.subtitle {
+  text-align:center;
+  font-size:12px;
+}
+
+

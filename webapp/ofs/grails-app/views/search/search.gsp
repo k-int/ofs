@@ -61,10 +61,6 @@
           <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}"><li>Telephone: ${sr['telephone']}</li></g:if>
           <g:if test="${(sr['email'] != null ) && ( sr['email'].length() > 0 )}"><li>Email: <a href="mailto:${sr['email']}">${sr['email']}</a></li></g:if>
 
-          <g:if test="${( sr['ispp.age_min'] != null ) && ( sr['ispp.age_max'] != null )}">
-            <li>Age Range: from ${sr['ispp.age_min']} to ${sr['ispp.age_max']} years
-          </g:if>
-
           <g:if test="${( sr['modified'] != null )}">
 	    <li>Last modified: ${sr['modified'].substring(0,sr['modified'].indexOf("T"))}</li>
           </g:if>

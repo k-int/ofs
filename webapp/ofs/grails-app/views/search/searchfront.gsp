@@ -11,8 +11,11 @@
     <div class="yui3-g"> 
 
       <div class="splash"></div>
+      <div class="maintitle">&nbsp;<br/>OpenFamilyServices</div>
+      <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
 
-      <div> <!-- Search preamble -->
+      <div class="preamble"> <!-- Search preamble -->
+        &nbsp;<br/>&nbsp;<br/>
         Enter your postcode, town, village or street into the search box below, and get instant access to details of your local services and activities.
       </div>
 
@@ -26,6 +29,8 @@
     </div>    
 
     <div class="footerlinks yui3-u">
+      &nbsp;<br/>
+      &nbsp;<br/>
       &nbsp;<br/>
       &nbsp;<br/>
       &nbsp;<br/>
