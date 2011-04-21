@@ -157,4 +157,26 @@ div.subtitle {
   font-size:12px;
 }
 
+#pagination {
+  text-align:center;
+}
 
+a.step:link {
+  padding: 0 5px;
+}
+
+span.currentStep {
+  padding: 0 5px;
+}
+
+a.nextLink:link {
+  padding: 0 5px;
+}
+
+a.prevLink:link {
+  padding: 0 5px;
+}
+
+div.searchflash {
+  text-align:center;
+}
