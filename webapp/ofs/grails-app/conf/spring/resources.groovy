@@ -9,4 +9,8 @@ beans = {
 
   solrGazBean(org.apache.solr.client.solrj.impl.CommonsHttpSolrServer,application.config.ofs.gaz.url) { // "http://localhost:8080/index/gaz"
   }
+
+  dppRestBuilder(groovyx.net.http.HTTPBuilder, application.config.ofs.host ) {
+  }
+
 }

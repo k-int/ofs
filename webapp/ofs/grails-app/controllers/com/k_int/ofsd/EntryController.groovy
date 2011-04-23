@@ -21,6 +21,7 @@ import org.codehaus.groovy.grails.commons.ApplicationHolder
 class EntryController {
 
   def solrServerBean
+  def dppRestBuilder
 
   def index = { 
     println "Entry: ${params.id}"
@@ -57,11 +58,11 @@ class EntryController {
   }
 
   def fetchdoc(base,targ) {
-    println "Fetching ${base}${targ}"
-    def http = new HTTPBuilder( base )
-    def result = http.get( path : targ, query : ['apikey' : ApplicationHolder.application.config.ofs.dpp.apikey] )
+    println "Fetching ${targ}"
+    // def http = new HTTPBuilder( base )
+    def result = dppRestBuilder.get( path : targ, query : ['apikey' : ApplicationHolder.application.config.ofs.dpp.apikey] )
 
-    println "Got ${result}"
+    // println "Got ${result}"
     result
   }
 }
