@@ -58,18 +58,20 @@
     <div>
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>
 
-<ul>
-  <li>Basic Details
-    <ul>
 
       <g:if test="${entry['dc.subject.orig_s'] != null}">
-        <li>Categories
+        <div class="categories">Categories
           <ul>
             <!--outputSolrProperty is a custom taglib defined in grails-app/taglibs/ofs/OfsTagLib.groovy. It outputs li elements for scalar or list values -->
             <g:outputSolrProperty prop="${entry['dc.subject.orig_s']}" />
           </ul>
-        </li>
+        </div>
       </g:if>
+
+<ul>
+  <li>Basic Details
+
+    <ul>
 
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><li>Last Modified: ${entry['dc.description']}</li></g:if>
 
