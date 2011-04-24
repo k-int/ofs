@@ -26,20 +26,28 @@
     <div>
 
 FSD
+
+<h1><li><strong>${entry['dc.title']}</strong></li></h1>
+
+<g:if test="${entry['dc.subject.orig_s'] != null}">
+  <div>In Categories<br/>
+  <ul>
+    <g:each in=
+    <g:each in="${entry['dc.subject.orig_s']}" var="sub">
+      <li><g:message code="cv.dc.subject.orig_s.${sub}"/></li>
+    </g:each>
+  </ul>
+</div>
+</g:if>
+
+<g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}">
+<div class="description">${entry['dc.description']}</div>
+</g:if>
+
+
 <ul>
   <li>Basic Details
     <ul>
-      <li>Title: ${entry['dc.title']}</li>
-      <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><li>Description: ${entry['dc.description']}</li></g:if>
-
-      <li>Categories
-        <g:if test="${entry['dc.subject.orig_s'] != null}">
-          <ul>
-            <!--outputSolrProperty is a custom taglib defined in grails-app/taglibs/ofs/OfsTagLib.groovy. It outputs li elements for scalar or list values -->
-            <g:outputSolrProperty prop="${entry['dc.subject.orig_s']}" />
-          </ul>
-        </g:if>
-      </li>
 
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><li>Description: ${entry['dc.description']}</li></g:if>
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><li>Last Modified: ${entry['dc.description']}</li></g:if>
