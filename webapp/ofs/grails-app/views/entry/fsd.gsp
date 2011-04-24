@@ -55,12 +55,12 @@
   <body>
     <div>
 
+
 <h1><li><strong>${entry['dc.title']}</strong></li></h1>
 
 <g:if test="${entry['dc.subject.orig_s'] != null}">
   <div>In Categories<br/>
   <ul>
-    <g:each in=
     <g:each in="${entry['dc.subject.orig_s']}" var="sub">
       <li><g:message code="cv.dc.subject.orig_s.${sub}"/></li>
     </g:each>
@@ -68,8 +68,7 @@
 </div>
 </g:if>
 
-   <!-- Float this right? -->
-    <div id="map" style="width: 250px; height: 250px"></div>
+<div id="map" style="width: 250px; height: 250px; float:right"></div>
 
 
 <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}">
@@ -93,89 +92,20 @@
       <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}"><li>Email: ${entry['email']}</li></g:if>
       <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}"><li>Email: ${entry['fax']}</li></g:if>
 
--- Down to here --
+<g:if test="${entry['flags'] != null}">
+  <ul>
+    <g:outputSolrProperty prop="${entry['flags']}" />
+  </ul>
+</g:if>
 
-
+<g:if test="${entry['extra_index_words_s'] != null}">
+Keywords
 <ul>
-  <li>Basic Details
-    <ul>
-
-
-
-      <g:if test="${( entry['ispp.age_min'] != null ) && ( entry['ispp.age_max'] != null )}">
-         <li>Age Range: from ${entry['ispp.age_min']} to ${entry['ispp.age_max']} years
-      </g:if>
-
-      <g:if test="${(entry['childcare_type_s'] != null ) && ( entry['childcare_type_s'].length() > 0 )}"><li>Childcare Type: ${entry['childcare_type_s']}</li></g:if>
-
-      <li>Flags
-        <g:if test="${entry['flags'] != null}">
-          <ul>
-            <g:outputSolrProperty prop="${entry['flags']}" />
-          </ul>
-        </g:if>
-      </li>
-      <li>Age Groups</li>
-      <li>Keywords
-        <g:if test="${entry['extra_index_words_s'] != null}">
-          <ul>
-            <g:outputSolrProperty prop="${entry['extra_index_words_s']}" />
-          </ul>
-        </g:if>
-      </li>
-
-     <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
-
-    </ul>
-  </li>
-
-  <li>Places
-    <ul>
-      <li>Place Availability</li>
-    </ul>
-  </li>
-
-  <li>Opening Times
-    <ul>
-      <li>Availability</li>
-      <li>Opening Periods</li>
-    </ul>
-  </li>
-
-  <li>Special Provision
-    <ul>
-    </ul>
-  </li>
-
-  <li>Costs
-    <ul>
-    </ul>
-  </li>
-
-  <li>Pickup
-    <ul>
-    </ul>
-  </li>
-
-
-  <li>Ofsted Registration
-    <ul>
-    </ul>
-  </li>
-
-  <li>Other Details
-    <ul>
-    </ul>
-  </li>
-
-  <li>Map
-    <ul>
-<g:if test="${(entry['lat'] != null )}"><li>Lat:${entry['lat']}</li></g:if>
-<g:if test="${(entry['lng'] != null )}"><li>Lng:${entry['lng']}</li></g:if>
-    </ul>
-  </li>
-
+  <g:outputSolrProperty prop="${entry['extra_index_words_s']}" />
 </ul>
+</g:if>
+
+<g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
 
 </div>
     <script language="JavaScript">
