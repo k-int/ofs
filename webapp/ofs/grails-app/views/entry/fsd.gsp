@@ -20,12 +20,40 @@
     <meta name="geo.region" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
     <meta name="geo.placename" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
 
-    <title>${g.message(code: 'ofs.details.prefix')} ${entry['dc.title']}</title>
+    <title>${g.message(code: 'ofs.fsd.details.prefix')} ${entry['dc.title']}</title>
+
+    <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+      <script type="text/javascript">
+      //<![CDATA[
+
+      function map2() {
+        var myLatlng = new google.maps.LatLng(${entry['lat']},${entry['lng']});
+
+        var myOptions = {
+           zoom: 15,
+           center: myLatlng,
+           mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+    
+        var marker = new google.maps.Marker({
+             position: myLatlng, 
+             title:"${entry['dc.title']}"
+        });   
+
+        marker.setMap(map);  
+
+      }
+      //]]>
+      </script>
+    </g:if>
+
   </head>
   <body>
     <div>
-
-FSD
 
 <h1><li><strong>${entry['dc.title']}</strong></li></h1>
 
@@ -40,29 +68,38 @@ FSD
 </div>
 </g:if>
 
+   <!-- Float this right? -->
+    <div id="map" style="width: 250px; height: 250px"></div>
+
+
 <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}">
 <div class="description">${entry['dc.description']}</div>
 </g:if>
+
+
+<g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}"><div class="website"><strong>Website</strong> <a href="${entry['website']}">${entry['website']}</a></div></g:if>
+
+<g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><div><strong>Last Modified</strong> ${entry['modified'].substring(0,entry['modified'].indexOf("T"))}</div></g:if>
+
+<h2>Site Details</h2>
+
+      <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
+      <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
+      <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
+      <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
+      <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
+      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}"><li>Telephone: ${entry['telephone']}</li></g:if>
+      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}"><li>Email: ${entry['email']}</li></g:if>
+      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}"><li>Email: ${entry['fax']}</li></g:if>
+
+-- Down to here --
 
 
 <ul>
   <li>Basic Details
     <ul>
 
-      <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><li>Description: ${entry['dc.description']}</li></g:if>
-      <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><li>Last Modified: ${entry['dc.description']}</li></g:if>
 
-      <li>Contact Person</li>
-      <li>Address:<br/>
-        <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
-        <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
-        <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
-        <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
-        <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
-      </li>
-      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}"><li>Telephone: ${entry['telephone']}</li></g:if>
-      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}"><li>Email: ${entry['email']}</li></g:if>
-      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}"><li>Email: ${entry['fax']}</li></g:if>
 
       <g:if test="${( entry['ispp.age_min'] != null ) && ( entry['ispp.age_max'] != null )}">
          <li>Age Range: from ${entry['ispp.age_min']} to ${entry['ispp.age_max']} years
@@ -140,5 +177,9 @@ FSD
 </ul>
 
 </div>
+    <script language="JavaScript">
+      map2();
+    </script>
+
 </body>
 </html>

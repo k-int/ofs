@@ -43,6 +43,7 @@
              map: map, 
              title:"${entry['dc.title']}"
         });   
+        marker.setMap(map);  
       }
       //]]>
       </script>
