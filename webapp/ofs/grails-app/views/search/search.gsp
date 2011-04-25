@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssgrids/grids-min.css"> 
  
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
-    <meta name="layout" content="main" />
+    <meta name="layout" content="searchresultsmain" />
     
     <title><g:message code="ofs.search.title"/></title>
   </head>

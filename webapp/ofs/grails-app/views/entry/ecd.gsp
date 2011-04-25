@@ -50,7 +50,7 @@
     </g:if>
 
   </head>
-  <body>
+  <body class="search-results">
     <h1><strong>${entry['dc.title']}<g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if></strong></h1>
 
     <!-- Float this right? -->

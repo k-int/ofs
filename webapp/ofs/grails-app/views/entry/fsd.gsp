@@ -52,7 +52,7 @@
     </g:if>
 
   </head>
-  <body>
+  <body class="search-results">
     <div>
 
 
