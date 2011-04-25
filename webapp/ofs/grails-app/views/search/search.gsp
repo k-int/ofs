@@ -94,6 +94,7 @@
     </div>
                 
     <div class="yui3-u-5-24"> 
+      
       <div id="facets">
         <g:if test="${((search_results != null) && (search_results.facetFields != null))}">
           <g:each in="${search_results.facetFields}" var="fl">

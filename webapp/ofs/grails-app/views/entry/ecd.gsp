@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
-    <meta name="layout" content="main" />
+    <meta name="layout" content="entry" />
     <meta name="dc.title" content="${entry['dc.title']}" />
     <meta name="title" content="${entry['dc.title']}" />
 
@@ -51,10 +51,16 @@
 
   </head>
   <body class="search-results">
-    <h1><strong>${entry['dc.title']}<g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if></strong></h1>
+    <h1>
+      <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
+        <a href="${entry['website']}">${entry['dc.title']}</a>
+      </g:if>
+      <g:else>
+        ${entry['dc.title']}
+      </g:else>
+      <g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if>
+    </h1>
 
-    <!-- Float this right? -->
-    <div id="map" style="width: 250px; height: 250px"></div>
 
     <div>
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>
@@ -68,6 +74,8 @@
           </ul>
         </div>
       </g:if>
+
+    <div id="map" style="width: 250px; height: 250px; float:right"></div>
 
 <ul>
   <li>Basic Details

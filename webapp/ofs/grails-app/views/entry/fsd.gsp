@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
-    <meta name="layout" content="main" />
+    <meta name="layout" content="entry" />
 
     <meta name="dc.title" content="${entry['dc.title']}" />
     <meta name="title" content="${entry['dc.title']}" />
@@ -53,10 +53,16 @@
 
   </head>
   <body class="search-results">
+
     <div>
 
 
-<h1><li><strong>${entry['dc.title']}</strong></li></h1>
+<g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
+<h1><a href="${entry['website']}">${entry['dc.title']}</a></h1>
+</g:if>
+<g:else>
+<h1>${entry['dc.title']}</h1>
+</g:else>
 
 <g:if test="${entry['dc.subject.orig_s'] != null}">
   <div>In Categories<br/>
