@@ -66,6 +66,9 @@
       <g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if>
     </h1>
 
+    <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
+      <a href="${request.getHeader('referer')}">Back to search results</a><br/>
+    </g:if>
 
     <div>
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>

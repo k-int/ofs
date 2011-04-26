@@ -52,6 +52,7 @@ class SearchController {
     }
     else {
       result['noqry'] = true
+      session.lastqry = null;
       render(view:'searchfront',model:result)
     }
    
