@@ -53,7 +53,12 @@
   <body class="search-results">
     <h1>
       <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
-        <a href="${entry['website']}">${entry['dc.title']}</a>
+        <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
+          <a href="${entry['website']}">${entry['dc.title']}</a>
+        </g:if>
+        <g:else>
+          <a href="http://${entry['website']}">${entry['dc.title']}</a>
+        </g:else>
       </g:if>
       <g:else>
         ${entry['dc.title']}
