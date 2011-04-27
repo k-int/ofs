@@ -85,106 +85,92 @@
 
     <div id="map" style="width: 250px; height: 250px; float:right"></div>
 
-<ul>
-  <li>Basic Details
+  <h2>Basic Details</h2>
 
-    <ul>
-
-      <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><li>Last Modified: ${entry['dc.description']}</li></g:if>
+      <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}">Last Modified: ${entry['dc.description']}<br/></g:if>
 
       <g:if test="${(entry['ofsted_urn_s'] != null)}">
-        <li>
-          <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a>
-        </li>
+        <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a><br/>
       </g:if>
 
-      <li>Contact Person</li>
-      <li>Address:<br/>
-        <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
-        <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
-        <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
-        <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
-        <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
-        <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
-      </li>
-      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}"><li>Telephone: ${entry['telephone']}</li></g:if>
-      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}"><li>Email: ${entry['email']}</li></g:if>
-      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}"><li>Email: ${entry['fax']}</li></g:if>
+      <h2>Contact Details</h2>
+      <h3>Address</h3>
+      <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
+      <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
+      <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
+      <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
+      <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
+      <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
 
+      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">Telephone: ${entry['telephone']}</g:if>
+      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: ${entry['email']}</g:if>
+      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Email: ${entry['fax']}</g:if>
+
+      <h2>General</h2>
       <g:if test="${( entry['ispp.age_min'] != null ) && ( entry['ispp.age_max'] != null )}">
-         <li>Age Range: from ${entry['ispp.age_min']} to ${entry['ispp.age_max']} years
+         Age Range: from ${entry['ispp.age_min']} to ${entry['ispp.age_max']} years</br>
       </g:if>
 
-      <g:if test="${(entry['childcare_type_s'] != null ) && ( entry['childcare_type_s'].length() > 0 )}"><li>Childcare Type: ${entry['childcare_type_s']}</li></g:if>
+      <g:if test="${(entry['childcare_type_s'] != null ) && ( entry['childcare_type_s'].length() > 0 )}">Childcare Type: ${entry['childcare_type_s']}</g:if>
 
-      <li>Flags
-        <g:if test="${entry['flags'] != null}">
-          <ul>
-            <g:outputSolrProperty prop="${entry['flags']}" />
-          </ul>
+      <h2>Ofsted Registration</h2>
+      <ul>
+        <g:if test="${srcdoc != null}">
+          <g:if test="${srcdoc.ProviderDetails != null}">
+            <g:if test="${srcdoc.ProviderDetails.ChildcareAges != null}">
+              <h3>Registered Places</h3>
+              <div id="Registered Places">
+                <g:each in="${srcdoc.ProviderDetails.ChildcareAges.ChildcareAge}" var="cc">
+                  ${cc.AgeFrom.text()} to ${cc.AgeTo.text()} years : ${cc.ChildNumberLimit.text()} places <br/>
+                </g:each>
+              </div>
+            </g:if>
+            <h3>Available places</h3>
+              <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails != null}">
+                <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
+                  Please contact the provider for details of current vacancies
+                </g:if>
+              </g:if>
+              <g:else>
+                Unknown
+              </g:else>
+            <h3>Registration Date</h3>
+            ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationDate.text()}
+
+            <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationConditions != null}">
+            <h3>Registration Conditions</h3>
+              <ul>
+                <g:each in="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationConditions.RegistrationCondition}" var="rc">
+                  <li>${rc.text()}</li>
+                </g:each>
+              </ul>
+            </g:if>
+
+            <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus != null}">
+              <h3>Registration Status</h3> ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus.RegistrationStatus.text()} 
+              (Started: ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus.RegistrationStatusStartDate})
+            </g:if>
+
+          </g:if>
         </g:if>
-      </li>
-      <li>Age Groups</li>
-      <li>Keywords
-        <g:if test="${entry['extra_index_words_s'] != null}">
-          <ul>
-            <g:outputSolrProperty prop="${entry['extra_index_words_s']}" />
-          </ul>
-        </g:if>
-      </li>
+      </ul>
 
-     <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
+      <h2>Additional Information</h2>
+      <g:if test="${entry['flags'] != null}">
+        <h3>Flags</h3>
+        <ul>
+          <g:outputSolrProperty prop="${entry['flags']}" />
+        </ul>
+      </g:if>
 
-    </ul>
-  </li>
+      <g:if test="${entry['extra_index_words_s'] != null}">
+      <h3>Keywords</h3>
+        <ul>
+          <g:outputSolrProperty prop="${entry['extra_index_words_s']}" />
+        </ul>
+      </g:if>
 
-  <li>Places
-    <ul>
-      <li>Place Availability</li>
-    </ul>
-  </li>
-
-  <li>Opening Times
-    <ul>
-      <li>Availability</li>
-      <li>Opening Periods</li>
-    </ul>
-  </li>
-
-  <li>Special Provision
-    <ul>
-    </ul>
-  </li>
-
-  <li>Costs
-    <ul>
-    </ul>
-  </li>
-
-  <li>Pickup
-    <ul>
-    </ul>
-  </li>
-
-
-  <li>Ofsted Registration
-    <ul>
-    </ul>
-  </li>
-
-  <li>Other Details
-    <ul>
-    </ul>
-  </li>
-
-  <li>Map
-    <ul>
-<g:if test="${(entry['lat'] != null )}"><li>Lat:${entry['lat']}</li></g:if>
-<g:if test="${(entry['lng'] != null )}"><li>Lng:${entry['lng']}</li></g:if>
-    </ul>
-  </li>
-
-</ul>
+      <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}">Other Information: ${entry['other_info_s']}<br/></g:if>
 
 </div>
     <script language="JavaScript">

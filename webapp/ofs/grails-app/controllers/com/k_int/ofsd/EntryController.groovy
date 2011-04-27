@@ -47,12 +47,12 @@ class EntryController {
 
       switch ( target_solr_doc['restp'] ) {
         case 'ServiceProvider':
-          result['srcdov'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
+          result['srcdoc'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
           render(view:'ecd',model:result)
           break;
         case 'Service':
           render(view:'fsd',model:result)
-          result['srcdov'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
+          result['srcdoc'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
           break;
       }
     }
