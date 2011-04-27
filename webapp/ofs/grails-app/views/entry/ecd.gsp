@@ -73,13 +73,14 @@
     <div>
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>
 
-
       <g:if test="${entry['dc.subject.orig_s'] != null}">
-        <div class="categories">Categories
-          <ul>
-            <!--outputSolrProperty is a custom taglib defined in grails-app/taglibs/ofs/OfsTagLib.groovy. It outputs li elements for scalar or list values -->
-            <g:outputSolrProperty prop="${entry['dc.subject.orig_s']}" />
-          </ul>
+        <div class="categories">Categories: 
+          <g:if test="${entry['dc.subject.orig_s'] instanceof java.util.List}">
+            <g:each in="${entry['dc.subject.orig_s']}" var="cat" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.dc.subject.orig_s.${cat}"/></g:each>
+          </g:if>
+          <g:else>
+            <g:message code="cv.dc.subject.orig_s.${entry['dc.subject.orig_s']}"/>
+          </g:else>
         </div>
       </g:if>
 
@@ -167,10 +168,14 @@
 
       <h2>Additional Information</h2>
       <g:if test="${entry['flags'] != null}">
-        <h3>Flags</h3>
-        <ul>
-          <g:outputSolrProperty prop="${entry['flags']}" />
-        </ul>
+        <div class="categories">Features and Facilities: 
+          <g:if test="${entry['flags'] instanceof java.util.List}">
+            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.flags.${flag}"/></g:each>
+          </g:if>
+          <g:else>NA
+            <g:message code="cv.flags.${entry['flags']}"/>
+          </g:else>
+        </div>
       </g:if>
 
       <g:if test="${entry['extra_index_words_s'] != null}">
