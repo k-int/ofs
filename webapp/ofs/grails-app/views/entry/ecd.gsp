@@ -125,19 +125,16 @@
                 </g:each>
               </div>
             </g:if>
-            <h3>Available places</h3>
-              <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails != null}">
+              <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
+                <h3>Available places</h3>
                 <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
                   Please contact the provider for details of current vacancies
                 </g:if>
               </g:if>
-              <g:else>
-                Unknown
-              </g:else>
             <h3>Registration Date</h3>
             ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationDate.text()}
 
-            <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationConditions != null}">
+            <g:if test="${(srcdoc.ProviderDetails.RegistrationDetails.RegistrationConditions.size() > 0 ) && ( srcdoc.ProviderDetails.RegistrationDetails.RegistrationConditions.RegistrationCondition.size() > 0 ) }">
             <h3>Registration Conditions</h3>
               <ul>
                 <g:each in="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationConditions.RegistrationCondition}" var="rc">
@@ -146,10 +143,23 @@
               </ul>
             </g:if>
 
-            <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus != null}">
+            <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus.size() > 0}">
               <h3>Registration Status</h3> ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus.RegistrationStatus.text()} 
               (Started: ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationStatus.RegistrationStatusStartDate})
             </g:if>
+
+            <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.LastInspection != null}">
+              <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionDate.size() > 0}">
+                <h3>Last Inspection</h3>${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionDate.text()}
+              </g:if>
+              <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionType.size() > 0}">
+                <h3>Inspection Type</h3>${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionType.text()}
+              </g:if>
+              <g:if test="${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionOverallJudgementDescription.size() > 0}">
+                <h3>Overall Judgement</h3>${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionOverallJudgementDescription.text()}
+              </g:if>
+            </g:if>
+
 
           </g:if>
         </g:if>
