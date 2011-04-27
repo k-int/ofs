@@ -38,6 +38,10 @@
                   <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="placename" value="${params.placename}" /><input class="uiw-button" value="Search" type="submit"/>
                 </div>
               </form>
+              <a href="/ofs">Home</a>
+              <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
+                > <a href="${request.getHeader('referer')}">Search Results</a>
+              </g:if>
             </div>
           </div>
         </div>

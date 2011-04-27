@@ -23,6 +23,7 @@
                 <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="placename" value="${params.placename}" /><input class="uiw-button" value="Search" type="submit"/> 
               </div> 
             </form> 
+            <a href="/ofs">Home</a>
           </div> 
         </div>  
       </div> 
