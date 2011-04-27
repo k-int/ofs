@@ -66,17 +66,13 @@
       <g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if>
     </h1>
 
-    <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
-      <a href="${request.getHeader('referer')}">Back to search results</a><br/>
-    </g:if>
-
     <div>
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>
 
       <g:if test="${entry['dc.subject.orig_s'] != null}">
         <div class="categories">Categories: 
           <g:if test="${entry['dc.subject.orig_s'] instanceof java.util.List}">
-            <g:each in="${entry['dc.subject.orig_s']}" var="cat" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.dc.subject.orig_s.${cat}"/></g:each>
+            <g:each in="${entry['dc.subject.orig_s']}" var="cat" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><a href="/ofs/?subject=${cat}"><g:message code="cv.dc.subject.orig_s.${cat}"/></g:each></a>
           </g:if>
           <g:else>
             <g:message code="cv.dc.subject.orig_s.${entry['dc.subject.orig_s']}"/>
@@ -170,7 +166,7 @@
       <g:if test="${entry['flags'] != null}">
         <div class="categories">Features and Facilities: 
           <g:if test="${entry['flags'] instanceof java.util.List}">
-            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.flags.${flag}"/></g:each>
+            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><a href="/ofs/?flags=${flag}"><g:message code="cv.flags.${flag}"/></a></g:each>
           </g:if>
           <g:else>NA
             <g:message code="cv.flags.${entry['flags']}"/>
