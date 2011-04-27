@@ -71,10 +71,6 @@
 <h1>${entry['dc.title']}</h1>
 </g:else>
 
-    <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
-      <a href="${request.getHeader('referer')}">Back to search results</a><br/>
-    </g:if>
-
 <g:if test="${entry['dc.subject.orig_s'] != null}">
   <div>In Categories<br/>
   <ul>
