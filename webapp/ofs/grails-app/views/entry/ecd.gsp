@@ -54,15 +54,11 @@
     <h1>
       <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
         <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
-          <a href="${entry['website']}">${entry['dc.title']}</a>
-        </g:if>
+          <a href="${entry['website']}">${entry['dc.title']}</a></g:if>
         <g:else>
-          <a href="http://${entry['website']}">${entry['dc.title']}</a>
-        </g:else>
-      </g:if>
-      <g:else>
-        ${entry['dc.title']}
-      </g:else>
+          <a href="http://${entry['website']}">${entry['dc.title']}</a></g:else>
+      </g:if><g:else>
+        ${entry['dc.title']}</g:else>
       <g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if>
     </h1>
 

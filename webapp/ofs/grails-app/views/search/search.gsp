@@ -44,12 +44,7 @@
         <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
         <ul>
 
-          <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong>
-            <g:if test="${( sr['childcare_type_s'] != null )}">
-              - ${sr['childcare_type_s']}
-            </g:if>
-          </li>
-
+          <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong><g:if test="${( sr['childcare_type_s'] != null )}"> - ${sr['childcare_type_s']} </g:if></li>
 
           <g:if test="${(sr['dc.description'] != null ) && ( sr['dc.description'].length() > 0 )}"><li>${sr['dc.description']}</li></g:if>
 
