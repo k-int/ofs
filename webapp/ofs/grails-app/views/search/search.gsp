@@ -44,7 +44,8 @@
         <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
         <ul>
 
-          <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong><g:if test="${( sr['childcare_type_s'] != null )}"> - ${sr['childcare_type_s']} </g:if></li>
+          <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong> <g:if test="${( sr['childcare_type_s'] != null )}">${sr['childcare_type_s']}</g:if></li>
+
 
           <g:if test="${(sr['dc.description'] != null ) && ( sr['dc.description'].length() > 0 )}"><li>${sr['dc.description']}</li></g:if>
 
@@ -55,6 +56,7 @@
             <g:if test="${(sr['address.line4'] != null ) && ( sr['address.line4'].length() > 0 )}">, ${sr['address.line4']}</g:if>
             <g:if test="${(sr['address.line5'] != null ) && ( sr['address.line5'].length() > 0 )}">, ${sr['address.line5']}</g:if>
           </li>
+          <g:if test="${sr['distance'] != null}"><li>Approximately ${ ((int)Math.abs( sr['distance'] * 100 ))/100 } - miles from ${params.placename}</li></g:if>
 
           <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}"><li>Telephone: ${sr['telephone']}</li></g:if>
           <g:if test="${(sr['email'] != null ) && ( sr['email'].length() > 0 )}"><li>Email: <a href="mailto:${sr['email']}">${sr['email']}</a></li></g:if>
@@ -71,6 +73,7 @@
               <li>Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a></li>
             </g:else>
           </g:if>
+
         </ul>
       </li>
     </g:each>
