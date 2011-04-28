@@ -66,12 +66,20 @@
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}"><div class="description">Description: ${entry['dc.description']}</div></g:if>
 
       <g:if test="${entry['dc.subject.orig_s'] != null}">
-        <div class="categories">Categories: 
+        <% request.setAttribute("ops", [:]) %>
+        <g:if test="${entry['address.postcode'] != null}"><% request.ops.placename="${entry['address.postcode']}" %></g:if>
+        <div class="categories">Categories (Links find similar services in the same area): 
           <g:if test="${entry['dc.subject.orig_s'] instanceof java.util.List}">
-            <g:each in="${entry['dc.subject.orig_s']}" var="cat" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><a href="/ofs/?subject=${cat}"><g:message code="cv.dc.subject.orig_s.${cat}"/></g:each></a>
+            <ul>
+            <g:each in="${entry['dc.subject.orig_s']}" var="cat" status="i">
+              <% request.ops.subject = "${cat}" %>
+              <li style="display:inline"><g:link action="search" controller="search" params="${request.ops}"><g:message code="cv.dc.subject.orig_s.${cat}"/></g:link></li>
+            </g:each>
+            </ul>
           </g:if>
           <g:else>
-            <g:message code="cv.dc.subject.orig_s.${entry['dc.subject.orig_s']}"/>
+            <% request.ops.subject = "${entry['dc.subject.orig_s']}" %>
+            <g:link action="search" controller="search" params="${request.ops}"><g:message code="cv.dc.subject.orig_s.${entry['dc.subject.orig_s']}"/></g:link>
           </g:else>
         </div>
       </g:if>

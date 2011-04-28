@@ -36,7 +36,8 @@ class SearchController {
     def records_per_page = params.pagesize ?: 20;
 
 
-    if ( ( params.placename != null ) && ( params.placename.length() > 0 ) ) {
+    if ( ( ( params.placename != null ) && ( params.placename.length() > 0 ) ) ||
+         ( ( params.subject != null ) && ( params.subject.length() > 0 ) ) ) {
       def lucene_query = buildQuery(params)
 
       def sort_string = null;
@@ -69,11 +70,13 @@ class SearchController {
     StringWriter sw = new StringWriter()
 
     // Add in any spatial restriction
-    def gaz_response = resolvePlaceName(params.placename)
-    if ( gaz_response != null ) {
-      println "Result of gaz lookup : ${gaz_response}"
-      if ( gaz_response.size() > 0 ) {
-        sw.write("{!spatial lat=${gaz_response[0].lat} long=${gaz_response[0].lon} radius=5 unit=miles} ")
+    if ( ( params.placename != null ) && ( params.placename.length() > 0 ) ) {
+      def gaz_response = resolvePlaceName(params.placename)
+      if ( gaz_response != null ) {
+        println "Result of gaz lookup : ${gaz_response}"
+        if ( gaz_response.size() > 0 ) {
+          sw.write("{!spatial lat=${gaz_response[0].lat} long=${gaz_response[0].lon} radius=5 unit=miles} ")
+        }
       }
     }
 
