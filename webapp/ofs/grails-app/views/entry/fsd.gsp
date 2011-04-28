@@ -72,13 +72,14 @@
 </g:else>
 
 <g:if test="${entry['dc.subject.orig_s'] != null}">
-  <div>In Categories<br/>
-  <ul>
-    <g:each in="${entry['dc.subject.orig_s']}" var="sub">
-      <li><g:message code="cv.dc.subject.orig_s.${sub}"/></li>
-    </g:each>
-  </ul>
-</div>
+  <div class="categories">Categories:
+    <g:if test="${entry['dc.subject.orig_s'] instanceof java.util.List}">
+      <g:each in="${entry['dc.subject.orig_s']}" var="cat" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><a href="/ofs/?subject=${cat}"><g:message code="cv.dc.subject.orig_s.${cat}"/></g:each></a>
+    </g:if>
+    <g:else>
+      <g:message code="cv.dc.subject.orig_s.${entry['dc.subject.orig_s']}"/>
+    </g:else>
+  </div>
 </g:if>
 
 <div id="map" style="width: 250px; height: 250px; float:right"></div>
