@@ -152,11 +152,55 @@
                 <h3>Overall Judgement</h3>${srcdoc.ProviderDetails.RegistrationDetails.LastInspection.InspectionOverallJudgementDescription.text()}
               </g:if>
             </g:if>
-
-
           </g:if>
         </g:if>
       </ul>
+
+      
+      <g:if test="${srcdoc.ProviderDetails.CostDetails.size() > 0}">
+        <h2>Costs</h2>
+        ${srcdoc.ProviderDetails.CostDetails.Costs.text()}
+  
+        <g:if test="${srcdoc.ProviderDetails.CostDetails.OtherCosts.size() > 0}">
+          ${srcdoc.ProviderDetails.CostDetails.OtherCosts.text()}
+        </g:if>
+      </g:if>
+
+      <g:if test="${srcdoc.ProviderDetails.ChildcareTimes.size() > 0}">
+        <h2>Availability</h2>
+        ${srcdoc.ProviderDetails.ChildcareTimes.Availability.text()}
+      </g:if>
+
+      <g:if test="${srcdoc.ProviderDetails.SpecialProvisions.size() > 0}">
+        <h2>Special Provision</h2>
+        <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision='true') ) }">
+          <p> <h3>Special Needs</h3>
+            ${srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.Experience?.text()}<br/>
+            ${srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.Details?.text()}
+          </p>
+        </g:if>
+
+        <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=1) || (srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=true) )  }">
+          <p> <h3>Diet</h3>
+            ${srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.text()}<br/>
+          </p>
+        </g:if>
+
+        <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=true) ) }">
+          <p> <h3>Cultural Provision</h3>
+            ${srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.text()}<br/>
+          </p>
+        </g:if>
+
+        <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=true) ) }">
+          <p> <h3>Wheelchair Access</h3>
+            ${srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.text()}<br/>
+          </p>
+        </g:if>
+
+      </g:if>
+
+     
 
       <h2>Additional Information</h2>
       <g:if test="${entry['flags'] != null}">

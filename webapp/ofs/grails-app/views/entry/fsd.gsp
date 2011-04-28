@@ -101,9 +101,55 @@
       <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
       <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
       <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
-      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}"><li>Telephone: ${entry['telephone']}</li></g:if>
-      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}"><li>Email: ${entry['email']}</li></g:if>
-      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}"><li>Email: ${entry['fax']}</li></g:if>
+      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">Telephone: ${entry['telephone']}<br/></g:if>
+      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: ${entry['email']}<br/></g:if>
+      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Email: ${entry['fax']}<br/></g:if>
+
+<g:if test="${srcdoc != null}">
+  <g:if test="${srcdoc.AreaCovered.size() > 0}">
+    ${srcdoc.AreaCovered.text()}<br/>
+  </g:if>
+
+  <g:if test="${srcdoc.Availability.size() > 0}">
+    <h2>Availability</h2>
+    <table>
+      <tr><th>Period</th><th>Start</th><th>End</th></tr>
+      <g:each in="${srcdoc.Availability.Period}" var="p">
+        <tr><td>${p.@Day.text()}</td><td>${p.StartTime?.text()}</td><td>${p.EndTime?.text()}</td></tr>
+      </g:each>
+    </table>
+    ${srcdoc.Availability.details?.text()}
+  </g:if>
+
+  <g:if test="${srcdoc.SpecialProvisions.size() > 0}">
+    <h2>Special Provisions</h2>
+    <g:if test="${( ( srcdoc.SpecialProvisions.SpecialNeeds.size() > 0 ) && ( ( srcdoc.SpecialProvisions.SpecialNeeds.@HasProvision=1) || (srcdoc.SpecialProvisions.SpecialNeeds.@HasProvision='true') ) ) }">
+      <h3>Special Needs</h3>
+      <p>${srcdoc.SpecialProvisions.SpecialNeeds.Experience?.text()}<br/>
+         ${srcdoc.SpecialProvisions.SpecialNeeds.Confidence?.text()}<br/>
+         ${srcdoc.SpecialProvisions.SpecialNeeds.Details?.text()}
+      </p>
+    </g:if>
+    <g:if test="${( ( srcdoc.SpecialProvisions.WheelchairAccess.size() > 0 ) && ( ( srcdoc.SpecialProvisions.WheelchairAccess.@HasProvision=1) || (srcdoc.SpecialProvisions.WheelchairAccess.@HasProvision='true') ) ) }">
+      <h3>Wheelchair Access</h3>
+      <p>${srcdoc.SpecialProvisions.WheelchairAccess.text()}</p>
+    </g:if>
+    <g:if test="${( ( srcdoc.SpecialProvisions.CulturalProvision.size() > 0 ) && ( ( srcdoc.SpecialProvisions.CulturalProvision.@HasProvision=1) || (srcdoc.SpecialProvisions.CulturalProvision.@HasProvision='true') ) ) }">
+      <h3>Cultural Provision</h3>
+      <p>${srcdoc.SpecialProvisions.CulturalProvision.text()}</p>
+    </g:if>
+    <g:if test="${( ( srcdoc.SpecialProvisions.SpecialDiet.size() > 0 ) && ( ( srcdoc.SpecialProvisions.SpecialDiet.@HasProvision=1) || (srcdoc.SpecialProvisions.SpecialDiet.@HasProvision='true') ) ) }">
+      <h3>Special Diet</h3>
+      <p>${srcdoc.SpecialProvisions.SpecialDiet.text()}</p>
+    </g:if>
+  </g:if>
+
+  <g:if test="${srcdoc.CostDetails.size() > 0}">
+    <h2>Costs</h2>
+    ${srcdoc.SpecialProvisions.Costs.text()}
+    ${srcdoc.SpecialProvisions.OtherCosts.text()}
+  </g:if>
+</g:if>
 
 <g:if test="${entry['flags'] != null}">
   <ul>
@@ -117,6 +163,7 @@ Keywords
   <g:outputSolrProperty prop="${entry['extra_index_words_s']}" />
 </ul>
 </g:if>
+
 
 <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
 
