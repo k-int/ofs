@@ -90,7 +90,7 @@
         </div>
       </g:if>
 
-<div id="map" style="width: 250px; height: 250px; float:right"></div>
+    <div id="map" style="width: 250px; height: 250px; float:right"></div>
 
 
 <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}">

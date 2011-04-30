@@ -90,9 +90,6 @@
 
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}">Last Modified: ${entry['dc.description']}<br/></g:if>
 
-      <g:if test="${(entry['ofsted_urn_s'] != null)}">
-        <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a><br/>
-      </g:if>
 
       <h2>Contact Details</h2>
       <h3>Address</h3>
@@ -108,14 +105,16 @@
       <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Email: ${entry['fax']}</g:if>
 
       <h2>General</h2>
-      <g:if test="${( entry['ispp.age_min'] != null ) && ( entry['ispp.age_max'] != null )}">
-         Age Range: from ${entry['ispp.age_min']} to ${entry['ispp.age_max']} years</br>
-      </g:if>
 
       <g:if test="${(entry['childcare_type_s'] != null ) && ( entry['childcare_type_s'].length() > 0 )}">Childcare Type: ${entry['childcare_type_s']}</g:if>
 
       <h2>Ofsted Registration</h2>
-      <ul>
+
+        <g:if test="${(entry['ofsted_urn_s'] != null)}">
+          <h3>Official Ofsted Report</h3>
+          <a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${entry['ofsted_urn_s']}">Latest ofsted report</a><br/>
+        </g:if>
+
         <g:if test="${srcdoc != null}">
           <g:if test="${srcdoc.ProviderDetails != null}">
             <g:if test="${srcdoc.ProviderDetails.ChildcareAges != null}">
@@ -126,12 +125,17 @@
                 </g:each>
               </div>
             </g:if>
-              <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
-                <h3>Available places</h3>
-                <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
-                  Please contact the provider for details of current vacancies
-                </g:if>
+
+            <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
+              <h3>Available places</h3>
+              <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
+                Please contact the provider for details of current vacancies
               </g:if>
+            </g:if>
+            <g:else>
+              Please contact the provider for details of current vacancies
+            </g:else>
+
             <h3>Registration Date</h3>
             ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationDate.text()}
 
@@ -162,7 +166,6 @@
             </g:if>
           </g:if>
         </g:if>
-      </ul>
 
       
       <g:if test="${srcdoc.ProviderDetails.CostDetails.size() > 0}">
