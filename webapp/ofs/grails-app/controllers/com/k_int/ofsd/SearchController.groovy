@@ -11,7 +11,7 @@ import grails.converters.*
 import groovy.text.Template
 import groovy.text.SimpleTemplateEngine
 import groovy.xml.MarkupBuilder
-
+import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 class SearchController {
 
@@ -47,7 +47,7 @@ class SearchController {
       }
 
       if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
-        result['search_results'] = doSearch(lucene_query, 10, sort_string)
+        result['search_results'] = doSearch(lucene_query, 10, sort_string, params)
         result['qry'] = lucene_query
       }
     }
@@ -128,7 +128,7 @@ class SearchController {
     sw.toString()
   }
 
-  def doSearch(qry, records_per_page, defaultSortString) {
+  def doSearch(qry, records_per_page, defaultSortString, params) {
     // SolrServer solr = new CommonsHttpSolrServer(solr_base_url);
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
 
@@ -147,7 +147,13 @@ class SearchController {
       solr_params.set("sort",params.sort)
     }
     else if ( (defaultSortString!=null) && ( defaultSortString.length() > 0 ) ) {
-      solr_params.set("sort",defaultSortString)
+      // Default sort is distance, but if we are processing an RSS search, make the default modified desc instead.
+      if ( ( params.format != null ) && ( params.format.equalsIgnoreCase("rss") || params.format.equalsIgnoreCase("atom") ) ) {
+        solr_params.set("sort","modified desc")
+      }
+      else {
+        solr_params.set("sort",defaultSortString)
+      }
     }
 
     solr_params.set("facet","true")
@@ -282,7 +288,13 @@ class SearchController {
 
       addField("dc.title", "dc.title", doc, docinfo)
       addField("dc.description", "dc.description", doc, docinfo)
-      docinfo.add(["link","/ofs/directory/${doc['authority_shortcode']}/${doc['aggregator.internal.id']}"])
+      addField("dc.description", "dc.description", doc, docinfo)
+      addField("dc.identifier", "guid", doc, docinfo)
+      addField("modified", "pubdate", doc, docinfo)
+      docinfo.add(["link","${ApplicationHolder.application.config.ofs.pub.baseurl}/ofs/directory/${doc['authority_shortcode']}/${doc['aggregator.internal.id']}"])
+      if ( ( doc['lat'] != null ) && ( doc['lng'] != null ) ) {
+        docinfo.add(["georss:point","${doc['lat']} ${doc['lng']}"])
+      }
       result.add(docinfo)
     }
     // println "Result ${result}"
