@@ -59,8 +59,25 @@ class SearchController {
    
 
     result['facetFieldMappings'] = facetFieldMapping
-
     result['elapsed'] = "" + ( ( System.currentTimeMillis() - starttime ) / 1000 )
+
+    switch(params.format) {
+      case 'rss':
+      case 'RSS':
+        // println "RSS"
+        renderRSSResponse( result )
+        break;
+      case 'atom':
+      case 'atom':
+        // println "ATOM"
+        renderATOMResponse( result )
+        break;
+      case 'html':
+      case 'HTML':
+      default:
+        // Default will render the search response page....
+        break;
+    }
 
     result
   }
@@ -190,6 +207,92 @@ class SearchController {
     }
 
     gazresp
+  }
+
+
+  def renderRSSResponse(results) {
+
+    def output_elements = buildOutputElements(results.search_results)
+
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+
+    xml.rss(version: '2.0') {
+      channel {
+        title("Open Family Services RSS Response")
+        description("Open Family Services RSS Description")
+        copyright("(c) Open Family Services")
+        "opensearch:totalResults"(results.search_results.results.numFound)
+        "opensearch:startIndex"(results.search_results.results.start)
+        "opensearch:itemsPerPage"(10)
+        output_elements.each { i ->  // For each record
+          entry {
+            i.each { tuple ->   // For each tuple in the record
+              "${tuple[0]}"("${tuple[1]}")
+            }
+          }
+        }
+      }
+    }
+
+    render(contentType:"application/rss+xml", text: writer.toString())
+  }
+
+  def renderATOMResponse(results) {
+
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+    def output_elements = buildOutputElements(results.search_results)
+
+    xml.feed(xmlns:'http://www.w3.org/2005/Atom') {
+        // add the top level information about this feed.
+        title("Open Family Services ATOM Response")
+        description("Open Family Services ATOM Response")
+        copyright("(c) Open Family Services")
+        "opensearch:totalResults"(results.search_results.results.numFound)
+        "opensearch:startIndex"(results.search_results.results.start)
+        "opensearch:itemsPerPage"("10")
+        // subtitle("Serving up my content")
+        //id("uri:uuid:xxx-xxx-xxx-xxx")
+        link(href:"http://www.openfamilyservices.org.uk")
+        author {
+          name("OFS - OpenFamilyServices")
+        }
+        //updated sdf.format(new Date());
+
+        // for each entry we need to create an entry element
+        output_elements.each { i ->
+          entry {
+            i.each { tuple ->
+                "${tuple[0]}"("${tuple[1]}")
+            }
+          }
+        }
+    }
+
+    render(contentType:'application/xtom+xml', text: writer.toString())
+  }
+
+
+  def buildOutputElements(searchresults) {
+    // Result is an array of result elements
+    def result = []
+    searchresults.results.each { doc ->
+      def docinfo = [];
+
+      addField("dc.title", "dc.title", doc, docinfo)
+      addField("dc.description", "dc.description", doc, docinfo)
+      docinfo.add(["link","/ofs/directory/${doc['authority_shortcode']}/${doc['aggregator.internal.id']}"])
+      result.add(docinfo)
+    }
+    // println "Result ${result}"
+    result
+  }
+
+  def addField(solr_field, output_field, doc, docinfo) {
+    doc.getFieldValues(solr_field).each { value ->
+      docinfo.add([output_field, value])
+    }
   }
 
 }
