@@ -88,7 +88,7 @@
 
   <h2>Basic Details</h2>
 
-      <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}">Last Modified: ${entry['dc.description']}<br/></g:if>
+      <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}">Last Modified: ${entry['modified']}<br/></g:if>
 
 
       <h2>Contact Details</h2>
