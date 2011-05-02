@@ -9,6 +9,8 @@ class UrlMappings {
     //    }
     //  }
 
+    "/about" (controller:"about", action:"index")
+
     "/sitemap" (controller:"siteMapindex", action:"siteindex")
 
     "/directory/${authority}/sitemap" (controller:"siteMapindex", action:"authsitemap")
