@@ -144,9 +144,7 @@
       </div><!--SearchResults-->
     </div>
 
-
-    <div class="yui3-u footerlinks">
-      &nbsp;<br/>
+    <div class="footerlinks yui3-u">
       &nbsp;<br/>
       &nbsp;<br/>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>

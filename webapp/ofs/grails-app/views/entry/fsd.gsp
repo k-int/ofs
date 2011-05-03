@@ -111,7 +111,7 @@
       <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
       <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
       <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">Telephone: ${entry['telephone']}<br/></g:if>
-      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: ${entry['email']}<br/></g:if>
+      <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: <a href="mailto:${sr['email']}">${sr['email']}</a><br/></g:if>
       <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Email: ${entry['fax']}<br/></g:if>
 
 <g:if test="${srcdoc != null}">
