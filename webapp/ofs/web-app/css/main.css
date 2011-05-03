@@ -157,6 +157,13 @@ div.splash {
   margin: 20px auto 10px;
 }
 
+div.srchprompt {
+  background:url("/ofs/images/sfsm.png") no-repeat ; 
+  height:100;
+  float: left;
+  margin: 20px auto 10px;
+}
+
 div.footerlinks {
   text-align:center;
 }
