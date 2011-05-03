@@ -11,6 +11,16 @@ testaggregator.openfamilyservices.org.uk/index/gaz/select?q=Sheffield some rando
 http://testaggregator.openfamilyservices.org.uk/index/gaz/select?q=(Childcare%20Sheffield%20Penzance)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=text&pf=text&hl.fl=fqn,text
 
 http://testaggregator.openfamilyservices.org.uk/index/gaz/select?q=(Childcare%20Sheffield%20Penzance)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=text&pf=text&hl.fl=fqn&start=0&rows=1
+http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20Penzance)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=text&pf=text&hl.fl=fqn&start=0&rows=1
+http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20Penzance)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=fqnidx&pf=fqnidx&hl.fl=fqnidx&start=0&rows=1
 
 Gaz loaded from /home/ibbo/Desktop/data/postcode/paf/paf/uk_gaz.csv
+Newer gaz loaded from /home/ibbo/Desktop/data/postcode/paf/paf/data_to_upload/uk_gaz_with_geo_no_tfr.csv
 outcodes from /home/ibbo/old/dev/ispp/data/outcodes/outcodes_for_solr.csv
+
+
+Dataload:
+
+curl "http://localhost:8080/index/gaz/update/csv?stream.file=/home/ibbo/Desktop/data/postcode/paf/paf/uk_gaz.csv&stream.contentType=text/plain;charset=utf-8&commit=true&fieldnames="
+
+http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20S1%202NS)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=text&pf=text&hl.fl=text&start=0&rows=20
