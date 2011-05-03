@@ -4,3 +4,13 @@ SELECT VTR.ID, VTH.IDENTIFIER from VM_TERM_REVISION VTR, VM_TERM_HEADER VTH wher
 SELECT VTR.ID, VTH.IDENTIFIER, VTR.NAME_PROPERTY_FK, P.SIMPLE_STRING_VALUE from VM_TERM_REVISION VTR, VM_TERM_HEADER VTH, CP_PROPERTY P where VTR.TERM_HEADER_FK = VTH.ID and VTH.VOCAB_FK = 1 and P.ID = VTR.NAME_PROPERTY_FK;
 SELECT CONCAT(VTH.IDENTIFIER,'=', P.SIMPLE_STRING_VALUE) from VM_TERM_REVISION VTR, VM_TERM_HEADER VTH, CP_PROPERTY P where VTR.TERM_HEADER_FK = VTH.ID and VTH.VOCAB_FK = 1 and P.ID = VTR.NAME_PROPERTY_FK;
 
+
+http://www.gissearch.com/location_extraction_solr
+
+testaggregator.openfamilyservices.org.uk/index/gaz/select?q=Sheffield some random text S11 9DE&qt=dismax&hl=true
+http://testaggregator.openfamilyservices.org.uk/index/gaz/select?q=(Childcare%20Sheffield%20Penzance)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=text&pf=text&hl.fl=fqn,text
+
+http://testaggregator.openfamilyservices.org.uk/index/gaz/select?q=(Childcare%20Sheffield%20Penzance)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&debugQuery=on&qf=text&pf=text&hl.fl=fqn&start=0&rows=1
+
+Gaz loaded from /home/ibbo/Desktop/data/postcode/paf/paf/uk_gaz.csv
+outcodes from /home/ibbo/old/dev/ispp/data/outcodes/outcodes_for_solr.csv
