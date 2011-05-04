@@ -112,12 +112,12 @@ class SearchController {
           sw.write("{!spatial lat=${qry_analysis_result.places[0].lat} long=${qry_analysis_result.places[0].lon} radius=5 unit=miles} ")
           result.place = qry_analysis_result.places[0];
           if ( ( qry_analysis_result.newqry != null ) && ( qry_analysis_result.newqry.length() > 0 ) ) {
-            println "${params.q} is a place query - with terms ${qry_analysis_result.newqry}"
+            // println "${params.q} is a place query - with terms ${qry_analysis_result.newqry}"
             sw.write(qry_analysis_result.newqry)
             result.keywords = qry_analysis_result.newqry;
           }
           else {
-            println "${params.q} is a place only query - Add a search for everything and just filter"
+            // println "${params.q} is a place only query - Add a search for everything and just filter"
             sw.write("*:*")
           }
         }

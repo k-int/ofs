@@ -35,7 +35,7 @@
           <div class="yui3-u" style="width:100%"> 
             <form action="/ofs/" method="get" > 
               <div class="search-box"> 
-                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q}" /><input class="uiw-button" value="Search" type="submit"/> 
+                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q?.encodeAsHTML()}" /><input class="uiw-button" value="Search" type="submit"/> 
                 <g:if test="${params.subject != null || params.flags != null || params.authority != null || params.restp != null}">
                   <ul style="display:inline" id="activefilters">
                     <g:if test="${params.restp != null}"><li style="display:inline"><g:message code="cv.restp"/>: <g:message code="cv.restp.${params.restp}"/></li></g:if>
@@ -85,7 +85,7 @@
             <g:if test="${(sr['address.line4'] != null ) && ( sr['address.line4'].length() > 0 )}">, ${sr['address.line4']}</g:if>
             <g:if test="${(sr['address.line5'] != null ) && ( sr['address.line5'].length() > 0 )}">, ${sr['address.line5']}</g:if>
           </li>
-          <g:if test="${sr['distance'] != null}"><li>Approximately ${ ((int)Math.abs( sr['distance'] * 100 ))/100 } - miles from ${params.placename}</li></g:if>
+          <g:if test="${sr['distance'] != null}"><li>Approximately ${ ((int)Math.abs( sr['distance'] * 100 ))/100 } - miles from ${place.fqn}</li></g:if>
 
           <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}"><li>Telephone: ${sr['telephone']}</li></g:if>
           <g:if test="${(sr['email'] != null ) && ( sr['email'].length() > 0 )}"><li>Email: <a href="mailto:${sr['email']}">${sr['email']}</a></li></g:if>
