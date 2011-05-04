@@ -129,7 +129,7 @@ class SearchController {
 
   // Take in a query string and return a new query with the place names stripped out and the lat/long of the place identified in the record
   def doSpatialProcessing(q) {
-    def result [:]
+    def result = [:]
     // Step one, throw the query at the gazetteer in dismax mode, see if we can resolve a placename
     def gaz_result = doDismaxGazQuery(q)
     // Yes - have a placename - Return the lat/long
