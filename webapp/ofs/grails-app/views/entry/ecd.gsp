@@ -38,12 +38,12 @@
 
         var map = new google.maps.Map(document.getElementById("map"), myOptions);
     
-        var marker = new google.maps.Marker({
-             position: myLatlng, 
-             map: map, 
-             title:"${entry['dc.title']}"
-        });   
-        marker.setMap(map);  
+        // var marker = new google.maps.Marker({
+        //      position: myLatlng, 
+        //      map: map, 
+        //      title:"${entry['dc.title']}"
+        // });   
+        // marker.setMap(map);  
       }
       //]]>
       </script>
@@ -84,7 +84,10 @@
         </div>
       </g:if>
 
-    <div id="map" style="width: 250px; height: 250px; float:right"></div>
+    <div id="rightpanel" style="float:right; width:250px;"> 
+      <div id="map" style="width: 250px; height: 250px;"></div>
+      <div style="text-align: center; margin-top:15px;">Specific Location Details witheld by request from ${entry['feedback_name_s']}</div>
+    </div>
 
   <h2>Basic Details</h2>
 
