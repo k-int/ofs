@@ -122,8 +122,14 @@ class SearchController {
           }
         }
         else {
-          sw.write(params.q)
-          result.keywords = qry_analysis_result.newqry;
+          if ( ( params.q != null ) && ( params.q.length() > 0 ) ) {
+            sw.write(params.q)
+            result.keywords = params.q
+          }
+          else {
+            sw.write("*:*")
+            result.keywords = "-Everything-"
+          }
         }
  
       }
@@ -245,6 +251,8 @@ class SearchController {
   def doDismaxGazQuery(q) {
 
     def gazresp = [:]
+    gazresp.places = []
+    gazresp.newq = "";
 
     // Step 1 : See if the input place name matches a fully qualified place name
     println "perform doDismaxGazQuery : ${q}"
@@ -263,7 +271,6 @@ class SearchController {
     solr_params.set("start", 0);
     solr_params.set("rows", "5");
 
-
     def response = solrGazBean.query(solr_params);
 
     // Try and do an exact place name match first of all
@@ -272,8 +279,6 @@ class SearchController {
 
       def newq = q.toLowerCase()
 
-      gazresp.places = []
-      gazresp.newq = "";
 
       response = solrGazBean.query(solr_params);
       response.getResults().each { doc ->
