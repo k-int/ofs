@@ -24,7 +24,7 @@ class SearchController {
   def index = { 
   }
 
-  def newSearch = {
+  def search = {
 
     def starttime = System.currentTimeMillis();
 
@@ -34,6 +34,12 @@ class SearchController {
     def search_results = null;
     def resp = null;
     def records_per_page = params.pagesize ?: 20;
+
+    if ( ( params.q == null ) && ( params.placename == null ) && ( params.keyword == null ) ) {
+      result['noqry'] = true
+      session.lastqry = null;
+      render(view:'searchfront',model:result)
+    }
 
     def lucene_query = buildQuery(params)
 
@@ -89,6 +95,7 @@ class SearchController {
       }
     }
 
+    // q as a paramter is a request for intelligent place/keyword processing
     if ( ( params != null ) && ( params.q != null ) ) {
       // If there was a query, process it
       if ( explicit_spatial ) {
@@ -97,7 +104,22 @@ class SearchController {
       }
       else {
         // See if we can separate out place keywords from subject keywords and "Do the right thing" - "TM"
-        def qry_analysis_result = doSpatialProcessing(params.q)
+        def qry_analysis_result = doDismaxGazQuery(params.q)
+        if ( ( qry_analysis_result.places != null ) && ( qry_analysis_result.places.size() > 0 ) ) {
+          sw.write("{!spatial lat=${qry_analysis_result.places[0].lat} long=${qry_analysis_result.places[0].lon} radius=5 unit=miles} ")
+          if ( ( qry_analysis_result.newqry != null ) && ( qry_analysis_result.newqry.length() > 0 ) ) {
+            println "${params.q} is a place query - with terms ${qry_analysis_result.newqry}"
+            sw.write(qry_analysis_result.newqry)
+          }
+          else {
+            println "${params.q} is a place only query - Add a search for everything and just filter"
+            sw.write("*:*")
+          }
+        }
+        else {
+          sw.write(params.q)
+        }
+ 
       }
     }
     else {
@@ -125,16 +147,6 @@ class SearchController {
     }
 
     sw.toString()
-  }
-
-  // Take in a query string and return a new query with the place names stripped out and the lat/long of the place identified in the record
-  def doSpatialProcessing(q) {
-    def result = [:]
-    // Step one, throw the query at the gazetteer in dismax mode, see if we can resolve a placename
-    def gaz_result = doDismaxGazQuery(q)
-    // Yes - have a placename - Return the lat/long
-    // No placename? it's just keywords
-    result
   }
 
   def doSearch(qry, records_per_page, defaultSortString, params) {
@@ -235,12 +247,13 @@ class SearchController {
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
     solr_params.set("q", "(${q})")
     solr_params.set("qt", "dismax");
-    solr_params.set("hl", "true");
     solr_params.set("sort", "score desc");
-    solr_params.set("fl", "authority,fqn,id,place_name,type,score");
+    solr_params.set("fl", "authority,fqn,id,place_name,type,score,centroid_lat,centroid_lon");
     solr_params.set("qf", "fqnidx")
     solr_params.set("pf", "fqnidx")
+    solr_params.set("hl", "true");
     solr_params.set("hl.fl", "fqnidx")
+    solr_params.set("f.fqnidx.mergeContiguous", "true")
     solr_params.set("start", 0);
     solr_params.set("rows", "5");
 
@@ -249,17 +262,39 @@ class SearchController {
 
     // Try and do an exact place name match first of all
     if ( response.getResults().getNumFound() > 0 ) {
-      println "Exact place name match..."
+      println "Located some matching gazetteer records...."
+
+      def newq = q;
+
+      gazresp.places = []
+      gazresp.newq = "";
 
       response = solrGazBean.query(solr_params);
       response.getResults().each { doc ->
-        def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type']]
+        def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type'], 'id':doc['id']]
+        println "adding response : ${sr}"
         gazresp.places.add(sr)
       }
 
+      def highlight_string = response.highlighting[gazresp.places[0].id].fqnidx
+      highlight_string.each { snippet ->
+        def cont_snipped = snippet.replaceAll("<\\/em><em>","")
+
+        println "Looking for matches in ${cont_snipped}"
+
+        cont_snipped.eachMatch('<em>.*?</em>') {  match ->
+          def term_to_remove = match.substring(4,match.length()-5)
+          println "Matched: ${term_to_remove} trying to remove that from ${newq}"
+          newq = newq.replaceAll(term_to_remove,"")
+          println "After replace, newq=${newq}"
+        }
+      }
+
       // Now set up the new query string which has all the placename components matched removed
-      gazresp.newqry = q
+      gazresp.newqry = newq.trim()
     }
+
+    println "At end, new query is ${gazresp.newqry}, located place is ${gazresp.places[0]}"
 
     gazresp
   }
@@ -355,7 +390,7 @@ class SearchController {
     }
   }
 
-  def search = {
+  def oldSearch = {
 
     def starttime = System.currentTimeMillis();
 

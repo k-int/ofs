@@ -86,7 +86,7 @@
 
     <div id="rightpanel" style="float:right; width:250px;"> 
       <div id="map" style="width: 250px; height: 250px;"></div>
-      <div style="text-align: center; margin-top:15px;">Specific Location Details witheld by request from ${entry['feedback_name_s']}</div>
+      <div style="text-align: center; margin-top:15px; width: 250px;">Specific Location Details witheld by request from ${entry['feedback_name_s']}</div>
     </div>
 
   <h2>Basic Details</h2>
