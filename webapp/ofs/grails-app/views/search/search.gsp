@@ -35,7 +35,7 @@
           <div class="yui3-u" style="width:100%"> 
             <form action="/ofs/" method="get" > 
               <div class="search-box"> 
-                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="placename" value="${params.q}" /><input class="uiw-button" value="Search" type="submit"/> 
+                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q}" /><input class="uiw-button" value="Search" type="submit"/> 
                 <g:if test="${params.subject != null || params.flags != null || params.authority != null || params.restp != null}">
                   <ul style="display:inline" id="activefilters">
                     <g:if test="${params.restp != null}"><li style="display:inline"><g:message code="cv.restp"/>: <g:message code="cv.restp.${params.restp}"/></li></g:if>
@@ -58,7 +58,13 @@
 
 <g:if test="${noqry != true}">
   <div class="searchflash">
-    ${search_results.results.numFound} records found in ${elapsed} seconds
+    <g:if test="${keywords != null}">
+      Looking for "${keywords}" 
+    </g:if>
+    <g:if test="${place != null}">
+      Near "${place.fqn}"
+    </g:if>
+    <br/>${search_results.results.numFound} records found in ${elapsed} seconds
   </div>
   <ul>
     <g:each status="s" in="${search_results.results}" var="sr">

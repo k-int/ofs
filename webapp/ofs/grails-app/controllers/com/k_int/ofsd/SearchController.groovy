@@ -41,7 +41,7 @@ class SearchController {
       render(view:'searchfront',model:result)
     }
 
-    def lucene_query = buildQuery(params)
+    def lucene_query = buildQuery(params, result)
 
     def sort_string = null;
     if ( lucene_query.contains("!spatial") ) {
@@ -78,7 +78,8 @@ class SearchController {
     result
   }
 
-  def buildQuery(params) {
+  def buildQuery(params, result) {
+
     boolean conjunction = false;
     boolean explicit_spatial = false;
     StringWriter sw = new StringWriter()
@@ -91,6 +92,7 @@ class SearchController {
         if ( gaz_response.size() > 0 ) {
           sw.write("{!spatial lat=${gaz_response[0].lat} long=${gaz_response[0].lon} radius=5 unit=miles} ")
           explicit_spatial = true
+          result.place = gaz_response[0];
         }
       }
     }
@@ -101,15 +103,18 @@ class SearchController {
       if ( explicit_spatial ) {
         // We were passed an explicit placename query, just treat q as keywords
         sw.write(params.q)
+        result.keywords = qry_analysis_result.newqry;
       }
       else {
         // See if we can separate out place keywords from subject keywords and "Do the right thing" - "TM"
         def qry_analysis_result = doDismaxGazQuery(params.q)
         if ( ( qry_analysis_result.places != null ) && ( qry_analysis_result.places.size() > 0 ) ) {
           sw.write("{!spatial lat=${qry_analysis_result.places[0].lat} long=${qry_analysis_result.places[0].lon} radius=5 unit=miles} ")
+          result.place = qry_analysis_result.places[0];
           if ( ( qry_analysis_result.newqry != null ) && ( qry_analysis_result.newqry.length() > 0 ) ) {
             println "${params.q} is a place query - with terms ${qry_analysis_result.newqry}"
             sw.write(qry_analysis_result.newqry)
+            result.keywords = qry_analysis_result.newqry;
           }
           else {
             println "${params.q} is a place only query - Add a search for everything and just filter"
@@ -118,6 +123,7 @@ class SearchController {
         }
         else {
           sw.write(params.q)
+          result.keywords = qry_analysis_result.newqry;
         }
  
       }
@@ -264,7 +270,7 @@ class SearchController {
     if ( response.getResults().getNumFound() > 0 ) {
       println "Located some matching gazetteer records...."
 
-      def newq = q;
+      def newq = q.toLowerCase()
 
       gazresp.places = []
       gazresp.newq = "";
@@ -283,7 +289,7 @@ class SearchController {
         println "Looking for matches in ${cont_snipped}"
 
         cont_snipped.eachMatch('<em>.*?</em>') {  match ->
-          def term_to_remove = match.substring(4,match.length()-5)
+          def term_to_remove = match.substring(4,match.length()-5).toLowerCase()
           println "Matched: ${term_to_remove} trying to remove that from ${newq}"
           newq = newq.replaceAll(term_to_remove,"")
           println "After replace, newq=${newq}"
