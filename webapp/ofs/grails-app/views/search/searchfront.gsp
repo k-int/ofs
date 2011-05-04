@@ -43,17 +43,12 @@
           </div> 
         </form> 
       </div> 
-      <div class="yui3-u" style="width:100%"> 
+      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px;"> 
 OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services.  The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal.
       </div>
     </div>    
 
-    <div class="footerlinks yui3-u">
-      &nbsp;<br/>
-      &nbsp;<br/>
-      &nbsp;<br/>
-      &nbsp;<br/>
-      &nbsp;<br/>
+    <div class="footerlinks yui3-u" style="margin-top:30px">
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a> <br/>

@@ -144,11 +144,8 @@
       </div><!--SearchResults-->
     </div>
 
-
-    <div class="yui3-u footerlinks">
-      &nbsp;<br/>
-      &nbsp;<br/>
-      &nbsp;<br/>
+    
+    <div class="yui-3u footerlinks" style="clear:both; margin-top:30px">&nbsp;<br/>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a> <br/>
@@ -162,7 +159,6 @@
       }
       </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     </div>
-
 
   </body>
 </html>
