@@ -39,7 +39,7 @@
       <div class="yui3-u" style="width:100%"> 
         <form action="/ofs/" method="get" > 
           <div class="search-box"> 
-            <g:message code="ofs.search.prompt"/> <input class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+            <div class="srchprompt"></div><!-- g:message code="ofs.search.prompt"--> <input class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
           </div> 
         </form> 
       </div> 

@@ -24,7 +24,7 @@ class SearchController {
   def index = { 
   }
 
-  def search = {
+  def newSearch = {
 
     def starttime = System.currentTimeMillis();
 
@@ -35,29 +35,19 @@ class SearchController {
     def resp = null;
     def records_per_page = params.pagesize ?: 20;
 
+    def lucene_query = buildQuery(params)
 
-    if ( ( ( params.placename != null ) && ( params.placename.length() > 0 ) ) ||
-         ( ( params.subject != null ) && ( params.subject.length() > 0 ) ) ) {
-      def lucene_query = buildQuery(params)
-
-      def sort_string = null;
-      if ( lucene_query.contains("!spatial") ) {
-        println "Query contains a spatial component, default sort by distance"
-        sort_string = "distance asc";
-      }
-
-      if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
-        result['search_results'] = doSearch(lucene_query, 10, sort_string, params)
-        result['qry'] = lucene_query
-      }
+    def sort_string = null;
+    if ( lucene_query.contains("!spatial") ) {
+      println "Query contains a spatial component, default sort by distance"
+      sort_string = "distance asc";
     }
-    else {
-      result['noqry'] = true
-      session.lastqry = null;
-      render(view:'searchfront',model:result)
-    }
-   
 
+    if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
+      result['search_results'] = doSearch(lucene_query, 10, sort_string, params)
+      result['qry'] = lucene_query
+    }
+    
     result['facetFieldMappings'] = facetFieldMapping
     result['elapsed'] = "" + ( ( System.currentTimeMillis() - starttime ) / 1000 )
 
@@ -84,6 +74,7 @@ class SearchController {
 
   def buildQuery(params) {
     boolean conjunction = false;
+    boolean explicit_spatial = false;
     StringWriter sw = new StringWriter()
 
     // Add in any spatial restriction
@@ -93,13 +84,21 @@ class SearchController {
         println "Result of gaz lookup : ${gaz_response}"
         if ( gaz_response.size() > 0 ) {
           sw.write("{!spatial lat=${gaz_response[0].lat} long=${gaz_response[0].lon} radius=5 unit=miles} ")
+          explicit_spatial = true
         }
       }
     }
 
     if ( ( params != null ) && ( params.q != null ) ) {
       // If there was a query, process it
-      sw.write(params.q)
+      if ( explicit_spatial ) {
+        // We were passed an explicit placename query, just treat q as keywords
+        sw.write(params.q)
+      }
+      else {
+        // See if we can separate out place keywords from subject keywords and "Do the right thing" - "TM"
+        def qry_analysis_result = doSpatialProcessing(params.q)
+      }
     }
     else {
       // Search for everything and let the user restrict using filters
@@ -126,6 +125,16 @@ class SearchController {
     }
 
     sw.toString()
+  }
+
+  // Take in a query string and return a new query with the place names stripped out and the lat/long of the place identified in the record
+  def doSpatialProcessing(q) {
+    def result [:]
+    // Step one, throw the query at the gazetteer in dismax mode, see if we can resolve a placename
+    def gaz_result = doDismaxGazQuery(q)
+    // Yes - have a placename - Return the lat/long
+    // No placename? it's just keywords
+    result
   }
 
   def doSearch(qry, records_per_page, defaultSortString, params) {
@@ -215,6 +224,45 @@ class SearchController {
     gazresp
   }
 
+  def doDismaxGazQuery(q) {
+
+    def gazresp = [:]
+
+    // Step 1 : See if the input place name matches a fully qualified place name
+    println "perform doDismaxGazQuery : ${q}"
+
+    // http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20S3%208PZ)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&qf=text&pf=fqnidx&hl.fl=fqnidx&start=0&rows=1
+    ModifiableSolrParams solr_params = new ModifiableSolrParams();
+    solr_params.set("q", "(${q})")
+    solr_params.set("qt", "dismax");
+    solr_params.set("hl", "true");
+    solr_params.set("sort", "score desc");
+    solr_params.set("fl", "authority,fqn,id,place_name,type,score");
+    solr_params.set("qf", "fqnidx")
+    solr_params.set("pf", "fqnidx")
+    solr_params.set("hl.fl", "fqnidx")
+    solr_params.set("start", 0);
+    solr_params.set("rows", "5");
+
+
+    def response = solrGazBean.query(solr_params);
+
+    // Try and do an exact place name match first of all
+    if ( response.getResults().getNumFound() > 0 ) {
+      println "Exact place name match..."
+
+      response = solrGazBean.query(solr_params);
+      response.getResults().each { doc ->
+        def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type']]
+        gazresp.places.add(sr)
+      }
+
+      // Now set up the new query string which has all the placename components matched removed
+      gazresp.newqry = q
+    }
+
+    gazresp
+  }
 
   def renderRSSResponse(results) {
 
@@ -305,6 +353,64 @@ class SearchController {
     doc.getFieldValues(solr_field).each { value ->
       docinfo.add([output_field, value])
     }
+  }
+
+  def search = {
+
+    def starttime = System.currentTimeMillis();
+
+    println "Search action Conf=${params.conf}"
+
+    def result = [:]
+    def search_results = null;
+    def resp = null;
+    def records_per_page = params.pagesize ?: 20;
+
+
+    if ( ( ( params.placename != null ) && ( params.placename.length() > 0 ) ) ||
+         ( ( params.subject != null ) && ( params.subject.length() > 0 ) ) ) {
+      def lucene_query = buildQuery(params)
+
+      def sort_string = null;
+      if ( lucene_query.contains("!spatial") ) {
+        println "Query contains a spatial component, default sort by distance"
+        sort_string = "distance asc";
+      }
+
+      if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
+        result['search_results'] = doSearch(lucene_query, 10, sort_string, params)
+        result['qry'] = lucene_query
+      }
+    }
+    else {
+      result['noqry'] = true
+      session.lastqry = null;
+      render(view:'searchfront',model:result)
+    }
+   
+
+    result['facetFieldMappings'] = facetFieldMapping
+    result['elapsed'] = "" + ( ( System.currentTimeMillis() - starttime ) / 1000 )
+
+    switch(params.format) {
+      case 'rss':
+      case 'RSS':
+        // println "RSS"
+        renderRSSResponse( result )
+        break;
+      case 'atom':
+      case 'atom':
+        // println "ATOM"
+        renderATOMResponse( result )
+        break;
+      case 'html':
+      case 'HTML':
+      default:
+        // Default will render the search response page....
+        break;
+    }
+
+    result
   }
 
 }
