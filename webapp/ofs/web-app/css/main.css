@@ -231,3 +231,9 @@ h1 strong {
 	-webkit-box-shadow: 1px 1px 10px #666;
 	margin-left: 10px
 }
+
+.opaque50 {
+opacity: .5;
+      -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+      filter: alpha(opacity=50);   
+}

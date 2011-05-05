@@ -70,7 +70,11 @@
     <g:each status="s" in="${search_results.results}" var="sr">
 
       <li><!--[${s+search_results.results.start}]-->
-        <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
+        <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}">
+          <g:if test="${provserv.lookupProviderInformation(sr['authority_shortcode']) != null }"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
+          <g:else><img src="${sr['icon_url_s']}" style="float:right" class="opaque50"/></g:else>
+        </g:if>
+         
         <ul>
 
           <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong> <g:if test="${( sr['childcare_type_s'] != null )}">${sr['childcare_type_s']}</g:if></li>
@@ -94,14 +98,23 @@
 	    <li>Last modified: ${sr['modified'].substring(0,sr['modified'].indexOf("T"))}</li>
           </g:if>
 
-          <g:if test="${( sr['feedback_url_s'] != null )}">
-            <g:if test="${(sr['feedback_url_s'].indexOf('@') > 0)}">
-              <li>Via: <a href="mailto:${sr['feedback_url_s']}">${sr['feedback_name_s']}</a></li>
+          <li>
+            <g:if test="${( sr['feedback_url_s'] != null )}">
+              <g:if test="${(sr['feedback_url_s'].indexOf('@') > 0)}">
+                Via: <a href="mailto:${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+              </g:if>
+              <g:else>
+                Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+              </g:else>
+            </g:if>
+
+            <g:if test="${provserv.lookupProviderInformation(sr['authority_shortcode']) != null }">
+              ${sr['feedback_name_s']} is an proactive contributor to Open Family Services, this information is up to date!
             </g:if>
             <g:else>
-              <li>Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a></li>
+              ${sr['feedback_name_s']} Does not actively contribute data to this service and is not responsible for it's maintenance. The information may be wrong or out of date.
             </g:else>
-          </g:if>
+          </li>
 
         </ul>
       </li>

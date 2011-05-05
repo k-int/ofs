@@ -20,6 +20,7 @@ class SearchController {
 
   def solrServerBean
   def solrGazBean
+  def providerInformationService
 
   def index = { 
   }
@@ -28,9 +29,11 @@ class SearchController {
 
     def starttime = System.currentTimeMillis();
 
-    println "Search action Conf=${params.conf}"
+    println "Search action Conf=${params.conf} pis=${providerInformationService}"
 
     def result = [:]
+    result['provserv'] = providerInformationService
+
     def search_results = null;
     def resp = null;
     def records_per_page = params.pagesize ?: 20;
@@ -270,7 +273,7 @@ class SearchController {
     solr_params.set("f.fqnidx.mergeContiguous", "true")
     solr_params.set("start", 0);
     solr_params.set("rows", "5");
-    solr_params.set("fq", "(type=\"1. postcode\" OR type=\"3. Locality\" OR type=\"3.locality\" OR type=\"4.PostTown\")");
+    solr_params.set("fq", "type:\"1. postcode\" OR type:\"3. Locality\" OR type:\"3.locality\" OR type:\"4.PostTown\"");
 
     def response = solrGazBean.query(solr_params);
 
