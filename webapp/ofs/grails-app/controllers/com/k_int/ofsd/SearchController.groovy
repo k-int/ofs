@@ -270,6 +270,7 @@ class SearchController {
     solr_params.set("f.fqnidx.mergeContiguous", "true")
     solr_params.set("start", 0);
     solr_params.set("rows", "5");
+    solr_params.set("fq", "(type=\"1. postcode\" OR type=\"3. Locality\" OR type=\"3.locality\" OR type=\"4.PostTown\")");
 
     def response = solrGazBean.query(solr_params);
 
