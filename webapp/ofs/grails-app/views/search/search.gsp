@@ -69,11 +69,7 @@
   <ul>
     <g:each status="s" in="${search_results.results}" var="sr">
 
-      <li><!--[${s+search_results.results.start}]-->
-        <g:if test="${(sr['icon_url_s'] != null ) && ( sr['icon_url_s'].length() > 0 )}">
-          <g:if test="${provserv.lookupProviderInformation(sr['authority_shortcode']) != null }"><img src="${sr['icon_url_s']}" style="float:right"/></g:if>
-          <g:else><img src="${sr['icon_url_s']}" style="float:right" class="opaque50"/></g:else>
-        </g:if>
+      <li>
          
         <ul>
 
