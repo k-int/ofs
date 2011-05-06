@@ -22,11 +22,14 @@ class EntryController {
 
   def solrServerBean
   def dppRestBuilder
+  def providerInformationService
 
   def index = { 
     println "Entry: ${params.id}"
 
     def result = [:]
+    result['provserv'] = providerInformationService
+
 
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
     solr_params.set("q", "aggregator.internal.id:${params.id}")

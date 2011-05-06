@@ -6,6 +6,7 @@ class ProviderInformationService {
 
     def members = [
       'Dorset__County_Council' :                ["name":"Dorset"],
+      'Dorset_County_Council' :                 ["name":"Dorset"],  // This is how it is on test :(
       'Kent_County_Council' :                   ["name":"Kent"],
       'Luton_Borough_Council' :                 ["name":"Luton"],
       'North_Somerset_Council' :                ["name":"North Somerset"],

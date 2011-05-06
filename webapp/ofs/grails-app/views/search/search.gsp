@@ -35,7 +35,7 @@
           <div class="yui3-u" style="width:100%"> 
             <form action="/ofs/" method="get" > 
               <div class="search-box"> 
-                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q?.encodeAsHTML()}" /><input class="uiw-button" value="Search" type="submit"/> 
+                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="placename" value="${params.placename?.encodeAsHTML()}" /><input class="uiw-button" value="Search" type="submit"/> 
                 <g:if test="${params.subject != null || params.flags != null || params.authority != null || params.restp != null}">
                   <ul style="display:inline" id="activefilters">
                     <g:if test="${params.restp != null}"><li style="display:inline"><g:message code="cv.restp"/>: <g:message code="cv.restp.${params.restp}"/></li></g:if>
@@ -109,10 +109,10 @@
             </g:if>
 
             <g:if test="${provserv.lookupProviderInformation(sr['authority_shortcode']) != null }">
-              ${sr['feedback_name_s']} is an proactive contributor to Open Family Services, this information is up to date!
+              ${sr['feedback_name_s']} is an active contributor to Open Family Services, this information is up to date!
             </g:if>
             <g:else>
-              ${sr['feedback_name_s']} Does not actively contribute data to this service and is not responsible for it's maintenance. The information may be wrong or out of date.
+              ${sr['feedback_name_s']} Does not actively update records in this service, and takes no responsibility for it's accuracy. The information may be wrong or out of date.
             </g:else>
           </li>
 

@@ -93,6 +93,22 @@
 
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}">Last Modified: ${entry['modified']}<br/></g:if>
 
+      <g:if test="${( entry['feedback_url_s'] != null )}">
+        <g:if test="${(entry['feedback_url_s'].indexOf('@') > 0)}">
+          Via: <a href="mailto:${entry['feedback_url_s']}">${entry['feedback_name_s']}</a>.
+        </g:if>
+        <g:else>
+          Via: <a href="http://${entry['feedback_url_s']}">${entry['feedback_name_s']}</a>.
+        </g:else>
+      </g:if>
+
+      <g:if test="${provserv.lookupProviderInformation(entry['authority_shortcode']) != null }">
+        ${entry['feedback_name_s']} is an active contributor to Open Family Services, this information is up to date!
+      </g:if>
+      <g:else>
+        ${entry['feedback_name_s']} Does not actively update records in this service, and takes no responsibility for it's accuracy. The information may be wrong or out of date.
+      </g:else>
+      </br>
 
       <h2>Contact Details</h2>
       <h3>Address</h3>
