@@ -26,13 +26,16 @@ a:link, a:active {
 	color: #080
 }
 
+.searchrow {
+  float:right;
+}
 
 .search-box {
 	border-radius: 5px;	
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	margin: 20px auto 10px;
-	width: 400px;	
+	width: 420px;	
 	background: #f3f3f3;
 	font-size: 150%;
 	padding: 10px;

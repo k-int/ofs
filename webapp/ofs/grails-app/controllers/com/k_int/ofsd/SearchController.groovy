@@ -131,11 +131,15 @@ class SearchController {
           }
           else {
             sw.write("*:*")
-            result.keywords = "-Everything-"
+            result.keywords = params.keyword
           }
         }
  
       }
+    }
+    else if ( params.keywords != null )  {
+      result.keywords=params.keywords
+      sw.write(params.keywords)
     }
     else {
       // Search for everything and let the user restrict using filters

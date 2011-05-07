@@ -6,6 +6,7 @@
     <title>OFS Search</title>
   </head>
   <body class="search-results">
+
 <div style="float:right">
    <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style ">
@@ -38,12 +39,18 @@
 
       <div class="yui3-u" style="width:100%"> 
         <form action="/ofs/" method="get" > 
-          <div class="search-box"> 
-            <div class="srchprompt"></div><!-- g:message code="ofs.search.prompt"--> <input class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+          <div class="search-box">
+            <div class="searchrow"> 
+              <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
+            </div>
+            <div class="searchrow"> 
+              <g:message code="ofs.search.placeprompt"/> <input class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+            </div>
+            &nbsp;
           </div> 
         </form> 
       </div> 
-      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px;"> 
+      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px; clear:both;"> 
 OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services.  The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal.
       </div>
     </div>    
