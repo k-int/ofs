@@ -4,7 +4,10 @@
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="main" />
     <title>OFS Search</title>
+    <script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js" charset="utf-8"></script>
+
   </head>
+
   <body class="search-results">
 
 <div style="float:right">
@@ -44,7 +47,7 @@
               <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
             </div>
             <div class="searchrow"> 
-              <g:message code="ofs.search.placeprompt"/> <input class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+              <g:message code="ofs.search.placeprompt"/> <input id="place-input" class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
             </div>
             &nbsp;
           </div> 
@@ -69,5 +72,17 @@ OpenFamilyServices is the national online directory where you can search for and
       }
       </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
     </div>
+
+    <script>
+      YUI().use("autocomplete", function (Y) {
+        Y.one('#place-input').plug(Y.Plugin.AutoComplete, {
+          // resultHighlighter: 'phraseMatch',
+          resultListLocator: 'results',
+          resultTextLocator: 'fqn',
+          source: 'http://localhost:8080/ofs/gaz?q={query}&callback={callback}'
+        });
+      });
+    </script>
+
   </body>
 </html>

@@ -288,7 +288,7 @@ class SearchController {
       def newq = q.toLowerCase()
 
 
-      response = solrGazBean.query(solr_params);
+      // response = solrGazBean.query(solr_params);
       response.getResults().each { doc ->
         def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type'], 'id':doc['id']]
         println "adding response : ${sr}"
