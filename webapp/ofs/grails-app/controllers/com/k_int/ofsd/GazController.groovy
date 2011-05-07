@@ -20,24 +20,25 @@ class GazController {
       println "Gaz called"
       def gazresp = doDismaxGazQuery(params.q)
       def results = ["results":gazresp]
+
       if ( params.callback != null ) {
         render "${params.callback}(${results as JSON})"
       } else {
         render results as JSON
       }
-
-      render results as JSON
     }
 
     def doDismaxGazQuery(q) {
 
     def gazresp = []
 
+    def the_query = q.replaceAll('"',"").toLowerCase()
+    
     // Step 1 : See if the input place name matches a fully qualified place name
-    println "perform doDismaxGazQuery : ${q}"
+    println "perform doDismaxGazQuery : \"qzyf ${the_query}\"" // qzyf is our special private "Left anchor"
 
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
-    solr_params.set("q", "fqnidx:${q}*")
+    solr_params.set("q", "fqnidx:\"qzyf ${the_query}\"")
     // solr_params.set("qt", "dismax");
     solr_params.set("sort", "type desc, score desc");
     solr_params.set("fl", "authority,fqn,type,score");
@@ -51,6 +52,9 @@ class GazController {
     // solr_params.set("fq", "type:\"1. postcode\" OR type:\"3. Locality\" OR type:\"3.locality\" OR type:\"4.PostTown\"");
 
     def response = solrGazBean.query(solr_params);
+
+    println "Located ${response.getResults().getNumFound()} matching gazetteer records for ${q}...."
+
 
     // Try and do an exact place name match first of all
     if ( response.getResults().getNumFound() > 0 ) {
