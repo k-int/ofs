@@ -90,12 +90,16 @@ class SearchController {
     // Add in any spatial restriction
     if ( ( params.placename != null ) && ( params.placename.length() > 0 ) ) {
       def gaz_response = resolvePlaceName(params.placename)
+
       if ( gaz_response != null ) {
         println "Result of gaz lookup : ${gaz_response}"
         if ( gaz_response.size() > 0 ) {
           sw.write("{!spatial lat=${gaz_response[0].lat} long=${gaz_response[0].lon} radius=5 unit=miles} ")
           explicit_spatial = true
           result.place = gaz_response[0];
+        }
+        else {
+          println "Unhandled case - placename resolved ${gaz_response.size()} places"
         }
       }
     }
@@ -138,8 +142,14 @@ class SearchController {
       }
     }
     else if ( params.keywords != null )  {
-      result.keywords=params.keywords
-      sw.write(params.keywords)
+      if ( ( params.keywords != null ) && ( params.keywords.length() > 0 ) ) {
+        result.keywords=params.keywords
+        sw.write(params.keywords)
+      }
+      else {
+        result.keywords="Everything..."
+        sw.write("*:*")
+      }
     }
     else {
       // Search for everything and let the user restrict using filters
@@ -220,6 +230,7 @@ class SearchController {
 
   def resolvePlaceName(query_input) {
 
+    println "Resolve place name in ${query_input}"
     def gazresp = []
 
     // Step 1 : See if the input place name matches a fully qualified place name
@@ -235,7 +246,7 @@ class SearchController {
     // Try and do an exact place name match first of all
     if ( response.getResults().getNumFound() == 1 ) {
       println "Exact place name match..."
-      doc = response.getResults().get(0);
+      def doc = response.getResults().get(0);
       def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type']]
       gazresp.add(sr)
     }
@@ -268,7 +279,7 @@ class SearchController {
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
     solr_params.set("q", "(${q})")
     solr_params.set("qt", "dismax");
-    solr_params.set("sort", "score desc");
+    solr_params.set("sort", "type desc, score desc");
     solr_params.set("fl", "authority,fqn,id,place_name,type,score,centroid_lat,centroid_lon");
     solr_params.set("qf", "fqnidx")
     solr_params.set("pf", "fqnidx")

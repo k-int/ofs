@@ -32,13 +32,13 @@ class GazController {
 
     def gazresp = []
 
-    def the_query = q.replaceAll('"',"").toLowerCase()
+    def the_query = "qzyf ${q.replaceAll('"',"").toLowerCase()}"
     
     // Step 1 : See if the input place name matches a fully qualified place name
-    println "perform doDismaxGazQuery : \"qzyf ${the_query}\"" // qzyf is our special private "Left anchor"
+    println "perform query for : ${the_query}" // qzyf is our special private "Left anchor"
 
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
-    solr_params.set("q", "fqnidx:\"qzyf ${the_query}\"")
+    solr_params.set("q", "fqnidx:\"${the_query}\"")
     // solr_params.set("qt", "dismax");
     solr_params.set("sort", "type desc, score desc");
     solr_params.set("fl", "authority,fqn,type,score");
