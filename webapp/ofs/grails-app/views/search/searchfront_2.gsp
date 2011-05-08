@@ -4,6 +4,8 @@
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="main" />
     <title>OFS Search</title>
+    <script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js" charset="utf-8"></script>
+
   </head>
 
   <body class="search-results">
@@ -28,6 +30,10 @@
     <div class="yui3-g"> 
 
       <div class="splash"></div>
+      <!--
+      <div class="maintitle">&nbsp;<br/>OpenFamilyServices</div>
+      <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
+      -->
 
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
@@ -37,7 +43,12 @@
       <div class="yui3-u" style="width:100%"> 
         <form action="/ofs/" method="get" > 
           <div class="search-box">
-              <div class="srchprompt"></div><g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
+            <div class="searchrow"> 
+              <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
+            </div>
+            <div class="searchrow"> 
+              <g:message code="ofs.search.placeprompt"/> <input id="place-input" class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+            </div>
             &nbsp;
           </div> 
         </form> 
