@@ -279,7 +279,8 @@ class SearchController {
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
     solr_params.set("q", "(${q})")
     solr_params.set("qt", "dismax");
-    solr_params.set("sort", "type desc, score desc");
+    // solr_params.set("sort", "type desc, score desc");
+    solr_params.set("sort", "score desc");
     solr_params.set("fl", "authority,fqn,id,place_name,type,score,centroid_lat,centroid_lon");
     solr_params.set("qf", "fqnidx")
     solr_params.set("pf", "fqnidx")
