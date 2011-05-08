@@ -273,7 +273,7 @@ class SearchController {
     gazresp.newq = "";
 
     // Step 1 : See if the input place name matches a fully qualified place name
-    println "perform doDismaxGazQuery : ${q}"
+    println "perform doDismaxGazQuery : ${q}."
 
     // http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20S3%208PZ)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&qf=text&pf=fqnidx&hl.fl=fqnidx&start=0&rows=1
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
@@ -288,8 +288,10 @@ class SearchController {
     solr_params.set("f.fqnidx.mergeContiguous", "true")
     solr_params.set("start", 0);
     solr_params.set("rows", "5");
-    solr_params.set("fq", "type:\"1. postcode\" OR type:\"3. Locality\" OR type:\"3.locality\" OR type:\"4.PostTown\"");
+    solr_params.set("fq", "type:\"1. postcode\" OR type:\"3. Locality\" OR type:\"3.locality\" OR type:\"4. PostTown\"");
 
+
+    println "Trying to resolve place - ${solr_params}"
     def response = solrGazBean.query(solr_params);
 
     // Try and do an exact place name match first of all
