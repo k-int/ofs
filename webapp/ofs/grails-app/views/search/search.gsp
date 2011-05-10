@@ -102,20 +102,19 @@
           </g:if>
 
           <li>
-            <g:if test="${( sr['feedback_url_s'] != null )}">
-              <g:if test="${(sr['feedback_url_s'].indexOf('@') > 0)}">
-                Via: <a href="mailto:${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
-              </g:if>
-              <g:else>
-                Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
-              </g:else>
-            </g:if>
-
             <g:if test="${provserv.lookupProviderInformation(sr['authority_shortcode']) != null }">
-              ${sr['feedback_name_s']} is an active contributor to Open Family Services, this information is up to date!
+              <g:if test="${( sr['feedback_url_s'] != null )}">
+                <g:if test="${(sr['feedback_url_s'].indexOf('@') > 0)}">
+                  Via: <a href="mailto:${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+                </g:if>
+                <g:else>
+                  Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+                </g:else>
+              </g:if>
+              (an active contributor to Open Family Services, this information is up to date!)
             </g:if>
             <g:else>
-              ${sr['feedback_name_s']} Does not actively update records in this service, and takes no responsibility for it's accuracy. The information may be wrong or out of date.
+              Derived from information prepared by ${sr['feedback_name_s']}
             </g:else>
           </li>
 
