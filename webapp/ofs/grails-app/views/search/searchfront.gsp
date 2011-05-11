@@ -31,7 +31,7 @@
 
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
-        Enter your postcode, town, village or street into the search box below, and get instant access to details of your local services and activities.
+        Enter your postcode (full postcodes work best), town or village into the search box below, along with any optional keywords and get instant access to details of your local services and activities.
       </div>
 
       <div class="yui3-u" style="width:100%"> 
