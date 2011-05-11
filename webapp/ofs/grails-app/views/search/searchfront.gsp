@@ -50,7 +50,8 @@ OpenFamilyServices is the national online directory where you can search for and
     <div class="footerlinks yui3-u" style="margin-top:30px">
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
-      <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a> <br/>
+      <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a>
+      <a href="http://partners.openfamilyservices.org.uk/?page_id=113">Information Consent/Privacy</a> <br/>
 
       <div id="google_translate_element"></div><script>
       function googleTranslateElementInit() {
