@@ -16,6 +16,8 @@ class UrlMappings {
     "/directory/${authority}/sitemap" (controller:"siteMapindex", action:"authsitemap")
     "/directory/$authority/$id" (controller:"entry", action:"index")
 
+    "/gaz" (controller:"gaz", action:"index")
+
     "/" (controller:"search", action:"search")
 
     "500"(view:'/error')
