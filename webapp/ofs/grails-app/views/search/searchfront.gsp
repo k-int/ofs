@@ -37,7 +37,7 @@
       <div class="yui3-u" style="width:100%"> 
         <form action="/ofs/" method="get" > 
           <div class="search-box">
-              <div class="srchprompt"></div><g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
+              <div class="srchprompt"></div><input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
             &nbsp;
           </div> 
         </form> 

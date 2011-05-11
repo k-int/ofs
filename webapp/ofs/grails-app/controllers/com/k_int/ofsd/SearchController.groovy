@@ -114,7 +114,9 @@ class SearchController {
       }
       else {
         // See if we can separate out place keywords from subject keywords and "Do the right thing" - "TM"
-        def qry_analysis_result = doDismaxGazQuery(params.q)
+        // def qry_analysis_result = doDismaxGazQuery(params.q,"fqnidx","fqnidx")
+        def qry_analysis_result = doDismaxGazQuery(params.q,"place_name alias","place_name alias")
+        println "Result of query analysis: ${qry_analysis_result}"
         if ( ( qry_analysis_result.places != null ) && ( qry_analysis_result.places.size() > 0 ) ) {
           sw.write("{!spatial lat=${qry_analysis_result.places[0].lat} long=${qry_analysis_result.places[0].lon} radius=5 unit=miles} ")
           result.place = qry_analysis_result.places[0];
@@ -231,7 +233,9 @@ class SearchController {
   def resolvePlaceName(query_input) {
 
     println "Resolve place name in ${query_input}"
-    def gazresp = []
+    def gazresp = [:]
+    gazresp.places = []
+    gazresp.newq = "";
 
     // Step 1 : See if the input place name matches a fully qualified place name
     println "exact match q params: ${query_input}"
@@ -247,8 +251,8 @@ class SearchController {
     if ( response.getResults().getNumFound() == 1 ) {
       println "Exact place name match..."
       def doc = response.getResults().get(0);
-      def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type']]
-      gazresp.add(sr)
+      def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type'], 'alias':doc['alaias']]
+      gazresp.places.add(sr)
     }
     else {
       // Doing text match on place name...
@@ -258,15 +262,22 @@ class SearchController {
       println "Attempting generic place name match ${solr_params}"
       response = solrGazBean.query(solr_params);
       response.getResults().each { doc ->
-        def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type']]
-        gazresp.add(sr)
+        def sr = ['lat':doc['centroid_lat'],'lon':doc['centroid_lon'], 'name':doc['place_name'], 'fqn':doc['fqn'], 'type':doc['type'], 'alias':doc['alaias']]
+        gazresp.places.add(sr)
       }
+    }
+
+    if ( gazresp.places.length > 0 ) {
+      // Remove any instances of postcode or alias from the query
+      gazresp.newq = "${query_input}"
+      gazresp.newq = query_input.replaceAll("${gazresp.places[0].name}","")
+      gazresp.newq = gazresp.newq.replaceAll("${gazresp.places[0].alias}","")
     }
 
     gazresp
   }
 
-  def doDismaxGazQuery(q) {
+  def doDismaxGazQuery(q,qf,pf) {
 
     def gazresp = [:]
     gazresp.places = []
@@ -282,8 +293,8 @@ class SearchController {
     // solr_params.set("sort", "type desc, score desc");
     solr_params.set("sort", "score desc");
     solr_params.set("fl", "authority,fqn,id,place_name,type,score,centroid_lat,centroid_lon");
-    solr_params.set("qf", "fqnidx")
-    solr_params.set("pf", "fqnidx")
+    solr_params.set("qf", qf)
+    solr_params.set("pf", pf)
     solr_params.set("hl", "true");
     solr_params.set("hl.fl", "fqnidx")
     solr_params.set("f.fqnidx.mergeContiguous", "true")
