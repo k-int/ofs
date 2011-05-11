@@ -64,7 +64,11 @@
     <g:if test="${place != null}">
       Near "${place.fqn}"
     </g:if>
-    <br/>${search_results.results.numFound} records found in ${elapsed} seconds
+    
+    <br/>${search_results.results.numFound} records found in ${elapsed} seconds.
+    <g:if test="${place != null}">
+      Guessed Place Wrong?  <g:link action="search" controller="search" params="${['keywords':params.q]}">Query again as keywords only</g:link>
+    </g:if>
   </div>
   <ul>
     <g:each status="s" in="${search_results.results}" var="sr">

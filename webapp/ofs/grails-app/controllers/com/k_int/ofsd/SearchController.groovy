@@ -38,7 +38,7 @@ class SearchController {
     def resp = null;
     def records_per_page = params.pagesize ?: 20;
 
-    if ( ( params.q == null ) && ( params.placename == null ) && ( params.keyword == null ) ) {
+    if ( ( params.q == null ) && ( params.placename == null ) && ( params.keywords == null ) ) {
       result['noqry'] = true
       session.lastqry = null;
       render(view:'searchfront',model:result)
@@ -137,7 +137,7 @@ class SearchController {
           }
           else {
             sw.write("*:*")
-            result.keywords = params.keyword
+            result.keywords = params.keywords
           }
         }
  
