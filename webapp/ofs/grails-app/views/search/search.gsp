@@ -115,11 +115,8 @@
                   Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
                 </g:else>
               </g:if>
-              (an active contributor to Open Family Services, this information is up to date!)
             </g:if>
-            <g:else>
-              Derived from information prepared by ${sr['feedback_name_s']}
-            </g:else>
+            ${provserv.getDisclaimer(sr['authority_shortcode'])}
           </li>
 
         </ul>
