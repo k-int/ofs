@@ -27,3 +27,7 @@ http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20S1%202NS)&qt=d
 
 Corrected:
 http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20S3%208PZ)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&qf=text&pf=fqnidx&hl.fl=fqnidx&start=0&rows=1
+
+
+create database OFSDef default charset UTF8 default collate utf8_bin;
+
