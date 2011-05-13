@@ -23,6 +23,7 @@ class EntryController {
   def solrServerBean
   def dppRestBuilder
   def providerInformationService
+  def jcaptchaService
 
   def index = { 
     println "Entry: ${params.id}"
@@ -74,23 +75,42 @@ class EntryController {
 
   def feedback = {
     println "feedback action"
+
     def result = [:]
-    result['provserv'] = providerInformationService
 
+    if ( params.id != null ) {
+      ModifiableSolrParams solr_params = new ModifiableSolrParams();
+      solr_params.set("q", "aggregator.internal.id:${params.id}")
+      solr_params.set("wt","javabin")
+      QueryResponse response = solrServerBean.query(solr_params);
+      SolrDocumentList sdl = response.getResults();
+      long record_count = sdl.getNumFound();
 
-    ModifiableSolrParams solr_params = new ModifiableSolrParams();
-    solr_params.set("q", "aggregator.internal.id:${params.id}")
-    solr_params.set("wt","javabin")
-    QueryResponse response = solrServerBean.query(solr_params);
-    SolrDocumentList sdl = response.getResults();
-    long record_count = sdl.getNumFound();
+      println "Entry page, referrer is ${request.getHeader('referer')}"
+      if ( record_count==1 ) {
+        def target_solr_doc = sdl.get(0);
+        result['entry'] = target_solr_doc
+        def dpp_url = target_solr_doc['repo_url_s']
+        println "Got repo url: ${dpp_url}"
+      }
 
-    println "Entry page, referrer is ${request.getHeader('referer')}"
-    if ( record_count==1 ) {
-      def target_solr_doc = sdl.get(0);
-      result['entry'] = target_solr_doc
-      def dpp_url = target_solr_doc['repo_url_s']
-      println "Got repo url: ${dpp_url}"
+      if ( request.method.equalsIgnoreCase("POST") ) {
+        println "Process as POST"
+        if ( jcaptchaService.validateResponse("image", session.id, params.fbcaptchaResponse) ) {
+          println "Captcha OK"
+          render(view:'thanks', model:result)
+        }
+        else {
+          println "Captcha Fail"
+          render(view:'feedback', model:result)
+        }        
+      }
+      else {
+        println "Process as non-post"
+      }
+    }
+    else {
+      println "error"
     }
 
     result

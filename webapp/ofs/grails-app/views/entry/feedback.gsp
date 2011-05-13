@@ -21,9 +21,9 @@
        with data protection rules. Data owners (Local authorities, record owners) can manage this information themselves, and will also see any 
        messages left against this information.</p>
 
-    <form>
-      <input type="hidden" name="recid" value="${params.id}">
-      <input type="hidden" name="auth" value="${params.authority}">
+    <form action="/ofs/directory/${params.authority}/${params.id}/feedback" method="POST">
+      <g:hiddenField name="recid" value="${params.id}"/>
+      <g:hiddenField name="auth" value="${params.authority}"/>
       <table>
         <tr><td>Record Source</td><td><g:message code="cv.authority_shortcode.${params.authority}"/></td></td>
         <tr><td>URL</td><td><a href="/ofs/directory/${params.authority}/${params.id}">/ofs/directory/${params.authority}/${params.id}</a></td></td>
@@ -33,8 +33,10 @@
         <tr><td><label for="fbmail">Your Email Address*</label></td><td><input type="text" name="fbemail"/></td></tr>
         <tr><td><label for="fbtype">Feedback Category*</label></td>
             <td><select name="fbtype"/>
-                   <option value="">Critical - Information is incorrect and should be removed (Reasons below)</option>
-                   <option value="">Feedback - Some information to help improve the record</option>
+                   <option value="">Critical - Information is incorrect and should be removed (Please give details below)</option>
+                   <option value="">Record Feedback - Some information to help improve the record (Please give details below)</option>
+                   <option value="">Search Feedback - I didn't expect to find this record in my search (Please give details below)</option>
+
                 </select>
             </td></tr>
 
