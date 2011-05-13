@@ -27,7 +27,9 @@
       <table>
         <tr><td>Your Name</td><td><input type="text" name="fbname"/></td></tr>
         <tr><td>Your Email Address</td><td><input type="text" name="fbemail"/></td></tr>
-        <tr><td>Captcha</td><td><input type="text" name="captcha"/></td></tr>
+        <tr><td>Captcha</td><td>
+            <jcaptcha:jpeg name="image" height="75" width="200" />
+            <!-- jcaptcha:wav name="<captchaname>" autostart="0" -->
         <tr><td>Feedback Category</td><td><input type="text" name="fbtype"/></td></tr>
         <tr><td>Feedback</td><td><input type="textarea" name="fbtext"/></td></tr>
       </table>
