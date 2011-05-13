@@ -13,7 +13,7 @@
     <title><g:message code="ofs.search.title"/></title>
   </head>
   <body class="search-results">
-    <h1>Feedback for ${entry['dc.title']} (Via ${entry['authority_shortcode']}</h1>
+    <h1>OFS Record Feedback - ${entry['dc.title']} (Via <g:message code="cv.authority_shortcode.${params.authority}"/>)</h1>
 
     <h3>Information Quality</h3>
     <p>We take the problem of information quality very seriously. you can use this form to tell us about problems with this record.
@@ -25,13 +25,25 @@
       <input type="hidden" name="recid" value="${params.id}">
       <input type="hidden" name="auth" value="${params.authority}">
       <table>
-        <tr><td>Your Name</td><td><input type="text" name="fbname"/></td></tr>
-        <tr><td>Your Email Address</td><td><input type="text" name="fbemail"/></td></tr>
-        <tr><td>Captcha</td><td>
-            <jcaptcha:jpeg name="image" height="75" width="200" />
-            <!-- jcaptcha:wav name="<captchaname>" autostart="0" -->
-        <tr><td>Feedback Category</td><td><input type="text" name="fbtype"/></td></tr>
-        <tr><td>Feedback</td><td><input type="textarea" name="fbtext"/></td></tr>
+        <tr><td>Record Source</td><td><g:message code="cv.authority_shortcode.${params.authority}"/></td></td>
+        <tr><td>URL</td><td><a href="/ofs/directory/${params.authority}/${params.id}">/ofs/directory/${params.authority}/${params.id}</a></td></td>
+        <tr><td>Title</td><td>${entry['dc.title']}</td></td>
+
+        <tr><td><label for="fbname">Your Name*</label></td><td><input type="text" name="fbname"/></td></tr>
+        <tr><td><label for="fbmail">Your Email Address*</label></td><td><input type="text" name="fbemail"/></td></tr>
+        <tr><td><label for="fbtype">Feedback Category*</label></td>
+            <td><select name="fbtype"/>
+                   <option value="">Critical - Information is incorrect and should be removed (Reasons below)</option>
+                   <option value="">Feedback - Some information to help improve the record</option>
+                </select>
+            </td></tr>
+
+        <tr><td><label for="fbtext">Feedback*</label></td><td><g:textArea name="fbtext" style='width: 500px; height: 200px;'/></td></tr>
+        <tr><td><label for="fbcaptchaResponse">Captcha*<br/>Please confirm you are a human being</label></td><td>
+            <jcaptcha:jpeg name="image" height="75" width="200" /><br/>
+            <g:textField name="fbcaptchaResponse" value="" />
+            <!-- jcaptcha:wav name="<captchaname>" autostart="0" --></td></tr>
+        <tr><td colspan="2" style="text-align:centre;"><input type="submit"/></td></tr>
       </table>
     </form>
 
