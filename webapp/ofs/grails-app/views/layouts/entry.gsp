@@ -67,6 +67,10 @@
 
       <g:layoutBody />
 
+      <div class="InformationQuality" style="border:1px solid black;">
+        Is this information incorrect or out of date? <a href="/ofs/directory/${params.authority}/${params.id}/feedback">Leave Feedback</a>
+      </div>
+
       <div class="footerlinks yui3-u">
         &nbsp;<br/>
         &nbsp;<br/>

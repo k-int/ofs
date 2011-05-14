@@ -13,20 +13,36 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:mem:devDB"
+            // dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            // url = "jdbc:hsqldb:mem:devDB"            // url = "jdbc:hsqldb:mem:devDB"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dbCreate =  "update" // "create-drop"           // "create"
+            username = "k-int"
+            password = "k-int"
+            url = "jdbc:mysql://localhost/OFSDef?autoReconnect=true&amp;characterEncoding=utf8"
         }
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:hsqldb:mem:testDb"
+            //dbCreate = "update"
+            //url = "jdbc:hsqldb:mem:testDb"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dbCreate =  "update" // "create-drop"           // "create"
+            username = "k-int"
+            password = "k-int"
+            url = "jdbc:mysql://localhost/OFSTest?autoReconnect=true&amp;characterEncoding=utf8"
+
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+            // url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+            // driverClassName = "com.mysql.jdbc.Driver"
+            dbCreate =  "update" // "create-drop"           // "create"
+            username = "k-int"
+            password = "k-int"
+            url = "jdbc:mysql://localhost/OFSProd?autoReconnect=true&amp;characterEncoding=utf8"
         }
     }
 }
