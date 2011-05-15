@@ -18,6 +18,8 @@ import groovy.xml.MarkupBuilder
 
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 
+import com.k_int.iep.datamodel.*
+
 class EntryController {
 
   def solrServerBean
@@ -98,6 +100,7 @@ class EntryController {
         println "Process as POST"
         if ( jcaptchaService.validateResponse("image", session.id, params.fbcaptchaResponse) ) {
           println "Captcha OK"
+          processFeedbackForm(params);
           render(view:'thanks', model:result)
         }
         else {
@@ -114,5 +117,16 @@ class EntryController {
     }
 
     result
+  }
+
+  def processFeedbackForm(params) {
+    // Step 1 : lookup or create the authority record
+    println "Finding provider record for ${params.auth}"
+    def auth = IEPProvider.findByShortCode(params.auth)
+    if ( auth != null ) {
+    }
+    else {
+      println "unknown auth"
+    }
   }
 }
