@@ -17,6 +17,11 @@ class BootStrap {
           println "Sync contexts located in app config"
           ApplicationHolder.application.config.ofs.dpp.sync_contexts.each { sc ->
             println "Sync with ${sc.value.appname} - ${sc.value.connect_string}"
+            dppSyncService.syncWithDpp(sc.value.appname, 
+                                       sc.value.jdbc_driver, 
+                                       sc.value.connect_string,
+                                       sc.value.user,
+                                       sc.value.pass)
           }
         }
         else {
