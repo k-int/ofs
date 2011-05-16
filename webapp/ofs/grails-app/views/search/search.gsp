@@ -1,9 +1,12 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="site_files/reset.css" type="text/css"/> 
-    <link rel="stylesheet" href="site_files/fonts.css" type="text/css"/> 
-    <link rel="stylesheet" href="site_files/base.css" type="text/css"/> 
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset.css" type="text/css"/> 
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts.css" type="text/css"/> 
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base.css" type="text/css"/>
+
+    <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssgrids/grids-min.css"> 
  
@@ -33,7 +36,7 @@
       <div class="yui3-u" style="width:100%"> 
         <div class="yui3-g"> 
           <div class="yui3-u" style="width:100%"> 
-            <form action="/ofs/" method="get" > 
+            <form method="get" > 
               <div class="search-box"> 
                 <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q?.encodeAsHTML()}" /><input class="uiw-button" value="Search" type="submit"/> 
                 <g:if test="${params.subject != null || params.flags != null || params.authority != null || params.restp != null}">
