@@ -89,6 +89,7 @@ class EntryController {
       QueryResponse response = solrServerBean.query(solr_params);
       SolrDocumentList sdl = response.getResults();
       long record_count = sdl.getNumFound();
+      result['remote_addr'] = request.getRemoteAddr()
 
       println "Entry page, referrer is ${request.getHeader('referer')}"
       if ( record_count==1 ) {
@@ -103,15 +104,20 @@ class EntryController {
 
       if ( request.method.equalsIgnoreCase("POST") ) {
         println "Process as POST"
-        if ( jcaptchaService.validateResponse("image", session.id, params.fbcaptchaResponse) ) {
-          println "Captcha OK"
-          processFeedbackForm(params);
-          render(view:'thanks', model:result)
+        try {
+          if ( jcaptchaService.validateResponse("image", session.id, params.fbcaptchaResponse) ) {
+            println "Captcha OK"
+            processFeedbackForm(params,request);
+            render(view:'thanks', model:result)
+          }
+          else {
+            println "Captcha Fail"
+            render(view:'feedback', model:result)
+          }        
         }
-        else {
-          println "Captcha Fail"
+        catch ( com.octo.captcha.service.CaptchaServiceException cse ) {
           render(view:'feedback', model:result)
-        }        
+        }
       }
       else {
         println "Process as non-post"
@@ -124,7 +130,7 @@ class EntryController {
     result
   }
 
-  def processFeedbackForm(params) {
+  def processFeedbackForm(params,request) {
     // step 0 : recreate the hash and check it matches
     def generated_hash = getValidationHash(params.auth,params.recid,params.recname)
 
@@ -137,6 +143,12 @@ class EntryController {
       if ( auth != null ) {
         // Lookup or create the record pertaining to this resource
         println "Got authority.. now process...."
+        def resource = IEPResource.findByOwnerAndResourceIdentifier(auth,params.recid)
+        if ( resource == null ) {
+          println "No existing resource record found for ${params.auth}:${params.recid}.. create one..."
+          resource = new IEPResource(owner: auth, resourceIdentifier: params.recid).save(flush:true)
+        }
+
       }
       else {
         println "unknown auth"

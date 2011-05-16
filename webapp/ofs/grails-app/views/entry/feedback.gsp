@@ -33,6 +33,7 @@
 
         <tr><td><label for="fbname">Your Name*</label></td><td><input type="text" name="fbname"/></td></tr>
         <tr><td><label for="fbmail">Your Email Address*</label></td><td><input type="text" name="fbemail"/></td></tr>
+        <tr><td><label for="fbmail">Your IP Address*</label></td><td>${remote_addr}</td></tr>
         <tr><td><label for="fbtype">Feedback Category*</label></td>
             <td><select name="fbtype"/>
                    <option value="">Critical - Information is incorrect and should be removed (Please give details below)</option>
