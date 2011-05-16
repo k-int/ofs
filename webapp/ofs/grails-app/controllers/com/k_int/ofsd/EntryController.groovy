@@ -19,6 +19,8 @@ import groovy.xml.MarkupBuilder
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 import com.k_int.iep.datamodel.*
+import java.security.MessageDigest;
+
 
 class EntryController {
 
@@ -94,6 +96,9 @@ class EntryController {
         result['entry'] = target_solr_doc
         def dpp_url = target_solr_doc['repo_url_s']
         println "Got repo url: ${dpp_url}"
+        result['validation_stamp'] = getValidationHash(params.authority,
+                                                       params.id,
+                                                       target_solr_doc['dc.title']);
       }
 
       if ( request.method.equalsIgnoreCase("POST") ) {
@@ -120,13 +125,34 @@ class EntryController {
   }
 
   def processFeedbackForm(params) {
-    // Step 1 : lookup or create the authority record
-    println "Finding provider record for ${params.auth}"
-    def auth = IEPProvider.findByShortCode(params.auth)
-    if ( auth != null ) {
+    // step 0 : recreate the hash and check it matches
+    def generated_hash = getValidationHash(params.auth,params.recid,params.recname)
+
+    if ( generated_hash == params.validation_stamp ) {
+      println "Hash match.... process"
+
+      // Step 1 : lookup or create the authority record
+      println "Finding provider record for ${params.auth}"
+      def auth = IEPProvider.findByShortCode(params.auth)
+      if ( auth != null ) {
+        // Lookup or create the record pertaining to this resource
+        println "Got authority.. now process...."
+      }
+      else {
+        println "unknown auth"
+      }
     }
     else {
-      println "unknown auth"
+      println "Validation stamp did not match.. someone is trying to do something funky"
     }
+  }
+
+  def getValidationHash(authority_shortcode, record_id, record_title) {
+    def hash_str = "${authority_shortcode}, ${record_id}, ${record_title}"
+    println "getValidationHash for ${hash_str}"
+    def hash_bytes = hash_str.getBytes()
+    MessageDigest m = MessageDigest.getInstance("MD5");
+    m.update(hash_bytes, 0, hash_bytes.length);
+    new BigInteger(1, m.digest()).toString(16);
   }
 }

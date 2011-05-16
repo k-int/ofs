@@ -24,6 +24,8 @@
     <form action="/ofs/directory/${params.authority}/${params.id}/feedback" method="POST">
       <g:hiddenField name="recid" value="${params.id}"/>
       <g:hiddenField name="auth" value="${params.authority}"/>
+      <g:hiddenField name="recname" value="${entry['dc.title']}"/>
+      <g:hiddenField name="validation_stamp" value="${validation_stamp}"/>
       <table>
         <tr><td>Record Source</td><td><g:message code="cv.authority_shortcode.${params.authority}"/></td></td>
         <tr><td>URL</td><td><a href="/ofs/directory/${params.authority}/${params.id}">/ofs/directory/${params.authority}/${params.id}</a></td></td>
