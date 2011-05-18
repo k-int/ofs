@@ -10,6 +10,8 @@ import grails.converters.*
 import groovy.text.Template
 import groovy.text.SimpleTemplateEngine
 import groovy.xml.MarkupBuilder
+import org.codehaus.groovy.grails.commons.ApplicationHolder
+
 
 class SiteMapindexController {
 
@@ -78,7 +80,7 @@ class SiteMapindexController {
     xml.sitemapindex(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
       sitemap_data.each { auth ->
         sitemap() {
-          loc("${grailsApplication.config.grails.serverURL}/directory/${auth.name}/sitemap")
+          loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${auth.name}/sitemap")
           lastmod(auth.lastModified)
           mkp.comment("Doc count for this authority: ${auth.count}")
         }
@@ -94,18 +96,29 @@ class SiteMapindexController {
 
 
   def authsitemap = {
+ 
+   println "Sitemap for ${params.authority}"
 
-    println "Sitemap for ${params.authority}"
+ 
+    ModifiableSolrParams solr_params = new ModifiableSolrParams();
+    solr_params.set("q", "authority_shortcode:${params.authority}")
+    solr_params.set("rows", "10")
+    solr_params.set("wt","javabin")
+
+    QueryResponse response = solrServerBean.query(solr_params);
+    SolrDocumentList sdl = response.getResults();
 
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
     xml.urlset(xmlns:'http://www.example.com/sitemap/0.9') {
-      url() {
-        log('hello')
-        lastmod('hello')
-        changefreq('hello')
-        priority('hello')
+      sdl.each { rec ->
+        url() {
+          loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec['aggregator.internal.id']}")
+          lastmod("${rec['modified']}")
+          //changefreq('hello')
+          //priority('hello')
+        }
       }
     }
 
