@@ -50,8 +50,10 @@ class SiteMapindexController {
     xml.sitemapindex(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
       auth_codes.each { auth ->
         sitemap() {
-          loc("${grailsApplication.config.grails.serverURL}/directory/${auth.name}/sitemap")
-          lastmod("the last modified date")
+          if ( auth.valueCount > 0 ) {
+            loc("${grailsApplication.config.grails.serverURL}/directory/${auth.name}/sitemap")
+            lastmod("the last modified date")
+          }
         }
       }
     }
