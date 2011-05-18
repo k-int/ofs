@@ -18,6 +18,10 @@ import groovy.xml.MarkupBuilder
 
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 
+import com.k_int.iep.datamodel.*
+import java.security.MessageDigest;
+
+
 class EntryController {
 
   def solrServerBean
@@ -85,6 +89,7 @@ class EntryController {
       QueryResponse response = solrServerBean.query(solr_params);
       SolrDocumentList sdl = response.getResults();
       long record_count = sdl.getNumFound();
+      result['remote_addr'] = request.getRemoteAddr()
 
       println "Entry page, referrer is ${request.getHeader('referer')}"
       if ( record_count==1 ) {
@@ -92,18 +97,27 @@ class EntryController {
         result['entry'] = target_solr_doc
         def dpp_url = target_solr_doc['repo_url_s']
         println "Got repo url: ${dpp_url}"
+        result['validation_stamp'] = getValidationHash(params.authority,
+                                                       params.id,
+                                                       target_solr_doc['dc.title']);
       }
 
       if ( request.method.equalsIgnoreCase("POST") ) {
         println "Process as POST"
-        if ( jcaptchaService.validateResponse("image", session.id, params.fbcaptchaResponse) ) {
-          println "Captcha OK"
-          render(view:'thanks', model:result)
+        try {
+          if ( jcaptchaService.validateResponse("image", session.id, params.fbcaptchaResponse) ) {
+            println "Captcha OK"
+            processFeedbackForm(params,request);
+            render(view:'thanks', model:result)
+          }
+          else {
+            println "Captcha Fail"
+            render(view:'feedback', model:result)
+          }        
         }
-        else {
-          println "Captcha Fail"
+        catch ( com.octo.captcha.service.CaptchaServiceException cse ) {
           render(view:'feedback', model:result)
-        }        
+        }
       }
       else {
         println "Process as non-post"
@@ -114,5 +128,43 @@ class EntryController {
     }
 
     result
+  }
+
+  def processFeedbackForm(params,request) {
+    // step 0 : recreate the hash and check it matches
+    def generated_hash = getValidationHash(params.auth,params.recid,params.recname)
+
+    if ( generated_hash == params.validation_stamp ) {
+      println "Hash match.... process"
+
+      // Step 1 : lookup or create the authority record
+      println "Finding provider record for ${params.auth}"
+      def auth = IEPProvider.findByShortCode(params.auth)
+      if ( auth != null ) {
+        // Lookup or create the record pertaining to this resource
+        println "Got authority.. now process...."
+        def resource = IEPResource.findByOwnerAndResourceIdentifier(auth,params.recid)
+        if ( resource == null ) {
+          println "No existing resource record found for ${params.auth}:${params.recid}.. create one..."
+          resource = new IEPResource(owner: auth, resourceIdentifier: params.recid).save(flush:true)
+        }
+
+      }
+      else {
+        println "unknown auth"
+      }
+    }
+    else {
+      println "Validation stamp did not match.. someone is trying to do something funky"
+    }
+  }
+
+  def getValidationHash(authority_shortcode, record_id, record_title) {
+    def hash_str = "${authority_shortcode}, ${record_id}, ${record_title}"
+    println "getValidationHash for ${hash_str}"
+    def hash_bytes = hash_str.getBytes()
+    MessageDigest m = MessageDigest.getInstance("MD5");
+    m.update(hash_bytes, 0, hash_bytes.length);
+    new BigInteger(1, m.digest()).toString(16);
   }
 }

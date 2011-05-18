@@ -12,7 +12,9 @@ class UrlMappings {
     "/about" (controller:"about", action:"index")
 
     "/jcaptcha/$action?/$id?" (controller:"jcaptcha")
+
     "/sitemap" (controller:"siteMapindex", action:"siteindex")
+    "/directory/$authority" (controller:"search", action:"search")
     "/directory/$authority/sitemap" (controller:"siteMapindex", action:"authsitemap")
     "/directory/$authority/$id/feedback" (controller:"entry", action:"feedback")
     "/directory/$authority/$id" (controller:"entry", action:"index")
