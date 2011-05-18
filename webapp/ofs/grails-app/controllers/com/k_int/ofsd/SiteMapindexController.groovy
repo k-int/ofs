@@ -18,6 +18,8 @@ class SiteMapindexController {
   static sitemap_data = []
   static long last_generated = 0;
 
+  static authority_map_cache = [:]
+
   def solrServerBean
 
   // http://wiki.apache.org/solr/CommonQueryParameters
@@ -97,27 +99,53 @@ class SiteMapindexController {
 
   def authsitemap = {
  
-   println "Sitemap for ${params.authority}"
+    println "Sitemap for ${params.authority}"
 
- 
-    ModifiableSolrParams solr_params = new ModifiableSolrParams();
-    solr_params.set("q", "authority_shortcode:${params.authority}")
-    solr_params.set("rows", "10")
-    solr_params.set("wt","javabin")
+    def cache_entry = authority_map_cache[params.authority]
 
-    QueryResponse response = solrServerBean.query(solr_params);
-    SolrDocumentList sdl = response.getResults();
+    if ( ( cache_entry == null ) ||
+         ( System.currentTimeMillis() - cache_entry.timestamp > 86400 ) ) { 
+      
+      println "Generating new cache entry for sitemap - ${params.authority}"
+
+      cache_entry = [:]
+      cache_entry.timestamp = System.currentTimeMillis()
+      cache_entry.urls = []
+
+      ModifiableSolrParams solr_params = new ModifiableSolrParams();
+      solr_params.set("q", "authority_shortcode:${params.authority}")
+      solr_params.set("rows", "10000")
+      solr_params.set("wt","javabin")
+
+      QueryResponse response = solrServerBean.query(solr_params);
+      SolrDocumentList sdl = response.getResults();
+
+      if ( sdl.size() > 0 ) {
+        // Only add a cache entry if there really was results.
+        authority_map_cache[params.authority] = cache_entry
+      }      
+
+      sdl.each { rec ->
+        cache_entry.urls.add([rec['aggregator.internal.id'],rec['modified']])
+      }
+
+    }
+    else {
+      println "Serve sitemap - ${params.authority} from cache"
+    }
 
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
 
-    xml.urlset(xmlns:'http://www.example.com/sitemap/0.9') {
-      sdl.each { rec ->
-        url() {
-          loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec['aggregator.internal.id']}")
-          lastmod("${rec['modified']}")
-          //changefreq('hello')
-          //priority('hello')
+    if ( cache_entry != null ) {
+      xml.urlset(xmlns:'http://www.example.com/sitemap/0.9') {
+        cache_entry.urls.each { rec ->
+          url() {
+            loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec[0]}")
+            lastmod("${rec[1]}")
+            //changefreq('hello')
+            //priority('hello')
+          }
         }
       }
     }
