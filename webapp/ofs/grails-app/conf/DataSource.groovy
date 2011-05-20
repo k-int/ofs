@@ -20,6 +20,11 @@ environments {
             username = "k-int"
             password = "k-int"
             url = "jdbc:mysql://localhost/OFSDef?autoReconnect=true&amp;characterEncoding=utf8"
+            properties {
+                validationQuery="select 1"
+                testWhileIdle=true
+                timeBetweenEvictionRunsMillis=60000
+            }
         }
     }
     test {
@@ -31,7 +36,11 @@ environments {
             username = "k-int"
             password = "k-int"
             url = "jdbc:mysql://localhost/OFSTest?autoReconnect=true&amp;characterEncoding=utf8"
-
+            properties {
+                validationQuery="select 1"
+                testWhileIdle=true
+                timeBetweenEvictionRunsMillis=60000
+            }
         }
     }
     production {
@@ -43,6 +52,11 @@ environments {
             username = "k-int"
             password = "k-int"
             url = "jdbc:mysql://localhost/OFSProd?autoReconnect=true&amp;characterEncoding=utf8"
+            properties {
+                validationQuery="select 1"
+                testWhileIdle=true
+                timeBetweenEvictionRunsMillis=60000
+            }
         }
     }
 }
