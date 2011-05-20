@@ -3,6 +3,9 @@ class UrlMappings {
   static mappings = {
 
 
+    // Useful resource on error trapping
+    // http://groovy.dzone.com/articles/grails-exception-handling-http
+
     // "/$controller/$action?/$id?"{
     //    constraints {
       // apply constraints here

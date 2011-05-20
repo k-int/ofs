@@ -168,13 +168,14 @@ class EntryController {
             println "No existing resource record found for ${params.auth}:${params.recid}.. create one..."
             resource = new IEPResource(owner: auth, resourceIdentifier: params.recid).save(flush:true)
           }
-          res_msg = new IEPResourceMessage(owner:resource,
-                                           messageTimeStamp: new java.sql.Timestamp(),
-                                           contactEmail:params.fbemail,
-                                           contactName:params.fbname,
-                                           remoteAddr:request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
-                                           message:params.fbtext,
-                                           category:params.fbtype).save()
+
+          def res_msg = new IEPResourceMessage(owner:resource,
+                                               messageTimeStamp: new java.sql.Timestamp(System.currentTimeMillis()),
+                                               contactEmail:params.fbemail,
+                                               contactName:params.fbname,
+                                               remoteAddr:remote_addr,
+                                               message:params.fbtext,
+                                               category:params.fbtype).save()
 
           // Add an entry to the LRU list for this remote IP, and don't accept another form submission for 2 mins.
           recent_feedback_map.put(remote_addr,new Long(System.currentTimeMillis()))
