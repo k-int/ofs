@@ -36,10 +36,9 @@
         <tr><td><label for="fbmail">Your IP Address*</label></td><td>${remote_addr}</td></tr>
         <tr><td><label for="fbtype">Feedback Category*</label></td>
             <td><select name="fbtype"/>
-                   <option value="">Critical - Information is incorrect and should be removed (Please give details below)</option>
-                   <option value="">Record Feedback - Some information to help improve the record (Please give details below)</option>
-                   <option value="">Search Feedback - I didn't expect to find this record in my search (Please give details below)</option>
-
+                   <option value="remove">Critical - Information is incorrect and should be removed (Please give details below)</option>
+                   <option value="recfb">Record Feedback - Some information to help improve the record (Please give details below)</option>
+                   <option value="srchfb">Search Feedback - I didn't expect to find this record in my search (Please give details below)</option>
                 </select>
             </td></tr>
 
