@@ -1,6 +1,7 @@
 package com.k_int.ofsd
 
 import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -34,8 +35,9 @@ class GazController {
       // Step 1 : See if the input place name matches a fully qualified place name
       println "perform query for : ${q}" // qzyf is our special private "Left anchor"
 
-      ModifiableSolrParams solr_params = new ModifiableSolrParams();
-      solr_params.set("q", q)
+      // ModifiableSolrParams solr_params = new ModifiableSolrParams();
+      SolrQuery solr_params = new SolrQuery(q);
+      // solr_params.set("q", q)
       solr_params.set("qt", "prefix");
       solr_params.set("f", "fqn");
       // solr_params.set("qt", "dismax");
