@@ -35,11 +35,10 @@ class GazController {
       // Step 1 : See if the input place name matches a fully qualified place name
       println "perform query for : ${q}" // qzyf is our special private "Left anchor"
 
-      // ModifiableSolrParams solr_params = new ModifiableSolrParams();
-      SolrQuery solr_params = new SolrQuery(q);
-      // solr_params.set("q", q)
-      solr_params.set("qt", "prefix");
-      solr_params.set("f", "fqn");
+      ModifiableSolrParams solr_params = new ModifiableSolrParams();
+      solr_params.set("q", "{!prefix f=fqn}${q}")
+      // solr_params.setQueryType("prefix");
+      // solr_params.set("f", "fqn");
       // solr_params.set("qt", "dismax");
       // solr_params.set("sort", "type desc, score desc");
       solr_params.set("sort", "type desc")
