@@ -96,10 +96,10 @@ class SearchController {
 
       if ( gaz_response != null ) {
         println "Result of gaz lookup : ${gaz_response}"
-        if ( gaz_response.size() > 0 ) {
-          sw.write("{!spatial lat=${gaz_response[0].lat} long=${gaz_response[0].lon} radius=5 unit=miles} ")
+        if ( gaz_response.places.size() > 0 ) {
+          sw.write("{!spatial lat=${gaz_response.places[0].lat} long=${gaz_response.places[0].lon} radius=5 unit=miles} ")
           explicit_spatial = true
-          result.place = gaz_response[0];
+          result.place = gaz_response.places[0];
         }
         else {
           println "Unhandled case - placename resolved ${gaz_response.size()} places"
@@ -270,7 +270,7 @@ class SearchController {
       }
     }
 
-    if ( gazresp.places.length > 0 ) {
+    if ( gazresp.places.size() > 0 ) {
       // Remove any instances of postcode or alias from the query
       gazresp.newq = "${query_input}"
       gazresp.newq = query_input.replaceAll("${gazresp.places[0].name}","")

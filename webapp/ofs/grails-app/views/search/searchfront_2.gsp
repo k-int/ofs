@@ -8,7 +8,7 @@
 
   </head>
 
-  <body class="search-results">
+  <body class="search-results yui3-skin-sam  yui-skin-sam">
 
 <div style="float:right">
    <!-- AddThis Button BEGIN -->

@@ -115,7 +115,13 @@
                   Via: <a href="mailto:${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
                 </g:if>
                 <g:else>
-                  Via: <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+                  Via: 
+                  <g:if test="${sr['feedback_url_s'].startsWith('http')}">
+                    <a href="${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+                  </g:if>
+                  <g:else>
+                    <a href="http://${sr['feedback_url_s']}">${sr['feedback_name_s']}</a>.
+                  </g:else>
                 </g:else>
               </g:if>
             </g:if>

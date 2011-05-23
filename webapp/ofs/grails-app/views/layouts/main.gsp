@@ -27,7 +27,7 @@
 </script>
 
     </head>
-    <body>
+    <body class="yui3-skin-sam  yui-skin-sam">
         <g:layoutBody />
     </body>
 </html>

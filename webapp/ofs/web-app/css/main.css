@@ -35,7 +35,7 @@ a:link, a:active {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	margin: 20px auto 10px;
-	width: 425px;	
+	width: 525px;	
 	background: #f3f3f3;
 	font-size: 150%;
 	padding: 10px;
@@ -54,6 +54,7 @@ a:link, a:active {
 }
 
 .search-box input.uiw-input {
+        width: 300px;
 	height:	28px;
 	padding: 5px;
 	margin-left: 10px;
