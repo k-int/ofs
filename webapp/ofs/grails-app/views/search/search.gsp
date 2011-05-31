@@ -90,7 +90,10 @@
           <li><strong><a href="/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}">${sr['dc.title']}</a></strong> <g:if test="${( sr['childcare_type_s'] != null )}">${sr['childcare_type_s']}</g:if></li>
 
 
+          <g:if test="${sr['website'] != null}"> <li>Providers own site: <a href="${sr['website']}">${sr['website']}</a></li> </g:if>
+          <g:if test="${(sr['ofsted_urn_s'] != null)}"> <li><a href="http://www.ofsted.gov.uk/oxcare_providers/full/(urn)/${sr['ofsted_urn_s']}">Latest ofsted report</a></li> </g:if>
           <g:if test="${(sr['dc.description'] != null ) && ( sr['dc.description'].length() > 0 )}"><li>${sr['dc.description']}</li></g:if>
+
 
           <li>Address:
             <g:if test="${(sr['address.line1'] != null ) && ( sr['address.line1'].length() > 0 )}">${sr['address.line1']}</g:if>

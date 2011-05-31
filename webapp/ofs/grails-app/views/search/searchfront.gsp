@@ -37,8 +37,7 @@
       <div class="yui3-u" style="width:100%"> 
         <form method="get" > 
           <div class="search-box">
-              <div class="srchprompt"></div><input class="uiw-input" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
-            &nbsp;
+              <div class="srchprompt"></div><input class="uiw-input2" type="text" name="q"/><input class="uiw-button" value="Search" type="submit"/> 
           </div> 
         </form> 
       </div> 
@@ -62,17 +61,6 @@ OpenFamilyServices is the national online directory where you can search for and
       }
       </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
     </div>
-
-    <script>
-      YUI().use("autocomplete", function (Y) {
-        Y.one('#place-input').plug(Y.Plugin.AutoComplete, {
-          // resultHighlighter: 'phraseMatch',
-          resultListLocator: 'results',
-          resultTextLocator: 'fqn',
-          source: 'http://localhost:8080/ofs/gaz?q={query}&callback={callback}'
-        });
-      });
-    </script>
 
   </body>
 </html>
