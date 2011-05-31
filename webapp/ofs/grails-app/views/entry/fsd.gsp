@@ -4,21 +4,32 @@
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="entry" />
 
-    <meta name="dc.title" content="${entry['dc.title']}" />
-    <meta name="title" content="${entry['dc.title']}" />
+    <meta property="dc.title" name="dc.title" content="${entry['dc.title']}" />
+    <meta property="title" name="title" content="${entry['dc.title']}" />
+    <meta property="og:title" content="${entry['dc.title']}" />
 
     <g:if test="${(entry['dc.description'] != null )}">
-      <meta name="dc.description" content="${entry['dc.description']}" />
-      <meta name="description" content="${entry['dc.description']}" />
+      <meta property="dc.description" name="dc.description" content="${entry['dc.description']}" />
+      <meta property="description" name="description" content="${entry['dc.description']}" />
+      <meta property="og:description" content="${entry['dc.description']}" />
     </g:if>
 
     <g:if test="${(entry['lat'] != null ) && ( entry['lng'] != null ) }">
-      <meta name="ICBM" content="${entry['lat']}, ${entry['lng']}" />
-      <meta name="geo.position" content="${entry['lat']}, ${entry['lng']}" />
+      <meta property="ICBM" name="ICBM" content="${entry['lat']}, ${entry['lng']}" />
+      <meta property="geo.position" name="geo.position" content="${entry['lat']}, ${entry['lng']}" />
+      <meta property="og:latitude" content="${entry['lat']}" />
+      <meta property="og:longitude" content="${entry['lng']}" />
     </g:if>
 
-    <meta name="geo.region" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
-    <meta name="geo.placename" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
+    <meta property="geo.region" name="geo.region" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
+    <meta property="geo.placename" name="geo.placename" content="${entry['address.line1'] ?: ''} ${entry['address.line2'] ?: ''} ${entry['address.line3'] ?: ''} ${entry['address.line4'] ?: ''} ${entry['address.line5'] ?: ''}" />
+
+    <!-- OGP Properties -->
+    <meta property="og:type" content="activity" />
+    <meta property="og:url" content="${grailsApplication.config.ofs.frontend}/ofs/directory/${entry['authority_shortcode']}/${entry['aggregator.internal.id']}" />
+    <g:if test="${entry['icon_url_s']!=null}"><meta property="og:image" content="${entry['icon_url_s']}" /></g:if>
+    <meta property="og:site_name" content="Open Family Services" />
+
 
     <title>${g.message(code: 'ofs.fsd.details.prefix')} ${entry['dc.title']}</title>
 
