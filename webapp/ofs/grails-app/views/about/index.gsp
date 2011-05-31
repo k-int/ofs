@@ -14,7 +14,7 @@
   </head>
   <body class="search-results">
 <ul>
-<li>OFS End User App : ${grailsApplication.metadata['app.version']} (Build #${grailsApplication.metadata['app.buildNumber']}</li>
+<li>OFS End User App : ${grailsApplication.metadata['app.version']} (Build #${grailsApplication.metadata['app.buildNumber']})</li>
 <li>Build Date: ${grailsApplication.metadata['app.buildDate']},</li>
 <li>Build Profile: ${grailsApplication.metadata['app.buildProfile']})</li>
 </ul>
