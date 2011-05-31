@@ -29,6 +29,12 @@ Corrected:
 http://localhost:8080/index/gaz/select?q=(Childcare%20Sheffield%20S3%208PZ)&qt=dismax&hl=true&sort=score%20desc&fl=authority,fqn,id,place_name,type,score,alias,text&qf=text&pf=fqnidx&hl.fl=fqnidx&start=0&rows=1
 
 
+An alternate query for place name search:
+
+http://aggregator.openfamilyservices.org.uk/index/gaz/select?q=fqnidx:%22qzyf%20Ecclesall%20liverpool%22&sort=type%20desc&qs=2&qt=dismax
+
+Uses query slop to omit bits from the FQN.
+
 create database OFSDef default charset UTF8 default collate utf8_bin;
 create database OFSTest default charset UTF8 default collate utf8_bin;
 create database OFSProd default charset UTF8 default collate utf8_bin;

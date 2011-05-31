@@ -46,9 +46,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            // url = "jdbc:hsqldb:file:prodDb;shutdown=true"
-            // driverClassName = "com.mysql.jdbc.Driver"
-            dbCreate =  "update" // "create-drop"           // "create"
+            driverClassName = "com.mysql.jdbc.Driver"
             username = "k-int"
             password = "k-int"
             url = "jdbc:mysql://localhost/OFSProd?autoReconnect=true&amp;characterEncoding=utf8"
