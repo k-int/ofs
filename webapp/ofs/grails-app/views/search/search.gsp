@@ -12,6 +12,9 @@
  
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="searchresultsmain" />
+
+    <!-- Ask search engines not to index the search results pages, it looks horrible in google -->
+    <meta name="robots" CONTENT="noindex, follow">
     
     <title><g:message code="ofs.search.title"/></title>
   </head>
