@@ -46,7 +46,7 @@
             <div class="searchrow"> 
               <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
             </div>
-            <div class="searchrow"> 
+            <div class="searchrow" style="padding-top:10px"> 
               <g:message code="ofs.search.placeprompt"/> <input id="place-input" class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
             </div>
             &nbsp;
@@ -79,6 +79,7 @@ OpenFamilyServices is the national online directory where you can search for and
           // resultHighlighter: 'phraseMatch',
           resultListLocator: 'results',
           resultTextLocator: 'fqn',
+          maxResults:10,
           source: '${grailsApplication.config.ofs.frontend}/ofs/gaz?q={query}&callback={callback}'
         });
       });

@@ -39,6 +39,8 @@ a:link, a:active {
 	background: #f3f3f3;
 	font-size: 150%;
 	padding: 10px;
+        display: block;
+        overflow: auto;
 }
 
 .search-results .search-box {
