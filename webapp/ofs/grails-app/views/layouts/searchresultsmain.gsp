@@ -27,7 +27,7 @@
 </script>
 
     </head>
-    <body class="search-results">
+    <body class="search-results yui3-skin-sam">
         <g:layoutBody />
     </body>
 </html>

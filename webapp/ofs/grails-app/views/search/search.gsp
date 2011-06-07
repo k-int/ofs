@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssgrids/grids-min.css"> 
- 
+    <script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js" charset="utf-8"></script>
+
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="searchresultsmain" />
 
@@ -18,7 +19,7 @@
     
     <title><g:message code="ofs.search.title"/></title>
   </head>
-  <body class="search-results">
+  <body class="search-results yui3-skin-sam">
 <div style="float:right">
    <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style ">
@@ -206,5 +207,16 @@
       </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     </div>
 
+    <script>
+      YUI().use("autocomplete", function (Y) {
+        Y.one('#place-input').plug(Y.Plugin.AutoComplete, {
+          // resultHighlighter: 'phraseMatch',
+          resultListLocator: 'results',
+          resultTextLocator: 'fqn',
+          maxResults:6,
+          source: '${grailsApplication.config.ofs.frontend}/ofs/gaz?q={query}&callback={callback}'
+        });
+      });
+    </script>
   </body>
 </html>

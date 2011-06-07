@@ -8,7 +8,7 @@
 
   </head>
 
-  <body class="search-results yui3-skin-sam  yui-skin-sam">
+  <body class="search-results yui3-skin-sam">
 
 <div style="float:right">
    <!-- AddThis Button BEGIN -->
@@ -37,7 +37,8 @@
 
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
-        Enter your postcode, town, village or street into the search box below, and get instant access to details of your local services and activities.
+        Enter your postcode, town, village or street into the place search box below, and get instant access to details of your local services and activities.<br/> 
+        Add keywords to the keywords box to refine your search.
       </div>
 
       <div class="yui3-u" style="width:100%"> 
@@ -79,7 +80,7 @@ OpenFamilyServices is the national online directory where you can search for and
           // resultHighlighter: 'phraseMatch',
           resultListLocator: 'results',
           resultTextLocator: 'fqn',
-          maxResults:10,
+          maxResults:6,
           source: '${grailsApplication.config.ofs.frontend}/ofs/gaz?q={query}&callback={callback}'
         });
       });

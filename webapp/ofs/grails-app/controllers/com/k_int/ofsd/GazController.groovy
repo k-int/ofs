@@ -33,7 +33,7 @@ class GazController {
       def gazresp = []
 
       // Step 1 : See if the input place name matches a fully qualified place name
-      println "perform query for : ${q}" // qzyf is our special private "Left anchor"
+      // println "perform query for : ${q}" // qzyf is our special private "Left anchor"
 
       ModifiableSolrParams solr_params = new ModifiableSolrParams();
       solr_params.set("q", "{!prefix f=fqn}${q}")
@@ -54,15 +54,15 @@ class GazController {
 
       def response = solrGazBean.query(solr_params);
 
-      println "Located ${response.getResults().getNumFound()} matching gazetteer records for ${q}...."
+      // println "Located ${response.getResults().getNumFound()} matching gazetteer records for ${q}...."
 
 
       // Try and do an exact place name match first of all
       if ( response.getResults().getNumFound() > 0 ) {
-        println "Located some matching gazetteer records...."
+        // println "Located some matching gazetteer records...."
         response.getResults().each { doc ->
           def sr = ['fqn':doc['fqn'], 'type':doc['type'], 'id':doc['id']]
-          println "adding response : ${sr}"
+          // println "adding response : ${sr}"
           gazresp.add(sr)
         }
       }
