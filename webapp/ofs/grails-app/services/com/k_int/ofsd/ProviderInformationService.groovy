@@ -1,8 +1,11 @@
 package com.k_int.ofsd
 
+import org.springframework.context.i18n.LocaleContextHolder as LCH
+
 class ProviderInformationService {
 
     static transactional = true
+    def messageSource
 
     def members = [
       'Birmingham_City_Council' :                     ["subscriptionType":"basic", "name":"Birmingham City Council", "showLogo":true],
@@ -46,7 +49,8 @@ class ProviderInformationService {
 
     def getDisclaimer(provider_shortcode) {
 
-      def result = "(Derived from information prepared by ${provider_shortcode})"
+      def auth_name = messageSource.getMessage("cv.authority_shortcode.${provider_shortcode}",null,null,Locale.ENGLISH)
+      def result = "(Derived from information prepared by ${auth_name})"
 
       if ( provider_shortcode != null ) {
         if ( members[provider_shortcode]?.sourceDisclaimer != null )
