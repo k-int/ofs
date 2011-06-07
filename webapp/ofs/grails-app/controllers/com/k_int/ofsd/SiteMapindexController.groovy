@@ -138,7 +138,7 @@ class SiteMapindexController {
     def xml = new MarkupBuilder(writer)
 
     if ( cache_entry != null ) {
-      xml.urlset(xmlns:'http://www.example.com/sitemap/0.9') {
+      xml.urlset(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
         cache_entry.urls.each { rec ->
           url() {
             loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec[0]}")
