@@ -56,6 +56,7 @@ class SearchController {
     }
 
     if ( ( lucene_query != null ) && ( lucene_query.length() > 0 ) )  {
+      println "Processing ${lucene_query}"
       result['search_results'] = doSearch(lucene_query, 10, sort_string, params)
       result['qry'] = lucene_query
     }

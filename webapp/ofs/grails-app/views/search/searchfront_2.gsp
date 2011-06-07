@@ -79,7 +79,7 @@ OpenFamilyServices is the national online directory where you can search for and
           // resultHighlighter: 'phraseMatch',
           resultListLocator: 'results',
           resultTextLocator: 'fqn',
-          source: 'http://${grailsApplication.config.ofs.frontend}/ofs/gaz?q={query}&callback={callback}'
+          source: '${grailsApplication.config.ofs.frontend}/ofs/gaz?q={query}&callback={callback}'
         });
       });
     </script>
