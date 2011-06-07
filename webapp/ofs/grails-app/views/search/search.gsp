@@ -40,8 +40,16 @@
         <div class="yui3-g"> 
           <div class="yui3-u" style="width:100%"> 
             <form method="get" > 
-              <div class="search-box"> 
-                <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q?.encodeAsHTML()}" /><input class="uiw-button" value="Search" type="submit"/> 
+              <div class="search-box">
+<g:if test="${1==2}">
+  <g:message code="ofs.search.prompt"/>  <input class="uiw-input" type="text" name="q" value="${params.q?.encodeAsHTML()}" />
+</g:if>
+<g:else>
+  <g:message code="ofs.search.keywordprompt"/>:<input class="uiw-input" type="text" name="keywords" value="${params.keywords?.encodeAsHTML()}"/>&nbsp;&nbsp;&nbsp;
+  <g:message code="ofs.search.placeprompt"/>:<input id="place-input" class="uiw-input" type="text" name="placename" value="${params.placename?.encodeAsHTML()}"/>
+</g:else>
+
+<input class="uiw-button" value="Search" type="submit"/> 
                 <g:if test="${params.subject != null || params.flags != null || params.authority != null || params.restp != null}">
                   <ul style="display:inline" id="activefilters">
                     <g:if test="${params.restp != null}"><li style="display:inline"><g:message code="cv.restp"/>: <g:message code="cv.restp.${params.restp}"/></li></g:if>

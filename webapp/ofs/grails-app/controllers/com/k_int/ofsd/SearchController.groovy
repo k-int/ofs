@@ -41,10 +41,10 @@ class SearchController {
     if ( ( params.q == null ) && ( params.placename == null ) && ( params.keywords == null ) ) {
       result['noqry'] = true
       session.lastqry = null;
-      if ( params.adv=="true" ) 
+      //if ( params.adv=="true" ) 
+      //  render(view:'searchfront_2',model:result)
+      //else
         render(view:'searchfront_2',model:result)
-      else
-        render(view:'searchfront',model:result)
     }
 
     def lucene_query = buildQuery(params, result)
