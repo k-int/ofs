@@ -3,7 +3,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Include the main layout from the grails-app/views/layouts dir - Thats where are the styles etc are imported -->
     <meta name="layout" content="main" />
-    <title>OFS Search</title>
+
+    <g:if test="${params.authority != null}">
+      <title><g:message code="ofs.search.title"/> - <g:message code="cv.authority_shortcode.${params.authority}"/></title>
+    </g:if>
+    <g:else>
+      <title><g:message code="ofs.search.title"/></title>
+    </g:else>
+
     <script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js" charset="utf-8"></script>
 
   </head>

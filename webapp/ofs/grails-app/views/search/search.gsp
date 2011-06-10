@@ -17,9 +17,19 @@
     <!-- Ask search engines not to index the search results pages, it looks horrible in google -->
     <meta name="robots" CONTENT="noindex, follow">
     
-    <title><g:message code="ofs.search.title"/></title>
+    <title>
+      ${params.keywords} ${params.placename} - 
+    <g:if test="${params.authority != null}">
+      <g:message code="ofs.searchresults.title"/> (<g:message code="cv.authority_shortcode.${params.authority}"/>)
+    </g:if>
+    <g:else>
+      <g:message code="ofs.searchresults.title"/>
+    </g:else>
+    </title>
   </head>
+
   <body class="search-results yui3-skin-sam">
+
 <div style="float:right">
    <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style ">
