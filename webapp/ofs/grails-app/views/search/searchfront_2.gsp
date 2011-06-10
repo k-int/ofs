@@ -52,7 +52,7 @@
       </div>
 
       <div class="yui3-u" style="width:100%"> 
-        <form action="/ofs/" method="get" > 
+        <form method="get" > 
           <div class="search-box">
             <div class="searchrow"> 
               <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
