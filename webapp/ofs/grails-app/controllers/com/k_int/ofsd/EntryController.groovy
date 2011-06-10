@@ -34,17 +34,14 @@ class EntryController {
   def index = { 
     println "Entry action id:${params.id}"
 
-    println "2"
     def result = [:]
     result['provserv'] = providerInformationService
-
-    println "4"
 
     ModifiableSolrParams solr_params = new ModifiableSolrParams();
     solr_params.set("q", "aggregator.internal.id:${params.id}")
     solr_params.set("wt","javabin")
-    QueryResponse response = solrServerBean.query(solr_params);
-    SolrDocumentList sdl = response.getResults();
+    QueryResponse sol_response = solrServerBean.query(solr_params);
+    SolrDocumentList sdl = sol_response.getResults();
     long record_count = sdl.getNumFound();
 
     println "Entry page, referrer is ${request.getHeader('referer')}"
@@ -67,6 +64,13 @@ class EntryController {
           result['srcdoc'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
           break;
       }
+    }
+    else {
+      // response.status = 404 //Not Found
+      // response.setStatus(404)
+      // render(status:404)
+      response.sendError(404, "${params.id} not found.")
+      render "Resource ${params.id} not found."
     }
 
     result
