@@ -17,13 +17,8 @@
     <!-- Ask search engines not to index the search results pages, it looks horrible in google -->
     <meta name="robots" CONTENT="noindex, follow">
     
-    <title>
-      ${params.keywords} ${params.placename} - <g:if test="${params.authority != null}">
-      <g:message code="ofs.searchresults.title"/> (<g:message code="cv.authority_shortcode.${params.authority}"/>)
-    </g:if><g:else>
-      <g:message code="ofs.searchresults.title"/>
-    </g:else>
-    </title>
+    <title> ${params.keywords} ${params.placename} <g:if test="${search_results.results.numFound==0}">-Nothing Found-</g:if> <g:if test="${params.authority != null}"> <g:message code="ofs.searchresults.title"/> (<g:message code="cv.authority_shortcode.${params.authority}"/>) </g:if><g:else> <g:message code="ofs.searchresults.title"/> </g:else> </title>
+
   </head>
 
   <body class="search-results yui3-skin-sam">
