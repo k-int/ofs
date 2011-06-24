@@ -20,10 +20,11 @@ class ProviderInformationService {
       'East_Sussex_County_Council' :                  ["subscriptionType":"basic", "name":"East Sussex County Council", "showLogo":true],  // This is how it is on test :(
       'Halton_Borough_Council' :                      ["subscriptionType":"basic", "name":"Halton Borough Council", "showLogo":true],
       'Kent_County_Council' :                         ["subscriptionType":"basic", "name":"Kent", "showLogo":true],
+      'London_Borough_of_Brent' :                     ["subscriptionType":"basic", "name":"London Borough of Brent", "showLogo":true],
       'London_Borough_of_Greenwich_Council' :         ["subscriptionType":"basic", "name":"London Borough of Greenwich Council", "showLogo":true],
       'London_Borough_of_Hackney_Council' :           ["subscriptionType":"basic", "name":"London Borough of Hackney Council", "showLogo":true],
+      'London_Borough_of_Lewisham' :                  ["subscriptionType":"basic", "name":"London Borough of Lewisham", "showLogo":true],
       'London_Borough_of_Wandsworth_Council' :        ["subscriptionType":"basic", "name":"Wandsworth", "showLogo":true],
-      'London_Borough_of_Brent' :                     ["subscriptionType":"basic", "name":"London Borough of Brent", "showLogo":true],
       'Lincolnshire_County_Council' :                 ["subscriptionType":"none",  "name":"Lincolnshire County Council", "showLogo":true],
       'Luton_Borough_Council' :                       ["subscriptionType":"basic", "name":"Luton", "showLogo":true],
       'Manchester_City_Council' :                     ["subscriptionType":"basic", "name":"Manchester City Council", "showLogo":true],
@@ -36,7 +37,8 @@ class ProviderInformationService {
       'Rochdale_Metropolitan_Borough_Council' :       ["subscriptionType":"basic", "name":"Rochdale", "showLogo":true],
       'Sheffield_City_Council' :                      ["subscriptionType":"basic", "name":"Sheffield", "showLogo":true],
       'Southend-on-Sea_Borough_Council' :             ["subscriptionType":"basic", "name":"Southend", "showLogo":true],
-      'Somerset__County_Council' :                    ["subscriptionType":"basic", "name":"Somerset  County Council", "showLogo":true],
+      'Somerset__County_Council' :                    ["subscriptionType":"basic", "name":"Somerset FID", "showLogo":true],
+      'Staffordshire_County_Councili' :               ["subscriptionType":"basic", "name":"Staffordshire County Council", "showLogo":true]
       'Suffolk_County_Council' :                      ["subscriptionType":"basic", "name":"Suffolk", "showLogo":true],
       'Surrey_County_Council' :                       ["subscriptionType":"basic", "name":"Surrey", "showLogo":true],
       'The_Royal_Borough_of_Windsor_and_Maidenhead' : ["subscriptionType":"basic", "name":"The Royal Borough of Windsor and Maidenhead", "showLogo":true],

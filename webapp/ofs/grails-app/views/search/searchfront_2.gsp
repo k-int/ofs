@@ -42,6 +42,9 @@
       <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
       -->
 
+      <g:if test="${params.authority != null}">
+        <div class="preamble"><h2>Search records from <g:message code="cv.authority_shortcode.${params.authority}"/> Only</h2><hr/></div>
+      </g:if>
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
         Enter your postcode, town, village or street into the place search box below, and get instant access to details of your local services and activities.<br/> 
@@ -49,7 +52,7 @@
       </div>
 
       <div class="yui3-u" style="width:100%"> 
-        <form action="/ofs/" method="get" > 
+        <form method="get" > 
           <div class="search-box">
             <div class="searchrow"> 
               <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
