@@ -142,7 +142,7 @@
       </g:each>
     </table>
     </g:if>
-    ${srcdoc.Availability.details?.text()}
+    ${srcdoc.Availability.Details?.text()}
   </g:if>
 
   <g:if test="${srcdoc.SuitableAgeRange.size() > 0}">
