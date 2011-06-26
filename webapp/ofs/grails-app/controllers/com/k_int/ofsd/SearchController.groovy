@@ -215,7 +215,7 @@ class SearchController {
     solr_params.set("facet","true")
     // solr_params.set("facet.field","extra_index_words_s","flags","authority")
     solr_params.set("facet.field","restp", "dc.subject.orig_s","flags","authority_shortcode" )
-    solr_params.set("facet.limit",20)
+    solr_params.set("facet.limit",30)
     solr_params.set("facet.mincount",1)
     // solr_params.set("wt","javabin")
 

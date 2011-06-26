@@ -132,13 +132,21 @@
 
   <g:if test="${srcdoc.Availability.size() > 0}">
     <h2>Availability</h2>
+    <g:if test="${srcdoc.Availability.StartDateTime.size() > 0}"> Available from ${srcdoc.Availability.StartDateTime.text()} <br/></g:if>
+    <g:if test="${srcdoc.Availability.EndDateTime.size() > 0}"> Available To ${srcdoc.Availability.EndDateTime.text()} <br/></g:if>
+    <g:if test="${srcdoc.Availability.Period.size() > 0}">
     <table>
       <tr><th>Period</th><th>Start</th><th>End</th></tr>
       <g:each in="${srcdoc.Availability.Period}" var="p">
         <tr><td>${p.@Day.text()}</td><td>${p.StartTime?.text()}</td><td>${p.EndTime?.text()}</td></tr>
       </g:each>
     </table>
+    </g:if>
     ${srcdoc.Availability.details?.text()}
+  </g:if>
+
+  <g:if test="${srcdoc.SuitableAgeRange.size() > 0}">
+    Suitable Age Range: ${srcdoc.SuitableAgeRange.text()}</br>
   </g:if>
 
   <g:if test="${srcdoc.SpecialProvisions.size() > 0}">

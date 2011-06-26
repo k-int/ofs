@@ -60,8 +60,8 @@ class EntryController {
           render(view:'ecd',model:result)
           break;
         case 'Service':
-          render(view:'fsd',model:result)
           result['srcdoc'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
+          render(view:'fsd',model:result)
           break;
       }
     }
