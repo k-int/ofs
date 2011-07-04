@@ -154,15 +154,17 @@
               </div>
             </g:if>
 
-            <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
+            <g:if test="${((srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0) || (srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) )}">
               <h3>Available places</h3>
-              <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
-                Please contact the provider for details of current vacancies
+              <g:if test="${srcdoc.ProviderDetails.ImmediateVacancies.size() > 0}">
+                This provider has immediate vacancies.
+              </g:if>
+              <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
+                <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
+                  Please contact the provider for details of future vacancies.
+                </g:if>
               </g:if>
             </g:if>
-            <g:else>
-              Please contact the provider for details of current vacancies
-            </g:else>
 
             <h3>Registration Date</h3>
             ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationDate.text()}
