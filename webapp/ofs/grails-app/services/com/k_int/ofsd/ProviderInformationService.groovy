@@ -20,6 +20,7 @@ class ProviderInformationService {
       'East_Sussex_County_Council' :                  ["subscriptionType":"basic", "name":"East Sussex County Council", "showLogo":true],  // This is how it is on test :(
       'Halton_Borough_Council' :                      ["subscriptionType":"basic", "name":"Halton Borough Council", "showLogo":true],
       'Kent_County_Council' :                         ["subscriptionType":"basic", "name":"Kent", "showLogo":true],
+      'Leicestershire_County_Council' :               ["subscriptionType":"basic", "name":"Leicestershire County Council", "showLogo":true],
       'London_Borough_of_Brent' :                     ["subscriptionType":"basic", "name":"London Borough of Brent", "showLogo":true],
       'London_Borough_of_Greenwich_Council' :         ["subscriptionType":"basic", "name":"London Borough of Greenwich Council", "showLogo":true],
       'London_Borough_of_Hackney_Council' :           ["subscriptionType":"basic", "name":"London Borough of Hackney Council", "showLogo":true],
