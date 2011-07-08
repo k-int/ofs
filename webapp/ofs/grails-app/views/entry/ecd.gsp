@@ -247,7 +247,7 @@
       <g:if test="${entry['flags'] != null}">
         <div class="categories">Features and Facilities: 
           <g:if test="${entry['flags'] instanceof java.util.List}">
-            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><a href="/ofs/?flags=${flag}"><g:message code="cv.flags.${flag}"/></a></g:each>
+            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.flags.${flag}"/></g:each>
           </g:if>
           <g:else>NA
             <g:message code="cv.flags.${entry['flags']}"/>
