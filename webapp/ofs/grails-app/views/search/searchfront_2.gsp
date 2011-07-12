@@ -42,6 +42,10 @@
       <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
       -->
 
+      <div id="adspace" class="greenpane">
+<strong>Advertisers and sponsors are now invited to share openfamilyservices growing user community.<br/>Contact lesley@openfamilyservices.org.uk for a media pack today!</strong>
+      </div>
+
       <g:if test="${params.authority != null}">
         <div class="preamble"><h2>Search records from <g:message code="cv.authority_shortcode.${params.authority}"/> Only</h2><hr/></div>
       </g:if>
