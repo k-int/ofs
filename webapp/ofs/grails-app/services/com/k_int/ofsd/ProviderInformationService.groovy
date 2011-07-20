@@ -51,7 +51,8 @@ class ProviderInformationService {
       'Trafford_Council' :                            ["subscriptionType":"basic", "name":"Trafford Council", "showLogo":true],
       'The_Royal_Borough_of_Windsor_and_Maidenhead' : ["subscriptionType":"basic", "name":"The Royal Borough of Windsor and Maidenhead", "showLogo":true],
       'Wirral_Metropolitan_Borough_Council' :         ["subscriptionType":"basic", "name":"Wirral Metropolitan Borough Council", "showLogo":true],
-      'Warrington_Borough_Council' :                  ["subscriptionType":"basic", "name":"Warrington Borough Council", "showLogo":true]
+      'Warrington_Borough_Council' :                  ["subscriptionType":"basic", "name":"Warrington Borough Council", "showLogo":true],
+      'Wiltshire_Council' :                           ["subscriptionType":"basic", "name":"Wiltshire Council", "showLogo":true]
     ]
 
     def lookupProviderInformation(provider_shortcode) {
