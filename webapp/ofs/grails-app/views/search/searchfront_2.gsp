@@ -42,9 +42,10 @@
       <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
       -->
 
-      <div id="adspace" class="greenpane">
-<strong>Advertisers and sponsors are now invited to share openfamilyservices growing user community.<br/>Contact lesley@openfamilyservices.org.uk for a media pack today!</strong>
+      <!-- For alerts
+      <div id="alertspace" class="greenpane">
       </div>
+      -->
 
       <g:if test="${params.authority != null}">
         <div class="preamble"><h2>Search records from <g:message code="cv.authority_shortcode.${params.authority}"/> Only</h2><hr/></div>
@@ -77,7 +78,6 @@ OpenFamilyServices is the national online directory where you can search for and
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a>
-      <a href="http://partners.openfamilyservices.org.uk/?page_id=245">Advertising</a> <br/>
 
       <div id="google_translate_element"></div><script>
       function googleTranslateElementInit() {
