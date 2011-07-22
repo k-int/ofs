@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
 
         <link rel="shortcut icon" href="${resource(dir:'images',file:'ofs_favicon.png')}" type="image/png" />
-        <g:layoutHead />
-        <g:javascript library="application" />
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -25,6 +23,10 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
+        <g:layoutHead />
+
+        <g:javascript library="application" />
 
     </head>
 
