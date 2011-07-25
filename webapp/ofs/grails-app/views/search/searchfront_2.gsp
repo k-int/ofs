@@ -42,6 +42,9 @@
       <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
       -->
 
+      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px; clear:both;">
+OpenFamilyServices is a national online directory of accredited childcare, family services and positive activities. The information comes directly from participating Local Authorities across England. Information about national services is also available in a single search.
+      </div>
       <!-- For alerts
       <div id="alertspace" class="greenpane">
       </div>
@@ -70,9 +73,6 @@
         </form> 
       </div> 
 
-      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px; clear:both;"> 
-OpenFamilyServices is the national online directory of accredited childcare, family services and positive activities. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal.
-      </div>
 
     </div>    
 
