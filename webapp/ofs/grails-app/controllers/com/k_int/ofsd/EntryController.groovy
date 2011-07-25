@@ -71,7 +71,8 @@ class EntryController {
       // render(status:404)
       def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
       println "Request for nonexistent resource ${params.id} from ${remote_addr}"
-      response.sendError(404, "${params.id} not found.")
+      // response.sendError(404, "${params.id} not found.")
+      response.sendError(410, "${params.id} not found.")
       render "${params.id} not found."
     }
 
