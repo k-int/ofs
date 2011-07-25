@@ -18,7 +18,6 @@ class GazController {
     def solrGazBean
 
     def index = { 
-      println "Gaz called"
       def gazresp = doDismaxGazQuery(params.q)
       def results = ["results":gazresp]
 
