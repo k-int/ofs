@@ -29,7 +29,7 @@
     <g:if test="${entry['icon_url_s']!=null}"><meta property="og:image" content="${entry['icon_url_s']}" /></g:if>
     <meta property="og:site_name" content="Open Family Services" />
 
-    <title>${g.message(code: 'ofs.details.prefix')} ${entry['dc.title']}</title>
+    <title>${g.message(code: 'ofs.details.prefix')} : ${entry['dc.title']} (${entry['feedback_name_s']}, #${params.id})</title>
 
     <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
