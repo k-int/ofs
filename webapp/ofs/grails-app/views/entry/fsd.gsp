@@ -10,7 +10,7 @@
 
     <g:if test="${(entry['dc.description'] != null )}">
       <meta property="dc.description" name="dc.description" content="${entry['dc.description']}" />
-      <meta property="description" name="description" content="${entry['dc.description']}" />
+      <meta property="description" name="description" content="${entry['dc.title']} ${entry['feedback_name_s']}, #${params.id} ${entry['dc.description']}" />
       <meta property="og:description" content="${entry['dc.description']}" />
     </g:if>
 
