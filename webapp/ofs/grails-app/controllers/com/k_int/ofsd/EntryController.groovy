@@ -116,6 +116,13 @@ class EntryController {
                                                        params.id,
                                                        target_solr_doc['dc.title']);
       }
+      else {
+        def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
+        println "Request for nonexistent resource ${params.id} from ${remote_addr}"
+        // response.sendError(404, "${params.id} not found.")
+        response.sendError(410, "${params.id} not found.")
+        render "${params.id} not found."
+      }
 
       if ( request.method.equalsIgnoreCase("POST") ) {
         println "Process as POST"
