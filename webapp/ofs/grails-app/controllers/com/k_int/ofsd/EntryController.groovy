@@ -99,8 +99,8 @@ class EntryController {
       ModifiableSolrParams solr_params = new ModifiableSolrParams();
       solr_params.set("q", "aggregator.internal.id:${params.id}")
       solr_params.set("wt","javabin")
-      QueryResponse response = solrServerBean.query(solr_params);
-      SolrDocumentList sdl = response.getResults();
+      QueryResponse query_resp = solrServerBean.query(solr_params);
+      SolrDocumentList sdl = query_resp.getResults();
       long record_count = sdl.getNumFound();
       def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
       result['remote_addr'] = remote_addr
