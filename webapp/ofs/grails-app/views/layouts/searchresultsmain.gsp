@@ -13,6 +13,11 @@
         <g:layoutHead />
         <g:javascript library="application" />
 
+    </head>
+    <body class="search-results yui3-skin-sam">
+
+        <g:layoutBody />
+
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '${grailsApplication.config.ofs.analytics.code}']);
@@ -26,8 +31,5 @@
   })();
 </script>
 
-    </head>
-    <body class="search-results yui3-skin-sam">
-        <g:layoutBody />
     </body>
 </html>

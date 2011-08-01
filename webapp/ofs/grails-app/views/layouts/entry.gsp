@@ -11,19 +11,6 @@
 
         <link rel="shortcut icon" href="${resource(dir:'images',file:'ofs_favicon.png')}" type="image/png" />
 
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '${grailsApplication.config.ofs.analytics.code}']);
-  _gaq.push(['_setDomainName', '.openfamilyservices.org.uk']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
         <g:layoutHead />
 
         <g:javascript library="application" />
@@ -60,7 +47,7 @@
               </form>
               <a href="/ofs">Home</a>
               <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
-                > <a href="${request.getHeader('referer')}">Search Results</a>
+                &gt; <a href="${request.getHeader('referer')}">Search Results</a>
               </g:if>
             </div>
           </div>
@@ -96,6 +83,19 @@
         }
         </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
       </div>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '${grailsApplication.config.ofs.analytics.code}']);
+  _gaq.push(['_setDomainName', '.openfamilyservices.org.uk']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
     </body>
 </html>
