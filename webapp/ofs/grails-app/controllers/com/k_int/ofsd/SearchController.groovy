@@ -12,6 +12,7 @@ import groovy.text.Template
 import groovy.text.SimpleTemplateEngine
 import groovy.xml.MarkupBuilder
 import org.codehaus.groovy.grails.commons.ApplicationHolder
+import com.k_int.iep.datamodel.IEPVisitData
 
 class SearchController {
 
@@ -28,6 +29,13 @@ class SearchController {
   def search = {
 
     def starttime = System.currentTimeMillis();
+
+    def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
+
+    new IEPVisitData(uri:'/ofs/',
+                     agent:request.getHeader("User-Agent"),
+                     referrer:request.getHeader('referer'),
+                     ip:remote_addr).save(flush:true)
 
     println "Search action Conf=${params.conf} pis=${providerInformationService}"
 
