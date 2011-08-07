@@ -2,9 +2,9 @@
 <html>
     <head>
 
-    <meta property="dc.title" name="dc.title" content="Open Family Services - The Open Childcare and Family Services Directory" />
-    <meta property="title" name="title" content="Open Family Services - The Open Childcare and Family Services Directory" />
-    <meta property="og:title" name="og:title" content="Open Family Services - The Open Childcare and Family Services Directory" />
+    <meta property="dc.title" name="dc.title" content="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services" />
+    <meta property="title" name="title" content="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services"/>
+    <meta property="og:title" name="og:title" content="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services"/>
 
     <meta property="dc.description" name="dc:description" name="dc.description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
 
@@ -14,7 +14,7 @@
 
     <meta property="keywords" name="keywords" content="Directory Family Childcare Services Search National Local Information Authority Positive Activities Events Organisations"/>
 
-        <title><g:layoutTitle default="Open Family Services - The Open Childcare and Family Services Directory" /></title>
+        <title><g:layoutTitle default="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services" /></title>
 
         <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset.css" type="text/css"/> 
         <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts.css" type="text/css"/> 
