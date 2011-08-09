@@ -224,6 +224,7 @@
 
       <g:if test="${srcdoc.ProviderDetails.SpecialProvisions.size() > 0}">
         <h2>Special Provision</h2>
+
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision='true') ) }">
           <p> <h3>Special Needs</h3>
             ${srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.Experience?.text()}<br/>
@@ -232,19 +233,19 @@
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=1) || (srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=true) )  }">
-          <p> <h3>Diet</h3>
+          <p> Special provision for diet available at this provider <br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.text()}<br/>
           </p>
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=true) ) }">
-          <p> <h3>Cultural Provision</h3>
+          <p> Cultural Provision is Available at this provider<br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.text()}<br/>
           </p>
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=true) ) }">
-          <p> <h3>Wheelchair Access</h3>
+          <p> Wheelchair Access is Available at this provider<br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.text()}<br/>
           </p>
         </g:if>
