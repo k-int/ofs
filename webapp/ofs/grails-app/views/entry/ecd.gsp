@@ -212,6 +212,16 @@
         ${srcdoc.ProviderDetails.ChildcareTimes.Availability.text()}
       </g:if>
 
+      <g:if test="${srcdoc.ProviderDetails.Pickups.size() > 0}">
+        <h2>School Pickups</h2>
+         <g:if test="${srcdoc.ProviderDetails.Pickups.SchoolList.size() > 0}">
+           School List: ${srcdoc.ProviderDetails.Pickups.SchoolList.text()}<br/>
+         </g:if>
+         <g:if test="${srcdoc.ProviderDetails.Pickups.Details.size() > 0}">
+           Details: ${srcdoc.ProviderDetails.Pickups.Details.text()}<br/>
+         </g:if>
+      </g:if>
+
       <g:if test="${srcdoc.ProviderDetails.SpecialProvisions.size() > 0}">
         <h2>Special Provision</h2>
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision='true') ) }">
