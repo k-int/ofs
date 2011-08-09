@@ -254,8 +254,13 @@
      
 
       <h2>Additional Information</h2>
+
+      <g:if test="${srcdoc.ProviderDetails.Facilities.size() > 0}">
+        Providers description of available facilities: ${srcdoc.ProviderDetails.Facilities.text()}
+      </g:if>
+
       <g:if test="${entry['flags'] != null}">
-        <div class="categories">Features and Facilities: 
+        <div class="categories">Other Features and Facilities: 
           <g:if test="${entry['flags'] instanceof java.util.List}">
             <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.flags.${flag}"/></g:each>
           </g:if>
