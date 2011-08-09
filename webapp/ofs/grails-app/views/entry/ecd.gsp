@@ -256,7 +256,7 @@
       <h2>Additional Information</h2>
 
       <g:if test="${srcdoc.ProviderDetails.Facilities.size() > 0}">
-        Providers description of available facilities: ${srcdoc.ProviderDetails.Facilities.text()}
+        <p>Providers description of available facilities: ${srcdoc.ProviderDetails.Facilities.text()}</p>
       </g:if>
 
       <g:if test="${entry['flags'] != null}">
