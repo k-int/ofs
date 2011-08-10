@@ -38,7 +38,7 @@ class ProviderInformationService {
       'Sheffield_City_Council' :                      ["subscriptionType":"basic", "name":"Sheffield", "showLogo":true],
       'Southend-on-Sea_Borough_Council' :             ["subscriptionType":"basic", "name":"Southend", "showLogo":true],
       'Somerset__County_Council' :                    ["subscriptionType":"basic", "name":"Somerset FID", "showLogo":true],
-      'Staffordshire_County_Councili' :               ["subscriptionType":"basic", "name":"Staffordshire County Council", "showLogo":true]
+      'Staffordshire_County_Councili' :               ["subscriptionType":"basic", "name":"Staffordshire County Council", "showLogo":true],
       'Suffolk_County_Council' :                      ["subscriptionType":"basic", "name":"Suffolk", "showLogo":true],
       'Surrey_County_Council' :                       ["subscriptionType":"basic", "name":"Surrey", "showLogo":true],
       'The_Royal_Borough_of_Windsor_and_Maidenhead' : ["subscriptionType":"basic", "name":"The Royal Borough of Windsor and Maidenhead", "showLogo":true],
