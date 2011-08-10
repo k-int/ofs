@@ -7,8 +7,8 @@
     <meta property="title" name="title" content="${entry['dc.title']}" />
 
     <g:if test="${(entry['dc.description'] != null )}">
-      <meta property="dc.description" name="dc.description" content="${entry['dc.description']}" />
-      <meta property="description" name="description" content="${entry['dc.description']}" />
+      <meta property="dc.description" name="dc.description" content="${entry['dc.description']} " />
+      <meta property="description" name="description" content="${entry['dc.title']} ${entry['feedback_name_s']}, #${params.id} ${entry['dc.description']}" />
       <meta property="og:description" content="${entry['dc.description']}" />
     </g:if>
 
@@ -29,7 +29,7 @@
     <g:if test="${entry['icon_url_s']!=null}"><meta property="og:image" content="${entry['icon_url_s']}" /></g:if>
     <meta property="og:site_name" content="Open Family Services" />
 
-    <title>${g.message(code: 'ofs.details.prefix')} ${entry['dc.title']}</title>
+    <title>${g.message(code: 'ofs.details.prefix')} : ${entry['dc.title']} (${entry['feedback_name_s']}, #${params.id})</title>
 
     <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
@@ -154,15 +154,17 @@
               </div>
             </g:if>
 
-            <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
+            <g:if test="${((srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0) || (srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) )}">
               <h3>Available places</h3>
-              <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
-                Please contact the provider for details of current vacancies
+              <g:if test="${srcdoc.ProviderDetails.ImmediateVacancies.size() > 0}">
+                This provider has immediate vacancies.
+              </g:if>
+              <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
+                <g:if test="${(srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 1 ) || ( srcdoc.ProviderDetails.FutureVacancyDetails.@ContactForVacancies == 'true' ) }">
+                  Please contact the provider for details of future vacancies.
+                </g:if>
               </g:if>
             </g:if>
-            <g:else>
-              Please contact the provider for details of current vacancies
-            </g:else>
 
             <h3>Registration Date</h3>
             ${srcdoc.ProviderDetails.RegistrationDetails.RegistrationDate.text()}
@@ -210,8 +212,19 @@
         ${srcdoc.ProviderDetails.ChildcareTimes.Availability.text()}
       </g:if>
 
+      <g:if test="${srcdoc.ProviderDetails.Pickups.size() > 0}">
+        <h2>School Pickups</h2>
+         <g:if test="${srcdoc.ProviderDetails.Pickups.SchoolList.size() > 0}">
+           School List: ${srcdoc.ProviderDetails.Pickups.SchoolList.text()}<br/>
+         </g:if>
+         <g:if test="${srcdoc.ProviderDetails.Pickups.Details.size() > 0}">
+           Details: ${srcdoc.ProviderDetails.Pickups.Details.text()}<br/>
+         </g:if>
+      </g:if>
+
       <g:if test="${srcdoc.ProviderDetails.SpecialProvisions.size() > 0}">
         <h2>Special Provision</h2>
+
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision='true') ) }">
           <p> <h3>Special Needs</h3>
             ${srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.Experience?.text()}<br/>
@@ -220,19 +233,19 @@
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=1) || (srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=true) )  }">
-          <p> <h3>Diet</h3>
+          <p> Special provision for diet available at this provider <br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.text()}<br/>
           </p>
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=true) ) }">
-          <p> <h3>Cultural Provision</h3>
+          <p> Cultural Provision is Available at this provider<br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.text()}<br/>
           </p>
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=true) ) }">
-          <p> <h3>Wheelchair Access</h3>
+          <p> Wheelchair Access is Available at this provider<br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.text()}<br/>
           </p>
         </g:if>
@@ -242,10 +255,15 @@
      
 
       <h2>Additional Information</h2>
+
+      <g:if test="${srcdoc.ProviderDetails.Facilities.size() > 0}">
+        <p>Providers description of available facilities: ${srcdoc.ProviderDetails.Facilities.text()}</p>
+      </g:if>
+
       <g:if test="${entry['flags'] != null}">
-        <div class="categories">Features and Facilities: 
+        <div class="categories">Other Features and Facilities: 
           <g:if test="${entry['flags'] instanceof java.util.List}">
-            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><a href="/ofs/?flags=${flag}"><g:message code="cv.flags.${flag}"/></a></g:each>
+            <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.flags.${flag}"/></g:each>
           </g:if>
           <g:else>NA
             <g:message code="cv.flags.${entry['flags']}"/>

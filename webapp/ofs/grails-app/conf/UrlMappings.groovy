@@ -27,5 +27,7 @@ class UrlMappings {
     "/" (controller:"search", action:"search")
 
     "500"(view:'/error')
+    "404"(view:'/notfound')
+    "410"(view:'/notfound')
   }
 }

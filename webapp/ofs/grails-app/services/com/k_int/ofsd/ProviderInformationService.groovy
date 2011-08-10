@@ -13,13 +13,19 @@ class ProviderInformationService {
       'Borough_of_Poole' :                            ["subscriptionType":"basic", "name":"Borough of Poole", "showLogo":true],
       'Bradford_Metropolitan_District_Council' :      ["subscriptionType":"basic", "name":"Bradford Metropolitan District Council", "showLogo":true],
       'Buckinghamshire_County_Council' :              ["subscriptionType":"basic", "name":"Buckinghamshire County Council", "showLogo":true],
+      'Cumbria_County_Council' :                      ["subscriptionType":"basic", "name":"Cumbria County Council", "showLogo":true],
       'City_of_York' :                                ["subscriptionType":"basic", "name":"York", "showLogo":true],
       'Devon_County_Council' :                        ["subscriptionType":"basic", "name":"Devon County Council", "showLogo":true],
       'Dorset__County_Council' :                      ["subscriptionType":"basic", "name":"Dorset", "showLogo":true],
       'Dorset_County_Council' :                       ["subscriptionType":"basic", "name":"Dorset", "showLogo":true],  // This is how it is on test :(
       'East_Sussex_County_Council' :                  ["subscriptionType":"basic", "name":"East Sussex County Council", "showLogo":true],  // This is how it is on test :(
       'Halton_Borough_Council' :                      ["subscriptionType":"basic", "name":"Halton Borough Council", "showLogo":true],
+      'Hartlepool_Borough_Council' :                  ["subscriptionType":"basic", "name":"Hartlepool Borough Council", "showLogo":true],
       'Kent_County_Council' :                         ["subscriptionType":"basic", "name":"Kent", "showLogo":true],
+      'Knowsley_Metropolitan_Borough_Council' :       ["subscriptionType":"basic", "name":"Knowsley Metropolitan Borough Council", "showLogo":true],
+      'Lancashire_County_Council' :                   ["subscriptionType":"basic", "name":"Lancashire County Council", "showLogo":true],
+      'Leicester_City_Council' :                      ["subscriptionType":"basic", "name":"Leicester City Council", "showLogo":true],
+      'Leicestershire_County_Council' :               ["subscriptionType":"basic", "name":"Leicestershire County Council", "showLogo":true],
       'London_Borough_of_Brent' :                     ["subscriptionType":"basic", "name":"London Borough of Brent", "showLogo":true],
       'London_Borough_of_Greenwich_Council' :         ["subscriptionType":"basic", "name":"London Borough of Greenwich Council", "showLogo":true],
       'London_Borough_of_Hackney_Council' :           ["subscriptionType":"basic", "name":"London Borough of Hackney Council", "showLogo":true],
@@ -36,13 +42,17 @@ class ProviderInformationService {
       'Oxfordshire_County_Council' :                  ["subscriptionType":"basic", "name":"Oxfordshire", "showLogo":true],
       'Rochdale_Metropolitan_Borough_Council' :       ["subscriptionType":"basic", "name":"Rochdale", "showLogo":true],
       'Sheffield_City_Council' :                      ["subscriptionType":"basic", "name":"Sheffield", "showLogo":true],
+      'South_Gloucestershire_Council' :               ["subscriptionType":"basic", "name":"South Gloucestershire Council", "showLogo":true],
       'Southend-on-Sea_Borough_Council' :             ["subscriptionType":"basic", "name":"Southend", "showLogo":true],
       'Somerset__County_Council' :                    ["subscriptionType":"basic", "name":"Somerset FID", "showLogo":true],
       'Staffordshire_County_Council' :                ["subscriptionType":"basic", "name":"Staffordshire County Council", "showLogo":true],
       'Suffolk_County_Council' :                      ["subscriptionType":"basic", "name":"Suffolk", "showLogo":true],
       'Surrey_County_Council' :                       ["subscriptionType":"basic", "name":"Surrey", "showLogo":true],
+      'Trafford_Council' :                            ["subscriptionType":"basic", "name":"Trafford Council", "showLogo":true],
       'The_Royal_Borough_of_Windsor_and_Maidenhead' : ["subscriptionType":"basic", "name":"The Royal Borough of Windsor and Maidenhead", "showLogo":true],
-      'Wirral_Metropolitan_Borough_Council' :         ["subscriptionType":"basic", "name":"Wirral Metropolitan Borough Council", "showLogo":true]
+      'Wirral_Metropolitan_Borough_Council' :         ["subscriptionType":"basic", "name":"Wirral Metropolitan Borough Council", "showLogo":true],
+      'Warrington_Borough_Council' :                  ["subscriptionType":"basic", "name":"Warrington Borough Council", "showLogo":true],
+      'Wiltshire_Council' :                           ["subscriptionType":"basic", "name":"Wiltshire Council", "showLogo":true]
     ]
 
     def lookupProviderInformation(provider_shortcode) {

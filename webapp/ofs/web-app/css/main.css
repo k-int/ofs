@@ -196,6 +196,25 @@ div.preamble {
   text-align:center;
   font-size:12px;
 }
+
+div.alertspace {
+  text-align:center;
+  font-size:14px;
+}
+
+div.greenpane {
+    border-radius: 5px;
+    text-align:center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    /*margin-left: 20px auto 10px;
+    margin-top: 20px auto 10px;
+    margin-bottom: 20px auto 10px;*/
+    background: #22a72a;
+    padding: 10px;
+    color:white;
+}
+
 div.subtitle {
   text-align:center;
   font-size:12px;

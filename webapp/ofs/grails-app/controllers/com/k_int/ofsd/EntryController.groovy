@@ -50,7 +50,7 @@ class EntryController {
       def target_solr_doc = sdl.get(0);
       result['entry'] = target_solr_doc
       def dpp_url = target_solr_doc['repo_url_s']
-      println "Got repo url: ${dpp_url}"
+      println "Got repo url: ${dpp_url}, doctp is ${target_solr_doc['restp']}"
    
       // def source_record_url = "${ApplicationHolder.application.config.ofs.host}${dpp_url}"
 
@@ -60,8 +60,8 @@ class EntryController {
           render(view:'ecd',model:result)
           break;
         case 'Service':
-          render(view:'fsd',model:result)
           result['srcdoc'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
+          render(view:'fsd',model:result)
           break;
       }
     }
@@ -71,9 +71,12 @@ class EntryController {
       // render(status:404)
       def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
       println "Request for nonexistent resource ${params.id} from ${remote_addr}"
-      response.sendError(404, "${params.id} not found.")
+      // response.sendError(404, "${params.id} not found.")
+      response.sendError(410, "${params.id} not found.")
       render "${params.id} not found."
     }
+
+    println "Resource processing complete"
 
     result
   }
@@ -88,7 +91,7 @@ class EntryController {
   }
 
   def feedback = {
-    println "feedback action"
+    println "feedback action for ${params.id}"
 
     def result = [:]
 
@@ -96,13 +99,13 @@ class EntryController {
       ModifiableSolrParams solr_params = new ModifiableSolrParams();
       solr_params.set("q", "aggregator.internal.id:${params.id}")
       solr_params.set("wt","javabin")
-      QueryResponse response = solrServerBean.query(solr_params);
-      SolrDocumentList sdl = response.getResults();
+      QueryResponse query_resp = solrServerBean.query(solr_params);
+      SolrDocumentList sdl = query_resp.getResults();
       long record_count = sdl.getNumFound();
       def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
       result['remote_addr'] = remote_addr
 
-      println "Entry page, referrer is ${request.getHeader('referer')}"
+      println "[feedback] Entry page, referrer is ${request.getHeader('referer')}"
 
       if ( record_count==1 ) {
         def target_solr_doc = sdl.get(0);
@@ -112,6 +115,12 @@ class EntryController {
         result['validation_stamp'] = getValidationHash(params.authority,
                                                        params.id,
                                                        target_solr_doc['dc.title']);
+      }
+      else {
+        println "Request for nonexistent resource ${params.id} from ${remote_addr}"
+        // response.sendError(404, "${params.id} not found.")
+        response.sendError(410, "${params.id} not found.")
+        render "${params.id} not found."
       }
 
       if ( request.method.equalsIgnoreCase("POST") ) {

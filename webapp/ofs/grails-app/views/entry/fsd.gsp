@@ -10,7 +10,7 @@
 
     <g:if test="${(entry['dc.description'] != null )}">
       <meta property="dc.description" name="dc.description" content="${entry['dc.description']}" />
-      <meta property="description" name="description" content="${entry['dc.description']}" />
+      <meta property="description" name="description" content="${entry['dc.title']} ${entry['feedback_name_s']}, #${params.id} ${entry['dc.description']}" />
       <meta property="og:description" content="${entry['dc.description']}" />
     </g:if>
 
@@ -31,7 +31,7 @@
     <meta property="og:site_name" content="Open Family Services" />
 
 
-    <title>${g.message(code: 'ofs.fsd.details.prefix')} ${entry['dc.title']}</title>
+    <title>${g.message(code: 'ofs.fsd.details.prefix')} ${entry['dc.title']} (${entry['feedback_name_s']}, #${params.id})</title>
 
     <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -132,13 +132,32 @@
 
   <g:if test="${srcdoc.Availability.size() > 0}">
     <h2>Availability</h2>
+    <g:if test="${srcdoc.Availability.Details?.size() > 0}">
+    <strong>${srcdoc.Availability.Details?.text()}</strong><br/>
+    </g:if>
+    <g:if test="${srcdoc.Availability.StartDateTime.size() > 0}"> Available from ${srcdoc.Availability.StartDateTime.text()} <br/></g:if>
+    <g:if test="${srcdoc.Availability.EndDateTime.size() > 0}"> Available To ${srcdoc.Availability.EndDateTime.text()} <br/></g:if>
+    <g:if test="${srcdoc.Availability.Period.size() > 0}">
     <table>
       <tr><th>Period</th><th>Start</th><th>End</th></tr>
       <g:each in="${srcdoc.Availability.Period}" var="p">
         <tr><td>${p.@Day.text()}</td><td>${p.StartTime?.text()}</td><td>${p.EndTime?.text()}</td></tr>
       </g:each>
     </table>
-    ${srcdoc.Availability.details?.text()}
+    </g:if>
+  </g:if>
+
+  <g:if test="${srcdoc.SuitableAgeRange.size() > 0}">
+    Suitable for age ranges 
+    <g:if test="${srcdoc.SuitableAgeRange.From.size() > 0}">From 
+      <g:if test="${srcdoc.SuitableAgeRange.From.Years.size() > 0}"> ${srcdoc.SuitableAgeRange.From.Years.text()} years </g:if>
+      <g:if test="${srcdoc.SuitableAgeRange.From.Months.size() > 0}"> ${srcdoc.SuitableAgeRange.From.Years.text()} months </g:if>
+    </g:if>
+    <g:if test="${srcdoc.SuitableAgeRange.To.size() > 0}">To
+      <g:if test="${srcdoc.SuitableAgeRange.To.Years.size() > 0}"> ${srcdoc.SuitableAgeRange.To.Years.text()} years </g:if>
+      <g:if test="${srcdoc.SuitableAgeRange.To.Months.size() > 0}"> ${srcdoc.SuitableAgeRange.To.Months.text()} months </g:if>
+    </g:if>
+    </br>
   </g:if>
 
   <g:if test="${srcdoc.SpecialProvisions.size() > 0}">
