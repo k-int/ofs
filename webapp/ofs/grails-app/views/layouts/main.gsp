@@ -2,17 +2,17 @@
 <html>
     <head>
 
-    <meta property="dc.title" name="dc.title" content="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services" />
-    <meta property="title" name="title" content="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services"/>
-    <meta property="og:title" name="og:title" content="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services"/>
+    <meta property="dc.title" name="dc.title" content="Open Family Services - The UK National Directory of Child care, registered Childminders, Family Information, Positive activities and Family Services" />
+    <meta property="title" name="title" content="Open Family Services - The UK National Directory of Child care, registered Childminders, Family Information, Positive activities and Family Services"/>
+    <meta property="og:title" name="og:title" content="Open Family Services - The UK National Directory of Child care, registered Childminders, Family Information, Positive activities and Family Services"/>
 
-    <meta property="dc.description" name="dc:description" name="dc.description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
+    <meta property="dc.description" name="dc:description" name="dc.description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services such as registered childminders, childcare and activities. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
 
-    <meta property="description" name="description" name="description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
+    <meta property="description" name="description" name="description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services such as registered childminders, childcare and activities. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
 
-    <meta property="og:description" name="og:description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
+    <meta property="og:description" name="og:description" content="OpenFamilyServices is the national online directory where you can search for and find information on a wide range of family-related services such as registered childminders, childcare and activities. The information comes from Local Authorities across England. Visitors can search for information about national services, and services and service providers within their own locality, or further afield, through this single portal." />
 
-    <meta property="keywords" name="keywords" content="Directory Family Childcare Services Search National Local Information Authority Positive Activities Events Organisations"/>
+    <meta property="keywords" name="keywords" content="Directory, Family, Childcare, Services, Search, National, Local, Information, Authority, Positive Activities, Events, Organisations, child care, babysitters, childminders, registered childminders, nannies, babysitting, nanny, babysitter, childminder, childminding, nanny jobs, childcare jobs, babysitting jobs"/>
 
         <title><g:layoutTitle default="Open Family Services - The UK National Directory of Childcare, Family Information, Positive activities and Family Services" /></title>
 

@@ -76,12 +76,14 @@
 
 <g:if test="${noqry != true}">
   <div class="searchflash">
+    <h1>
     <g:if test="${keywords != null}">
-      Looking for "${keywords}" 
+      Search results for "${keywords}" 
     </g:if>
     <g:if test="${place != null}">
       Near "${place.fqn}"
     </g:if>
+    </h1>
     
     <br/>${search_results.results.numFound} records found in ${elapsed} seconds.
     <g:if test="${place != null}">

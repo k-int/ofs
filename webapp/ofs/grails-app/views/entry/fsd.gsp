@@ -31,7 +31,7 @@
     <meta property="og:site_name" content="Open Family Services" />
 
 
-    <title>${g.message(code: 'ofs.fsd.details.prefix')} ${entry['dc.title']} (${entry['feedback_name_s']}, #${params.id})</title>
+    <title>${entry['dc.title']} (via ${entry['feedback_name_s']}, #${params.id})</title>
 
     <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
