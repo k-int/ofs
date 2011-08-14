@@ -13,6 +13,8 @@
 
     <script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js" charset="utf-8"></script>
 
+    <link rel="canonical" href="http://www.openfamilyservices.org.uk/ofs" />
+
   </head>
 
   <body class="search-results yui3-skin-sam">
