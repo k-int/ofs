@@ -126,7 +126,9 @@ class SiteMapindexController {
       }      
 
       sdl.each { rec ->
-        cache_entry.urls.add([rec['aggregator.internal.id'],rec['modified']])
+        if ( ( rec['modified'] != null ) && ( rec['modified'].length() > 0 ) ) {
+          cache_entry.urls.add([rec['aggregator.internal.id'],rec['modified']])
+        }
       }
 
     }
