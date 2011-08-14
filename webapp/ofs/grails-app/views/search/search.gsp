@@ -128,7 +128,10 @@
           </li>
           <g:if test="${sr['distance'] != null}"><li>Approximately ${ ((int)Math.abs( sr['distance'] * 100 ))/100 } - miles from ${place.fqn}</li></g:if>
 
-          <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}"><li>Telephone: ${sr['telephone']}</li></g:if>
+          <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}">
+            Telephone: <span class="tel"><span class="value"><a href="callto:${sr['telephone']}">${sr['telephone']}</a></span></span><br/>
+          </g:if>
+
           <g:if test="${(sr['email'] != null ) && ( sr['email'].length() > 0 )}"><li>Email: <a href="mailto:${sr['email']}">${sr['email']}</a></li></g:if>
 
           <g:if test="${( sr['modified'] != null )}">
