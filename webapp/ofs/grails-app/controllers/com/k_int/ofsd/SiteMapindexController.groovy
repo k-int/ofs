@@ -22,6 +22,10 @@ class SiteMapindexController {
 
   def solrServerBean
 
+  // 2011-08-12T00:00:00Z - yyyy.MM.dd G 'at' HH:mm:ss z
+  def formatter = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+  def default_date = formatter.format(new Date(System.currentTimeMillis()))
+
   // http://wiki.apache.org/solr/CommonQueryParameters
 
   def siteindex = {
@@ -77,13 +81,14 @@ class SiteMapindexController {
       last_generated = System.currentTimeMillis()
     }
 
+
     // http://en.wikipedia.org/wiki/Site_map
     // http://en.wikipedia.org/wiki/Sitemap_index
     xml.sitemapindex(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
       sitemap_data.each { auth ->
         sitemap() {
           loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${auth.name}/sitemap")
-          lastmod(auth.lastModified)
+          lastmod( auth.lastModified != null ? auth.lastModified : default_date );
           mkp.comment("Doc count for this authority: ${auth.count}")
         }
       }
@@ -138,13 +143,14 @@ class SiteMapindexController {
 
     def writer = new StringWriter()
     def xml = new MarkupBuilder(writer)
+    // 2011-08-12T00:00:00Z - yyyy.MM.dd G 'at' HH:mm:ss z
 
     if ( cache_entry != null ) {
       xml.urlset(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
         cache_entry.urls.each { rec ->
           url() {
             loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec[0]}")
-            lastmod("${rec[1]}")
+            lastmod(rec[1] != null ? "${rec[1]}" : default_date )
             //changefreq('hello')
             //priority('hello')
           }

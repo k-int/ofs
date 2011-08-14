@@ -32,10 +32,10 @@ class SearchController {
 
     def remote_addr = request.getHeader("X-Forwarded-For") ?: request.getRemoteAddr()
 
-    new IEPVisitData(uri:'/ofs/',
-                     agent:request.getHeader("User-Agent"),
-                     referrer:request.getHeader('referer'),
-                     ip:remote_addr).save(flush:true)
+    // new IEPVisitData(uri:'/ofs/',
+    //                  agent:request.getHeader("User-Agent"),
+    //                  referrer:request.getHeader('referer'),
+    //                  ip:remote_addr).save(flush:true)
 
     println "Search action Conf=${params.conf} pis=${providerInformationService}"
 
