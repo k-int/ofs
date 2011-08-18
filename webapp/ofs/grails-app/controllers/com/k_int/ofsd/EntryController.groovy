@@ -44,7 +44,7 @@ class EntryController {
     SolrDocumentList sdl = sol_response.getResults();
     long record_count = sdl.getNumFound();
 
-    println "Entry page, referrer is ${request.getHeader('referer')}"
+    println "Entry page, referrer is ${request.getHeader('referer')}, useragent is ${request.getHeader('User-Agent')}"
 
     if ( record_count==1 ) {
       def target_solr_doc = sdl.get(0);

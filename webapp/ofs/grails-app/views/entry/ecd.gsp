@@ -29,7 +29,7 @@
     <g:if test="${entry['icon_url_s']!=null}"><meta property="og:image" content="${entry['icon_url_s']}" /></g:if>
     <meta property="og:site_name" content="Open Family Services" />
 
-    <title>${g.message(code: 'ofs.details.prefix')} : ${entry['dc.title']} (${entry['feedback_name_s']}, #${params.id})</title>
+    <title>${entry['dc.title']} (via ${entry['feedback_name_s']}, #${params.id})</title>
 
     <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
@@ -128,9 +128,13 @@
       <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
       <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
       <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
-      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">Telephone: ${entry['telephone']}<br/></g:if>
+      <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">
+        Telephone: <span class="tel"><span class="value"><a href="callto:${entry['telephone']}">${entry['telephone']}</a></span></span><br/>
+      </g:if>
       <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: <a href="mailto:${entry['email']}">${entry['email']}</a><br/></g:if>
-      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Email: ${entry['fax']}<br/></g:if>
+      <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">
+        Fax: <span class="tel"><span class="type">fax</span><span class="value">${entry['fax']}</span></span><br/>
+      </g:if>
 
       <h2>General</h2>
 
@@ -212,8 +216,19 @@
         ${srcdoc.ProviderDetails.ChildcareTimes.Availability.text()}
       </g:if>
 
+      <g:if test="${srcdoc.ProviderDetails.Pickups.size() > 0}">
+        <h2>School Pickups</h2>
+         <g:if test="${srcdoc.ProviderDetails.Pickups.SchoolList.size() > 0}">
+           School List: ${srcdoc.ProviderDetails.Pickups.SchoolList.text()}<br/>
+         </g:if>
+         <g:if test="${srcdoc.ProviderDetails.Pickups.Details.size() > 0}">
+           Details: ${srcdoc.ProviderDetails.Pickups.Details.text()}<br/>
+         </g:if>
+      </g:if>
+
       <g:if test="${srcdoc.ProviderDetails.SpecialProvisions.size() > 0}">
         <h2>Special Provision</h2>
+
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.@HasProvision='true') ) }">
           <p> <h3>Special Needs</h3>
             ${srcdoc.ProviderDetails.SpecialProvisions.SpecialNeeds.Experience?.text()}<br/>
@@ -222,19 +237,19 @@
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.size() > 0) && ( ( srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=1) || (srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.@HasProvision=true) )  }">
-          <p> <h3>Diet</h3>
+          <p> Special provision for diet available at this provider <br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.SpecialDiet.text()}<br/>
           </p>
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.@HasProvision=true) ) }">
-          <p> <h3>Cultural Provision</h3>
+          <p> Cultural Provision is Available at this provider<br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.CulturalProvision.text()}<br/>
           </p>
         </g:if>
 
         <g:if test="${(srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.size() > 0) && ( (srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=1) || ( srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.@HasProvision=true) ) }">
-          <p> <h3>Wheelchair Access</h3>
+          <p> Wheelchair Access is Available at this provider<br/>
             ${srcdoc.ProviderDetails.SpecialProvisions.WheelchairAccess.text()}<br/>
           </p>
         </g:if>
@@ -244,8 +259,13 @@
      
 
       <h2>Additional Information</h2>
+
+      <g:if test="${srcdoc.ProviderDetails.Facilities.size() > 0}">
+        <p>Providers description of available facilities: ${srcdoc.ProviderDetails.Facilities.text()}</p>
+      </g:if>
+
       <g:if test="${entry['flags'] != null}">
-        <div class="categories">Features and Facilities: 
+        <div class="categories">Other Features and Facilities: 
           <g:if test="${entry['flags'] instanceof java.util.List}">
             <g:each in="${entry['flags']}" var="flag" status="i"><g:if test="${i > 0}">,&nbsp;</g:if><g:message code="cv.flags.${flag}"/></g:each>
           </g:if>

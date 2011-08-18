@@ -13,6 +13,8 @@
 
     <script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js" charset="utf-8"></script>
 
+    <link rel="canonical" href="http://www.openfamilyservices.org.uk/ofs" />
+
   </head>
 
   <body class="search-results yui3-skin-sam">
@@ -37,22 +39,23 @@
     <div class="yui3-g"> 
 
       <div class="splash"></div>
-      <!--
-      <div class="maintitle">&nbsp;<br/>OpenFamilyServices</div>
-      <div class="subtitle">&nbsp;<br/>Local Family Services - National Coverage</div>
-      -->
 
-      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px; clear:both;">
-OpenFamilyServices is a national online directory of accredited childcare, family services and positive activities. The information comes directly from participating Local Authorities across England. Information about national services is also available in a single search.
-      </div>
+      <g:if test="${params.authority != null}">
+        <div class="preamble"><h1>Search for child care, registered childminders and family services records from <g:message code="cv.authority_shortcode.${params.authority}"/> Only</h1><hr/></div>
+      </g:if>
+      <g:else>
+        <div class="preamble"><h1>Search the UK national database of child care, registered childminders and family services</h1></div>
+      </g:else>
+     
       <!-- For alerts
       <div id="alertspace" class="greenpane">
       </div>
       -->
 
-      <g:if test="${params.authority != null}">
-        <div class="preamble"><h2>Search records from <g:message code="cv.authority_shortcode.${params.authority}"/> Only</h2><hr/></div>
-      </g:if>
+      <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px; clear:both;">
+OpenFamilyServices is a national online directory of accredited family services, information, child care and positive activities. The information comes directly from participating Local Authorities across England who verify the information to ensure it's accuracy. Information about national services is also available in a single search.
+      </div>
+
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
         Enter your postcode, town, village or street into the place search box below, and get instant access to details of your local services and activities.<br/> 
