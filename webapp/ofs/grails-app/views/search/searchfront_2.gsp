@@ -88,7 +88,9 @@ OpenFamilyServices is a national online directory of accredited childcare, famil
           layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
         }, 'google_translate_element');
       }
-      </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
+      </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> <br/>
+
+      <iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FOpen-Family-Services%2F204153162976828&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
     </div>
 
     <script>
