@@ -7,11 +7,11 @@
     <meta property="title" name="title" content="Open Family Services - The UK National Directory of Child care, registered Childminders, Family Information, Positive activities and Family Services"/>
     <meta property="og:title" name="og:title" content="Open Family Services - The UK National Directory of Child care, registered Childminders, Family Information, Positive activities and Family Services"/>
 
-    <meta property="dc.description" name="dc:description" name="dc.description" content="A UK directory where you can find information on a wide range of family-related services such as registered childminders, childcare and activities. The information comes from Local Authorities across England." />
+    <meta property="dc.description" name="dc:description" name="dc.description" content="Find information on a wide range of Family Services, Activities and OfSTED registered Childcare from Family Information Service’s across England."/>
 
-    <meta property="description" name="description" name="description" content="A UK directory where you can find information on a wide range of family-related services such as registered childminders, childcare and activities. The information comes from Local Authorities across England." />
+    <meta property="description" name="description" name="description" content="Find information on a wide range of Family Services, Activities and OfSTED registered Childcare from Family Information Service’s across England."/>
 
-    <meta property="og:description" name="og:description" content="A UK directory where you can find information on a wide range of family-related services such as registered childminders, childcare and activities. The information comes from Local Authorities across England." />
+    <meta property="og:description" name="og:description" content="Find information on a wide range of Family Services, Activities and OfSTED registered Childcare from Family Information Service’s across England."/>
 
     <meta property="keywords" name="keywords" content="Family, Childcare, Search, Information, Positive Activities, Events, Organisations, child care, babysitters, childminders, registered childminders"/>
 

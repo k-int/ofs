@@ -41,10 +41,13 @@
       <div class="splash"></div>
 
       <g:if test="${params.authority != null}">
-        <div class="preamble"><h1>Search for child care, registered childminders and family services records from <g:message code="cv.authority_shortcode.${params.authority}"/> Only</h1><hr/></div>
+        <div class="preamble">
+          <h1>Search the Directory of Family Services Registered Childminders &amp; Nurseries</h1>
+          <h2><g:message code="cv.authority_shortcode.${params.authority}"/></h2>
+        </div>
       </g:if>
       <g:else>
-        <div class="preamble"><h1>Search the UK national database of child care, registered childminders and family services</h1></div>
+        <div class="preamble"><h1>Search the Directory of Family Services Registered Childminders &amp; Nurseries</h1></div>
       </g:else>
      
       <!-- For alerts
