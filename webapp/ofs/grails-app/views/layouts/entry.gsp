@@ -25,6 +25,7 @@
     <a class="addthis_button_preferred_2" style="float: left;"></a>
     <a class="addthis_button_preferred_3" style="float: left;"></a>
     <a class="addthis_button_preferred_4" style="float: left;"></a>
+    <a class="addthis_button_google_plusone" style="float: left;"></a>
     <a class="addthis_button_compact" style="float: left;"></a>
     <a class="addthis_counter addthis_bubble_style" style="float: left;"></a>
     </div>
