@@ -99,6 +99,20 @@ OpenFamilyServices is a national online directory of accredited family services,
       </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> <br/>
 
       <iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FOpen-Family-Services%2F204153162976828&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+
+      <!-- Place this tag where you want the +1 button to render -->
+      <div class="g-plusone" data-annotation="inline"></div>
+
+      <!-- Place this render call where appropriate -->
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+ 
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/plusone.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
     </div>
 
     <script>
