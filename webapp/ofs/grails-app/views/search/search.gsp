@@ -34,7 +34,7 @@
     <a class="addthis_counter addthis_bubble_style" style="float: left;"></a>
     </div>
     <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dbbf52024003ac1"></script><br/>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=${grailsApplication.config.ofs.addthis.code}"></script><br/>
     <!-- AddThis Button END -->
 </div>
 
@@ -76,12 +76,14 @@
 
 <g:if test="${noqry != true}">
   <div class="searchflash">
+    <h1>
     <g:if test="${keywords != null}">
-      Looking for "${keywords}" 
+      Search results for "${keywords}" 
     </g:if>
     <g:if test="${place != null}">
       Near "${place.fqn}"
     </g:if>
+    </h1>
     
     <br/>${search_results.results.numFound} records found in ${elapsed} seconds.
     <g:if test="${place != null}">
@@ -126,7 +128,10 @@
           </li>
           <g:if test="${sr['distance'] != null}"><li>Approximately ${ ((int)Math.abs( sr['distance'] * 100 ))/100 } - miles from ${place.fqn}</li></g:if>
 
-          <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}"><li>Telephone: ${sr['telephone']}</li></g:if>
+          <g:if test="${(sr['telephone'] != null ) && ( sr['telephone'].length() > 0 )}">
+            Telephone: <span class="tel"><span class="value"><a href="callto:${sr['telephone']}">${sr['telephone']}</a></span></span><br/>
+          </g:if>
+
           <g:if test="${(sr['email'] != null ) && ( sr['email'].length() > 0 )}"><li>Email: <a href="mailto:${sr['email']}">${sr['email']}</a></li></g:if>
 
           <g:if test="${( sr['modified'] != null )}">
