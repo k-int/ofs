@@ -26,10 +26,9 @@
     <a class="addthis_button_preferred_2" style="float: left;"></a>
     <a class="addthis_button_preferred_3" style="float: left;"></a>
     <a class="addthis_button_preferred_4" style="float: left;"></a>
-    <a class="addthis_button_google_plusone"></a>
-    <a class="addthis_counter addthis_bubble_style"></a>
+    <a class="addthis_button_google_plusone" style="float: left;"></a>
+    <a class="addthis_counter addthis_bubble_style" style="float: left;"></a>
     <a class="addthis_button_compact" style="float: left;"></a>
-    <!--class="addthis_counter addthis_bubble_style" style="float: left;"-->
     </div>
     <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=${grailsApplication.config.ofs.addthis.code}"></script><br/>
@@ -89,7 +88,9 @@ OpenFamilyServices is a national online directory of accredited family services,
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
       <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a>
 
-      <div id="google_translate_element"></div><script>
+      <div id="google_translate_element"></div>
+
+      <script>
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({
           pageLanguage: 'en',
@@ -97,22 +98,6 @@ OpenFamilyServices is a national online directory of accredited family services,
         }, 'google_translate_element');
       }
       </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> <br/>
-
-      <iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FOpen-Family-Services%2F204153162976828&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
-
-      <!-- Place this tag where you want the +1 button to render -->
-      <div class="g-plusone" data-annotation="inline"></div>
-
-      <!-- Place this render call where appropriate -->
-      <script type="text/javascript">
-        window.___gcfg = {lang: 'en-GB'};
- 
-        (function() {
-          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-          po.src = 'https://apis.google.com/js/plusone.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
-      </script>
     </div>
 
     <script>
