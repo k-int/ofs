@@ -84,7 +84,12 @@ class SiteMapindexController {
 
     // http://en.wikipedia.org/wiki/Site_map
     // http://en.wikipedia.org/wiki/Sitemap_index
-    xml.sitemapindex(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
+
+    xml.sitemapindex('xmlns:xsd':'http://www.w3.org/2001/XMLSchema',
+                     'xmlns:xsi':'http://www.w3.org/2001/XMLSchema-instance',
+                     'xsi:schemaLocation':'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
+                     'xmlns':'http://www.sitemaps.org/schemas/sitemap/0.9',
+                     'targetNamespace':'http://www.sitemaps.org/schemas/sitemap/0.9') {
       sitemap_data.each { auth ->
         sitemap() {
           loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${auth.name}/sitemap")
@@ -146,7 +151,11 @@ class SiteMapindexController {
     // 2011-08-12T00:00:00Z - yyyy.MM.dd G 'at' HH:mm:ss z
 
     if ( cache_entry != null ) {
-      xml.urlset(xmlns:'http://www.sitemaps.org/schemas/sitemap/0.9') {
+      xml.urlset('xmlns:xsd':'http://www.w3.org/2001/XMLSchema',
+                 'xmlns:xsi':'http://www.w3.org/2001/XMLSchema-instance',
+                 'xsi:schemaLocation':'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
+                 'xmlns':'http://www.sitemaps.org/schemas/sitemap/0.9',
+                 'targetNamespace':'http://www.sitemaps.org/schemas/sitemap/0.9') {
         cache_entry.urls.each { rec ->
           url() {
             loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec[0]}")
