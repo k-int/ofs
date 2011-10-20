@@ -46,6 +46,7 @@ class ProviderInformationService {
       'Southend-on-Sea_Borough_Council' :             ["subscriptionType":"basic", "name":"Southend", "showLogo":true],
       'Somerset__County_Council' :                    ["subscriptionType":"basic", "name":"Somerset FID", "showLogo":true],
       'Staffordshire_County_Council' :                ["subscriptionType":"basic", "name":"Staffordshire County Council", "showLogo":true],
+      'Stockport_Metropolitan_Borough_Council' :      ["subscriptionType":"basic", "name":"Stockport Metropolitan Borough Council", "showLogo":true],
       'Suffolk_County_Council' :                      ["subscriptionType":"basic", "name":"Suffolk", "showLogo":true],
       'Surrey_County_Council' :                       ["subscriptionType":"basic", "name":"Surrey", "showLogo":true],
       'Trafford_Council' :                            ["subscriptionType":"basic", "name":"Trafford Council", "showLogo":true],
