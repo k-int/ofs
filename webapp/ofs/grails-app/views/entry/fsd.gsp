@@ -109,7 +109,18 @@
 </g:if>
 
 
-<g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}"><div class="website"><strong>Website</strong> <a href="${entry['website']}">${entry['website']}</a></div></g:if>
+<g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
+  <div class="website">
+    <strong>Website</strong>
+    <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
+      <a href="${entry['website']}">${entry['dc.title']}</a>
+    </g:if>
+    <g:else>
+      <a href="http://${entry['website']}">${entry['dc.title']}</a>
+    </g:else>
+
+  </div>
+</g:if>
 
 <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><div><strong>Last Modified</strong> ${entry['modified'].substring(0,entry['modified'].indexOf("T"))}</div></g:if>
 
