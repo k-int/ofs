@@ -160,7 +160,7 @@
 
             <g:if test="${((srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0) || (srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) )}">
               <h3>Available places</h3>
-              <g:if test="${srcdoc.ProviderDetails.ImmediateVacancies.size() > 0}">
+              <g:if test="${(srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) && ((srcdoc.ProviderDetails.ImmediateVacancies.text()=='1') || srcdoc.ProviderDetails.ImmediateVacancies.text()=='true' ) }">
                 This provider has immediate vacancies.
               </g:if>
               <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
