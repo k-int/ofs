@@ -29,7 +29,9 @@
     <g:if test="${entry['icon_url_s']!=null}"><meta property="og:image" content="${entry['icon_url_s']}" /></g:if>
     <meta property="og:site_name" content="Open Family Services" />
 
-    <title>${entry['dc.title']} (via ${entry['feedback_name_s']}, #${params.id})</title>
+    <title>${entry['dc.title']} 
+           <g:if test="${( entry['childcare_type_s'] != null )}"> - ${entry['childcare_type_s']}</g:if>
+           (via ${entry['feedback_name_s']}, #${params.id})</title>
 
     <g:if test="${ ( (entry['lat'] != null ) && ( entry['lng'] != null ) ) }">
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
@@ -160,7 +162,7 @@
 
             <g:if test="${((srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0) || (srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) )}">
               <h3>Available places</h3>
-              <g:if test="${(srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) && ((srcdoc.ProviderDetails.ImmediateVacancies.text()=='1') || srcdoc.ProviderDetails.ImmediateVacancies.text()=='true' ) }">
+              <g:if test="${(srcdoc.ProviderDetails.ImmediateVacancies.size() > 0) && ((srcdoc.ProviderDetails.ImmediateVacancies.text() == '1')||(srcdoc.ProviderDetails.ImmediateVacancies.text() == 'true'))}">
                 This provider has immediate vacancies.
               </g:if>
               <g:if test="${srcdoc.ProviderDetails.FutureVacancyDetails.size() > 0}">
