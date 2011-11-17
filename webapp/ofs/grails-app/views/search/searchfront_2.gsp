@@ -73,7 +73,12 @@ OpenFamilyServices is a national online directory of accredited family services,
               <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
             </div>
             <div class="searchrow" style="padding-top:10px"> 
-              <g:message code="ofs.search.placeprompt"/> <input id="place-input" class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+              <g:message code="ofs.search.placeprompt"/> <input id="place-input" 
+                                                                class="uiw-input" 
+                                                                type="text" 
+                                                                name="placename"
+                                                                style="text-transform: capitalize;"/>
+                                                         <input class="uiw-button" value="Search" type="submit"/> 
             </div>
             &nbsp;
           </div> 
