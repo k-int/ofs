@@ -45,6 +45,26 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
+  function addLink() {
+    var body_element = document.getElementsByTagName('body')[0];
+    var selection;
+    selection = window.getSelection();
+    var pagelink = "<br /><br /> Original Source Of Information: <a href='"+document.location.href+"'>"+document.location.href+"</a><br />Copied from OpenFamilyServices.org.uk"; // change this if you want
+    var copytext = selection + pagelink;
+    var newdiv = document.createElement('div');
+    newdiv.style.position='absolute';
+    newdiv.style.left='-99999px';
+    body_element.appendChild(newdiv);
+    newdiv.innerHTML = copytext;
+    selection.selectAllChildren(newdiv);
+    window.setTimeout(function() {
+      body_element.removeChild(newdiv);
+    },0);
+  }
+
+  document.oncopy = addLink;
+
 </script>
 
     </body>
