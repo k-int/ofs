@@ -57,13 +57,15 @@
       -->
 
       <div class="yui3-u" style="width:100%; color: #669933; font-style: italic; margin-top: 15px; clear:both;">
-OpenFamilyServices is a national online directory of accredited family services, information, child care and positive activities. The information comes directly from participating Local Authorities across England who verify the information to ensure it's accuracy. Information about national services is also available in a single search.
+
+The OpenFamilyServices is a national online directory of family services containing information about Ofsted registered Childcare such as Nurseries, Pre-schools, Childminders and Out of School Clubs. There are also many Support Groups, Parent &amp; Toddler Groups, Children’s Centre Activities and Targeted Services available to help with family life;  as well as things to do for Leisure and Holiday Activities. The information comes directly from participating Local Authorities across England who verify the information to ensure its accuracy.  Information about national services is also available in a single search.
       </div>
 
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
-        Enter your postcode, town, village or street into the place search box below, and get instant access to details of your local services and activities.<br/> 
-        Add keywords to the keywords box to refine your search.
+
+Simply enter 1 or 2 ‘keywords’ in the search box below about the service you need and either your postcode, town, or street name into the ‘place’ search box and press either ‘search’ to get instant access to details of your local services and activities.<br/>
+eg Nursery &nbsp; 1XY
       </div>
 
       <div class="yui3-u" style="width:100%"> 
@@ -73,7 +75,12 @@ OpenFamilyServices is a national online directory of accredited family services,
               <g:message code="ofs.search.keywordprompt"/> <input class="uiw-input" type="text" name="keywords"/><input class="uiw-button" value="Search" type="submit"/> 
             </div>
             <div class="searchrow" style="padding-top:10px"> 
-              <g:message code="ofs.search.placeprompt"/> <input id="place-input" class="uiw-input" type="text" name="placename"/><input class="uiw-button" value="Search" type="submit"/> 
+              <g:message code="ofs.search.placeprompt"/> <input id="place-input" 
+                                                                class="uiw-input" 
+                                                                type="text" 
+                                                                name="placename"
+                                                                style="text-transform: capitalize;"/>
+                                                         <input class="uiw-button" value="Search" type="submit"/> 
             </div>
             &nbsp;
           </div> 
