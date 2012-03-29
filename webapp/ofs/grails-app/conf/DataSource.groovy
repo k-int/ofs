@@ -19,7 +19,7 @@ environments {
             dbCreate =  "update" // "create-drop"           // "create"
             username = "k-int"
             password = "k-int"
-            url = "jdbc:mysql://localhost/OFSDef?autoReconnect=true&amp;characterEncoding=utf8"
+            url = "jdbc:mysql://localhost/OFSDev?autoReconnect=true&amp;characterEncoding=utf8"
             properties {
                 validationQuery="select 1"
                 testWhileIdle=true
