@@ -69,12 +69,35 @@ def processProvider(provurl) {
     new XmlSlurper( new Parser() ).parse( r )
   }
 
-  def details = prov_page.'**'.find{ it.name() == 'div' && it.@id.text() == 'middleColumn' }
+  def details = prov_page.'**'.find{ it.name() == 'div' && it.@id.text() == 'content' }
 
   if ( details != null ) {
-    details.content.p.each {
-      println "${p.text()}"
+    println "Provider name: ${details.h1.text()}"
+    // details.p.each {
+    //   println "* ${it.text()}"
+    // }
+    println "Address will be ${details.p[1].text()}"
+    def addr_components = []
+    details.p[1].getAt(0).children.each { addrcomp ->
+      if (!(addrcomp instanceof groovy.util.slurpersupport.Node)) {
+        addr_components.add(addrcomp.toString());
+      }
+      else {
+      }
     }
+
+    def contact_number_components = []
+    details.p[2].getAt(0).children.each { cn ->
+      if (!(cn instanceof groovy.util.slurpersupport.Node)) {
+        contact_number_components.add(cn.toString().trim());
+      }
+      else {
+      }
+    }
+
+
+    println "Addr components: ${addr_components}";
+    println "Contact number components: ${contact_number_components}";
   }
   else {
     println "No div with id middleColumn";
