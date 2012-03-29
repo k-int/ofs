@@ -95,6 +95,9 @@ def processProvider(provurl) {
       }
     }
 
+    // Locate the date of registration..
+    def regnode = details.'**'.find { it.name() == 'strong' && it.text() == 'Date of registration:' }
+    println "regnode = ${regnode.parent().text()}"
 
     println "Addr components: ${addr_components}";
     println "Contact number components: ${contact_number_components}";
