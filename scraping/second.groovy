@@ -64,19 +64,35 @@ println "Done"
 
 
 def processProvider(provurl) {
+
+  def info = extract(provurl);
+
+  println("Got object: ${info}");
+}
+
+def extract(provurl) {
   println("Processing ${provurl}")
+
+  def result = [:]
+
+
   def prov_page = new URL( provurl ).withReader { r ->
     new XmlSlurper( new Parser() ).parse( r )
   }
 
+
   def details = prov_page.'**'.find{ it.name() == 'div' && it.@id.text() == 'content' }
 
   if ( details != null ) {
-    println "Provider name: ${details.h1.text()}"
+
+    result.id = details.p[0].strong.text();
+    result.name = details.h1.text();
+
+    // println "Provider name: ${details.h1.text()}"
     // details.p.each {
     //   println "* ${it.text()}"
     // }
-    println "Address will be ${details.p[1].text()}"
+    // println "Address will be ${details.p[1].text()}"
     def addr_components = []
     details.p[1].getAt(0).children.each { addrcomp ->
       if (!(addrcomp instanceof groovy.util.slurpersupport.Node)) {
@@ -97,12 +113,22 @@ def processProvider(provurl) {
 
     // Locate the date of registration..
     def regnode = details.'**'.find { it.name() == 'strong' && it.text() == 'Date of registration:' }
-    println "regnode = ${regnode.parent().text()}"
+    if ( ( regnode != null ) && ( regnode.parent().text().length() > 22 ) ) {
+      // println "regnode = ${regnode.parent().text()}"
+      result.regdate = regnode.parent().text().substring(22);
+    }
+      
 
-    println "Addr components: ${addr_components}";
-    println "Contact number components: ${contact_number_components}";
+    // println "Addr components: ${addr_components}";
+    // println "Contact number components: ${contact_number_components}";
+
+    result.address = addr_components
+    result.contact = contact_number_components
+    result.postcode = addr_components[addr_components.size()-1]
   }
   else {
-    println "No div with id middleColumn";
+    // println "No div with id middleColumn";
   }
+
+  result;
 }
