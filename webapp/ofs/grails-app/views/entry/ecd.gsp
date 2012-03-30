@@ -114,11 +114,10 @@
         </g:else>
       </g:if>
 
+      Source: ${entry['feedback_name_s']} 
       <g:if test="${provserv.lookupProviderInformation(entry['authority_shortcode']) != null }">
-        ${entry['feedback_name_s']} is an active contributor to Open Family Services.
       </g:if>
       <g:else>
-        ${entry['feedback_name_s']} Does not actively update records in this service, and takes no responsibility for it's accuracy. The information may be wrong or out of date.
       </g:else>
       </br>
 
