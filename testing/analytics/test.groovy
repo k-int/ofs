@@ -38,14 +38,16 @@ import org.apache.http.entity.mime.content.*
 import java.nio.charset.Charset
 import java.security.*;
 
+long timenow = System.currentTimeMillis() / 1000
+
 // Build the assertion
 def jwt_header = ["alg":"RS256","typ":"JWT"]
 def required_claims = [
-  "iss":"230924794467@developer.gserviceaccount.com",
+  "iss":"230924794467.apps.googleusercontent.com",
   "scope":"https://www.googleapis.com/auth/analytics",
   "aud":"https://accounts.google.com/o/oauth2/token",
-  "exp":1328554385,
-  "iat":1328550785
+  "exp":timenow,
+  "iat":timenow
 ]
 
 ObjectMapper mapper = new ObjectMapper();
