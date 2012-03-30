@@ -19,6 +19,14 @@
 import org.codehaus.jackson.map.ObjectMapper
 import org.apache.commons.codec.binary.Base64
 import java.security.MessageDigest;
+import static groovyx.net.http.ContentType.URLENC
+import static groovyx.net.http.ContentType.*
+import static groovyx.net.http.Method.*
+import groovyx.net.http.*
+import groovy.util.slurpersupport.GPathResult
+import org.apache.http.entity.mime.*
+import org.apache.http.entity.mime.content.*
+import java.nio.charset.Charset
 
 // Build the assertion
 def jwt_header = ["alg":"RS256","typ":"JWT"]
@@ -49,8 +57,36 @@ String encoded_required_claims = new String(Base64.encodeBase64(required_claims_
 String jwt_to_sign="${encoded_header}.${encoded_required_claims}"
 
 MessageDigest md = MessageDigest.getInstance("SHA-256");
-md.update(encoded_required_claims.getBytes())
-String digestHex = new BigInteger(1, md.digest()).toString(16);
+md.update(jwt_to_sign.getBytes())
+byte[] digest_result = md.digest();
 
-println("Final header: ${encoded_header} ${encoded_required_claims}");
-println("Final req: ${jwt_to_sign}.${digestHex}");
+String signature_string = new String(Base64.encodeBase64(digest_result))
+
+println("req: ${jwt_to_sign}.${signature_string}");
+
+def auth_endpoint = new RESTClient( 'https://accounts.google.com/o/oauth2/token' )
+
+auth_endpoint.request(POST) {
+
+  requestContentType = URLENC
+
+  // response.path = 'update.xml',
+  body = [ 
+    grant_type:'assertion',
+    assertion_type:'http://oauth.net/grant_type/jwt/1.0/bearer',
+    'assertion':"${jwt_to_sign}.${signature_string}"
+  ]
+
+
+  response.success = { resp, data ->
+    println("response status: ${resp.statusLine}")
+    println("Response data code: ${data?.code}");
+  }
+
+  response.failure = { resp ->
+    println( resp.statusLine )
+  }
+
+}
+
+
