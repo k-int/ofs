@@ -26,7 +26,6 @@
 
   <g:each in="${search_results?.results}" var="sr">
   _gaq.push(['_trackPageview','/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}?brief=true']);
-  <g:if test="${sr['website'] != null}"><g:if test="${sr['website'].startsWith('http')}">setTimeout('document.location = "${sr['website']}"', 100)</g:if><g:else>setTimeout('document.location = "http://${sr['website']}"', 100)</g:else></g:if>
 
   </g:each>
 
@@ -51,6 +50,11 @@
     window.setTimeout(function() {
       body_element.removeChild(newdiv);
     },0);
+  }
+
+  function recordOutboundLink(link, category, action) {
+    _gat._getTrackerByName()._trackEvent(category, action);
+    setTimeout('document.location = "' + link.href + '"', 100);
   }
 
   document.oncopy = addLink;
