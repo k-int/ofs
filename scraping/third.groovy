@@ -39,13 +39,30 @@ def go(db) {
     println "processing authority with code ${so.@value.text()} ${so.text()}"
   
     def authid = so.@value.text()
+  
+    def authority_info = db.ofstedauth.findOne(authcode:authid);
+    if ( authority_info == null ) {
+      println("New record for authority ${authid}");
+      authority_info = [:]
+      authority_info.authcode = authid;
+      authority_info.lastCheck = 0;
+      db.ofstedauth.save(authority_info);
+    }
+    else {
+      println("update existing record for ${authid}");
+    }
+  }
+
+  db.ofstedauth.find().sort(lastCheck:1).each { authority_info ->
+
     def pageno = 0;
     def rectype = "16";
     def moredata = true
-  
+    println("Processing ${authority_info.authcode} last checked on ${authority_info.lastCheck}");
+
     while ( ( moredata ) && ( pageno < 100 ) ) {
-      def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authid}/any/any?page=${pageno}"
-      println "Collecting [${authid}][${pageno}]${next_page_url}"
+      def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authority_info.authcode}/any/any?page=${pageno}"
+      println "Collecting [${authority_info.authcode}][${pageno}]${next_page_url}"
   
       def next_page = new URL( next_page_url ).withReader { r ->
         new XmlSlurper( new Parser() ).parse( r )
@@ -62,7 +79,7 @@ def go(db) {
         println("got results list.... page=${pageno}")
         results_list.li.each {
           def new_prov_url = it.h2.a.@href.text();
-          processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authid);
+          processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authority_info.authcode);
         }
         pageno++;
       }
@@ -70,6 +87,9 @@ def go(db) {
         moredata = false;
       }
     }
+
+    authority_info.lastCheck = System.currentTimeMillis();
+    db.ofstedauth.save(authority_info);
   }
 
   println "Done"
@@ -142,6 +162,7 @@ def processProvider(provurl,db,authid) {
     result.address = addr_components
     result.contact = contact_number_components
     result.postcode = addr_components[addr_components.size()-1]
+    result.lastModified = System.currentTimeMillis();
 
     db.ofsted.save(result);
   }

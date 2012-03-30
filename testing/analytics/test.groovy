@@ -44,9 +44,9 @@ long timenow = System.currentTimeMillis() / 1000
 def jwt_header = ["alg":"RS256","typ":"JWT"]
 def required_claims = [
   "iss":"230924794467.apps.googleusercontent.com",
-  "scope":"https://www.googleapis.com/auth/analytics",
+  "scope":"https://www.googleapis.com/auth/analytics.readonly",
   "aud":"https://accounts.google.com/o/oauth2/token",
-  "exp":timenow,
+  "exp":timenow+3600,
   "iat":timenow
 ]
 
@@ -92,11 +92,13 @@ String signature_string = Base64.encodeBase64URLSafeString(digest_result)
 
 println("req: ${jwt_to_sign}.${signature_string}");
 
-def auth_endpoint = new RESTClient( 'https://accounts.google.com/o/oauth2/token' )
+def auth_endpoint = new RESTClient( 'https://accounts.google.com/' )
 
 auth_endpoint.request(POST) {
 
   requestContentType = URLENC
+
+  uri.path='o/oauth2/token'
 
   // response.path = 'update.xml',
   body = [ 
