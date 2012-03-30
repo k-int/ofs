@@ -24,6 +24,10 @@
   _gaq.push(['_setDomainName', '.openfamilyservices.org.uk']);
   _gaq.push(['_trackPageview']);
 
+  <g:each in="${search_results?.results}" var="sr">
+  _gaq.push(['_trackPageview','/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}?breif=true']);
+  </g:each>
+
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
