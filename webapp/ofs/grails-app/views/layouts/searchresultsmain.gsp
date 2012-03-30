@@ -25,7 +25,9 @@
   _gaq.push(['_trackPageview']);
 
   <g:each in="${search_results?.results}" var="sr">
-  _gaq.push(['_trackPageview','/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}?breif=true']);
+  _gaq.push(['_trackPageview','/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}?brief=true']);
+  <g:if test="${sr['website'] != null}"><g:if test="${sr['website'].startsWith('http')}">setTimeout('document.location = "${sr['website']}"', 100)</g:if><g:else>setTimeout('document.location = "http://${sr['website']}"', 100)</g:else></g:if>
+
   </g:each>
 
   (function() {
