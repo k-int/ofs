@@ -13,6 +13,7 @@ class ProviderInformationService {
       'Borough_of_Poole' :                            ["subscriptionType":"basic", "name":"Borough of Poole", "showLogo":true],
       'Bradford_Metropolitan_District_Council' :      ["subscriptionType":"basic", "name":"Bradford Metropolitan District Council", "showLogo":true],
       'Buckinghamshire_County_Council' :              ["subscriptionType":"basic", "name":"Buckinghamshire County Council", "showLogo":true],
+      'Cornwall_County_Council' :                     ["subscriptionType":"basic", "name":"Cornwall County Council", "showLogo":true],
       'Cumbria_County_Council' :                      ["subscriptionType":"basic", "name":"Cumbria County Council", "showLogo":true],
       'City_of_York' :                                ["subscriptionType":"basic", "name":"York", "showLogo":true],
       'Devon_County_Council' :                        ["subscriptionType":"basic", "name":"Devon County Council", "showLogo":true],
