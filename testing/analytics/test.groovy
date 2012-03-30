@@ -46,8 +46,8 @@ def required_claims = [
   "iss":"230924794467.apps.googleusercontent.com",
   "scope":"https://www.googleapis.com/auth/analytics.readonly",
   "aud":"https://accounts.google.com/o/oauth2/token",
-  "exp":timenow+3600,
-  "iat":timenow
+  "exp":timenow, // +3600,  - Adjust for timezone
+  "iat":timenow-3600
 ]
 
 ObjectMapper mapper = new ObjectMapper();
@@ -100,10 +100,16 @@ auth_endpoint.request(POST) {
 
   uri.path='o/oauth2/token'
 
+  // send URLENC, [
+  //   'grant_type':'assertion',
+  //   'assertion_type':'http://oauth.net/grant_type/jwt/1.0/bearer',
+  //   'assertion':"${jwt_to_sign}.${signature_string}"
+  // ]
+
   // response.path = 'update.xml',
   body = [ 
-    grant_type:'assertion',
-    assertion_type:'http://oauth.net/grant_type/jwt/1.0/bearer',
+    'grant_type':'assertion',
+    'assertion_type':'http://oauth.net/grant_type/jwt/1.0/bearer',
     'assertion':"${jwt_to_sign}.${signature_string}"
   ]
 
@@ -113,8 +119,14 @@ auth_endpoint.request(POST) {
     println("Response data code: ${data?.code}");
   }
 
-  response.failure = { resp ->
+  response.failure = { resp, reader ->
+    println( resp )
     println( resp.statusLine )
+    resp.headers.each { h ->
+      println(h);
+    }
+    println("dump....");
+    System.out << reader;
   }
 
 }
