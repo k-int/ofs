@@ -19,6 +19,12 @@
 // http://www.coderanch.com/t/134042/Security/Reading-file-keypair
 // http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html
 // Java client for google apis hg clone https://code.google.com/p/google-api-java-client/
+// http://2.2.codereview.appspot.com/5703045/patch/3001/4004 -- KeyStore.getInstance("PKCS12"), new FileInputStream(p12File), storePass, alias, keyPass);
+// ry {
+// -      KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+//        keyStore.load(keyStream, storePass.toCharArray());
+//        return (PrivateKey) keyStore.getKey(alias, keyPass.toCharArray());
+//      } finally {
 import org.codehaus.jackson.map.ObjectMapper
 import org.apache.commons.codec.binary.Base64
 import java.security.MessageDigest;
