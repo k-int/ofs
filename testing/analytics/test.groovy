@@ -15,7 +15,10 @@
 // Following https://developers.google.com/accounts/docs/OAuth2ServiceAccount
 // Useful info from http://www.mkyong.com/java/java-sha-hashing-example/ 
 // OAuth flow here: https://developers.google.com/accounts/docs/OAuth2#scenarios
-
+// google api's console https://code.google.com/apis/console/b/0/#access
+// http://www.coderanch.com/t/134042/Security/Reading-file-keypair
+// http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html
+// Java client for google apis hg clone https://code.google.com/p/google-api-java-client/
 import org.codehaus.jackson.map.ObjectMapper
 import org.apache.commons.codec.binary.Base64
 import java.security.MessageDigest;
@@ -27,6 +30,7 @@ import groovy.util.slurpersupport.GPathResult
 import org.apache.http.entity.mime.*
 import org.apache.http.entity.mime.content.*
 import java.nio.charset.Charset
+import java.security.*;
 
 // Build the assertion
 def jwt_header = ["alg":"RS256","typ":"JWT"]
@@ -51,16 +55,45 @@ println("map: ${jwt_header_string} ${required_claims_string}");
 
 // We post the assertion to https://accounts.google.com/o/oauth2/token
 
-String encoded_header = new String(Base64.encodeBase64(jwt_header_string.getBytes()));
-String encoded_required_claims = new String(Base64.encodeBase64(required_claims_string.getBytes()));
+// String encoded_header = new String(Base64.encodeBase64(jwt_header_string.getBytes()));
+String encoded_header = Base64.encodeBase64URLSafeString(jwt_header_string.getBytes());
+// String encoded_required_claims = new String(Base64.encodeBase64(required_claims_string.getBytes()));
+String encoded_required_claims = Base64.encodeBase64URLSafeString(required_claims_string.getBytes());
 
 String jwt_to_sign="${encoded_header}.${encoded_required_claims}"
 
-MessageDigest md = MessageDigest.getInstance("SHA-256");
-md.update(jwt_to_sign.getBytes())
-byte[] digest_result = md.digest();
 
-String signature_string = new String(Base64.encodeBase64(digest_result))
+// 
+println("Load p12 file (a PKCS12 cert)");
+KeyStore ks = KeyStore.getInstance("PKCS12");
+FileInputStream fis = new FileInputStream("/tmp/4f6ec4d2d8eed3a23ebd78584ea16ebfa0aaa95b-privatekey.p12");
+ks.load(fis, "password".toCharArray());
+
+println("Process...");
+
+// get my private key
+KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry("privateKeyAlias", password);
+PrivateKey privateKey = pkEntry.getPrivateKey();
+
+Key key = null;
+Certificate cert = null;
+ks.aliases().each {
+  String keyName = (String)it.nextElement();
+  println("process key ${keyName}");
+  key = ks.getKey(keyName,"notasecret".toCharArray());
+  cert = ks.getCertificate(keyName);
+}
+
+// KeyPair kp = new KeyPair(cert.getPublicKey(),(PrivateKey)key);
+
+
+Signature instance = Signature.getInstance("SHA256withRSA");
+instance.initSign(key);
+instance.update(jwt_to_sign.getBytes());
+byte[] digest_result = instance.sign();
+
+// String signature_string = new String(Base64.encodeBase64(digest_result))
+String signature_string = Base64.encodeBase64URLSafeString(digest_result)
 
 println("req: ${jwt_to_sign}.${signature_string}");
 
