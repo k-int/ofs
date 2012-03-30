@@ -64,7 +64,7 @@ The OpenFamilyServices is a national online directory of family services contain
       <div class="preamble"> <!-- Search preamble -->
         &nbsp;<br/>&nbsp;<br/>
 
-Simply enter 1 or 2 ‘keywords’ in the search box below about the service you need and either your postcode, town, or street name into the ‘place’ search box and press either ‘search’ to get instant access to details of your local services and activities.<br/>
+Simply enter 1 or 2 ‘keywords’ in the search box below about the service you need and either your postcode, town, or street<br/> name into the ‘place’ search box and press either ‘search’ to get instant access to details of your local services and activities.<br/>
 eg Nursery &nbsp; 1XY
       </div>
 

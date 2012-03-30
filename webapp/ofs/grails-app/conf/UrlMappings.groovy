@@ -21,6 +21,7 @@ class UrlMappings {
     "/directory/$authority/sitemap" (controller:"siteMapindex", action:"authsitemap")
     "/directory/$authority/$id/feedback" (controller:"entry", action:"feedback")
     "/directory/$authority/$id" (controller:"entry", action:"index")
+    "/data/$action" (controller:"data")
 
     "/gaz" (controller:"gaz", action:"index")
 

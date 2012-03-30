@@ -1,0 +1,93 @@
+<ProviderDescription xsi:schemaLocation="http://dcsf.gov.uk/XMLSchema/Childcare http://www.ispp-aggregator.org.uk/f1les/ISPP/docs/schemas/v6/ProviderTypes-v1-1e.xsd" xmlns="http://dcsf.gov.uk/XMLSchema/Childcare" xmlns:apd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DC.Title>The New School(The New School)</DC.Title>
+  <DC.Identifier Href="">https://api.evince-online.com/0018/public/providers/443</DC.Identifier>
+  <Description>
+    <DC.Description Format="plain"></DC.Description>
+  </Description>
+  <DC.Subject ItemName="Nurseries" ListName="ISPP-001a-M" Id="4149">Nurseries</DC.Subject>
+  <DC.Subject ItemName="Nursery education" ListName="ISPP-001a-M" Id="001-7s">Nursery education</DC.Subject>
+  <DC.Subject ItemName="Nursery provision" ListName="ISPP-001a-M" Id="001-7j9">Nursery provision</DC.Subject>
+  <DC.Subject ItemName="Nursery schools" ListName="ISPP-001a-M" Id="1313">Nursery schools</DC.Subject>
+  <DC.Subject ItemName="Pre-school" ListName="ISPP-001a-M" Id="001-7t">Pre-school</DC.Subject>
+  <DC.Subject ItemName="Pre-school learning" ListName="ISPP-001a-M" Id="985">Pre-school learning</DC.Subject>
+  <DC.Subject ItemName="Reception classes" ListName="ISPP-001a-M" Id="001-7t2">Reception classes</DC.Subject>
+  <DC.Creator Href="">DISC - Devon's Family Information Service</DC.Creator>
+  <DC.Publisher Href="">DISC - Devon's Family Information Service</DC.Publisher>
+  <DC.Date.Created>2001-10-10T00:00:00</DC.Date.Created>
+  <DC.Date.Modified>2011-01-17T12:26:32.137</DC.Date.Modified>
+  <ProviderDetails>
+    <ProviderName>The New School</ProviderName>
+    <ConsentVisibleAddress>1</ConsentVisibleAddress>
+    <SettingDetails>
+      <ContactName>Mrs&#160;G. E.&#160;Redman</ContactName>
+      <TelephoneNumber TelMobile="no">
+        <apd:TelNationalNumber>01392 496122</apd:TelNationalNumber>
+      </TelephoneNumber>
+      <FaxNumber FaxMobile="no">
+        <apd:FaxNationalNumber>01392 496122</apd:FaxNationalNumber>
+      </FaxNumber>
+      <PostalAddress>
+        <apd:A_5LineAddress>
+          <apd:Line>The Avenue</apd:Line>
+          <apd:Line>Exminster</apd:Line>
+          <apd:Line>EXETER</apd:Line>
+          <apd:Line>DEVON</apd:Line>
+          <apd:PostCode>EX6 8AT</apd:PostCode>
+        </apd:A_5LineAddress>
+      </PostalAddress>
+      <PostcodeOutcode>EX6</PostcodeOutcode>
+      <EmailAddress EmailPreferred="no">
+        <apd:EmailAddress>headmistress@thenewschoolexeter.co.uk</apd:EmailAddress>
+      </EmailAddress>
+      <WebsiteAddress>http://thenewschoolexeter.co.uk</WebsiteAddress>
+    </SettingDetails>
+    <ChildcareType>Nursery Units of Independent Schools</ChildcareType>
+    <ProvisionType>CCN</ProvisionType>
+    <ChildcareAges>
+      <ChildcareAge>
+        <AgeFrom>3</AgeFrom>
+        <AgeTo>7</AgeTo>
+        <ChildNumberLimit>18</ChildNumberLimit>
+      </ChildcareAge>
+    </ChildcareAges>
+    <ChildcareTimes>
+      <Times>Monday&#160;  Start: 08:30&#160;  End: 17:30&#160; Tuesday&#160;  Start: 08:30&#160;  End: 17:30&#160; Wednesday&#160;  Start: 08:30&#160;  End: 17:30&#160; Thursday&#160;  Start: 08:30&#160;  End: 17:30&#160; Friday&#160;  Start: 08:30&#160;  End: 17:30&#160; </Times>
+      <OtherHours>*School officially finishes at 3.30 pm, there is a chargeable 'late room' in operation until 5.30 pm</OtherHours>
+      <Availability>Monday to Friday:      8.30 am - 5.30* pm
+
+</Availability>
+    </ChildcareTimes>
+    <CostDetails ContactForCosts="0">
+      <Costs>5.00&#160;Per hour (unfunded) | 1700.00&#160;Per term</Costs>
+      <OtherCosts>Now offering extended, flexible Early Years Entitlement for 3 and 4 year olds. (Term rate shown is without using funding).
+Employer Childcare Vouchers can be accepted.</OtherCosts>
+    </CostDetails>
+    <Pickups HasProvision="0" />
+    <FutureVacancyDetails ContactForVacancies="1">
+      <VacancyInformation>Please contact the school directly for details of current/future availability.</VacancyInformation>
+    </FutureVacancyDetails>
+    <SpecialProvisions>
+      <SpecialNeeds HasProvision="1" />
+      <SpecialDiet HasProvision="1" />
+      <CulturalProvision HasProvision="1">Multi-cultural celebrations are recognised.</CulturalProvision>
+      <WheelchairAccess HasProvision="1">Wheelchair access can be arranged.
+Accessible toilet available.</WheelchairAccess>
+    </SpecialProvisions>
+    <OtherInformation>Short term/emergency care available.
+All teaching staff are qualified to degree level, with post-gradute qualifications where appropriate. All support staff are nursery qualified.
+Activities offered include tennis, football, ballet, french, speech and drama.
+</OtherInformation>
+    <CISID>50441</CISID>
+    <ModificationDate>2011-01-17</ModificationDate>
+    <CaterForOverEights>0</CaterForOverEights>
+    <ImmediateVacancies>1</ImmediateVacancies>
+    <RegistrationExempt>1</RegistrationExempt>
+    <LinkedRegistration></LinkedRegistration>
+    <QualityAssurance>
+      <QualityLevel>
+        <QualityStatus Id="1" ItemName="unknown" ListName="QualityAssurance-1.0">unknown</QualityStatus>
+      </QualityLevel>
+    </QualityAssurance>
+    <FromOfsted>0</FromOfsted>
+  </ProviderDetails>
+</ProviderDescription>
