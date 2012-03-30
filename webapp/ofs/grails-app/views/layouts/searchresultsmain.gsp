@@ -25,7 +25,8 @@
   _gaq.push(['_trackPageview']);
 
   <g:each in="${search_results?.results}" var="sr">
-  _gaq.push(['_trackPageview','/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}?breif=true']);
+  _gaq.push(['_trackPageview','/ofs/directory/${sr['authority_shortcode']}/${sr['aggregator.internal.id']}?brief=true']);
+
   </g:each>
 
   (function() {
@@ -49,6 +50,11 @@
     window.setTimeout(function() {
       body_element.removeChild(newdiv);
     },0);
+  }
+
+  function recordOutboundLink(link, category, action) {
+    _gat._getTrackerByName()._trackEvent(category, action);
+    setTimeout('document.location = "' + link.href + '"', 100);
   }
 
   document.oncopy = addLink;
