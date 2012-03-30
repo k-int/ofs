@@ -73,25 +73,12 @@ String jwt_to_sign="${encoded_header}.${encoded_required_claims}"
 println("Load p12 file (a PKCS12 cert)");
 KeyStore ks = KeyStore.getInstance("PKCS12");
 FileInputStream fis = new FileInputStream("/tmp/4f6ec4d2d8eed3a23ebd78584ea16ebfa0aaa95b-privatekey.p12");
-ks.load(fis, "password".toCharArray());
+ks.load(fis, "notasecret".toCharArray());
 
 println("Process...");
 
 // get my private key
-KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry("privateKeyAlias", password);
-PrivateKey privateKey = pkEntry.getPrivateKey();
-
-Key key = null;
-Certificate cert = null;
-ks.aliases().each {
-  String keyName = (String)it.nextElement();
-  println("process key ${keyName}");
-  key = ks.getKey(keyName,"notasecret".toCharArray());
-  cert = ks.getCertificate(keyName);
-}
-
-// KeyPair kp = new KeyPair(cert.getPublicKey(),(PrivateKey)key);
-
+PrivateKey key = ks.getKey("privatekey", "notasecret".toCharArray());
 
 Signature instance = Signature.getInstance("SHA256withRSA");
 instance.initSign(key);
