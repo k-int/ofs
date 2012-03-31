@@ -60,7 +60,7 @@ def go(db) {
     def moredata = true
     println("Processing ${authority_info.authcode} last checked on ${authority_info.lastCheck}");
 
-    while ( ( moredata ) && ( pageno < 100 ) ) {
+    while ( ( moredata ) && ( pageno < 1000 ) ) {
       def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authority_info.authcode}/any/any?page=${pageno}"
       println "Collecting [${authority_info.authcode}][${pageno}]${next_page_url}"
   
