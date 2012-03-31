@@ -154,7 +154,39 @@ def processProvider(provurl,db,authid) {
       // println "regnode = ${regnode.parent().text()}"
       result.regdate = regnode.parent().text().substring(22);
     }
+
+    // regtype
+    def regtype = details.'**'.find { it.name() == 'strong' && it.text() == 'Register type:' }
+    if ( regtype ) {
+      result.regtype = regtype.parent().text().substring(15);
+    }
+
       
+
+    // Find conditions... "The registered person:"
+    def trp_para = details.'**'.find { it.name() == 'p' && it.text() == 'The registered person:' }
+    if ( trp_para ) {
+      def trp_div = trp_para.parent()
+      def trp_ul = trp_div.find { it.name() == 'ul' }
+      result.conditions = []
+      trp_ul?.li.each { cond ->
+        result.conditions.add(cond.text())
+      }
+    }
+
+    result.reports = []
+    // Previous reports
+    def prev_rep_tab = details.'**'.find { it.name() == 'table' && it.@summary.text() == 'Previous reports' }
+    if ( prev_rep_tab ) {
+      prev_rep_tab.tbody.tr.each { pr ->
+        if ( pr.td[0] ) {
+          result.reports.add([uri:pr.td[0].a.@href.text(),
+                               description:pr.td[0].text(),
+                               inspdate:pr.td[1].text(),
+                               pubdate:pr.td[2].text()]);
+        }
+      }
+    }
 
     // println "Addr components: ${addr_components}";
     // println "Contact number components: ${contact_number_components}";
@@ -163,6 +195,8 @@ def processProvider(provurl,db,authid) {
     result.contact = contact_number_components
     result.postcode = addr_components[addr_components.size()-1]
     result.lastModified = System.currentTimeMillis();
+
+    println(result);
 
     db.ofsted.save(result);
   }
