@@ -1,0 +1,20 @@
+url = new URL("http://blah/blah?blah")
+
+url.withReader { reader ->
+
+html = slurper.parse(reader)
+
+//we should now have a parsed file
+
+...scrapeing code...
+
+}
+
+
+http://www.frothandjava.com/2007/06/html-screen-scraping-with-groovy.html
+
+http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/16/authority/373/any/any?page=1
+
+
+Page from which we can extract full list of regions
+http://www.ofsted.gov.uk/inspection-reports/find-inspection-report

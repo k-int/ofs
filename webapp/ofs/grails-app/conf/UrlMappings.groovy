@@ -19,6 +19,7 @@ class UrlMappings {
     "/sitemap" (controller:"siteMapindex", action:"siteindex")
     "/directory/$authority" (controller:"search", action:"search")
     "/directory/$authority/sitemap" (controller:"siteMapindex", action:"authsitemap")
+    // "/directory/$authority/stats" (controller:"authority", action:"stats")
     "/directory/$authority/$id/feedback" (controller:"entry", action:"feedback")
     "/directory/$authority/$id" (controller:"entry", action:"index")
     "/data/$action" (controller:"data")

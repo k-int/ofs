@@ -163,7 +163,7 @@
           </div> 
       </div>
       <div class="yui3-u-5-24">
-        One
+        Ad area
       </div>
     </div>
 
