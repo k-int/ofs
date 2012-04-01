@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><g:layoutTitle default="Grails" /></title>
+        <title><g:layoutTitle default="OFS Search Results" /></title>
 
         <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset.css" type="text/css"/> 
         <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts.css" type="text/css"/> 
@@ -17,7 +17,10 @@
     <body class="search-results yui3-skin-sam">
       <div id="pageheader">
         <div id="headerinner">
-          <h1 style="display:inline;">Open Family Services</h1>
+          <h1 style="display:inline;">
+            Search results for "${keywords}"
+            <g:if test="${params.placename != null}">Near "${params.placename}"</g:if>
+          </h1>
 
           <!-- AddThis Button BEGIN -->
           <div class="addthis_toolbox addthis_default_style at_bar">

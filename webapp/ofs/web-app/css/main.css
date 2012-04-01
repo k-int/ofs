@@ -25,6 +25,18 @@ body {
   overflow:hidden;
 }
 
+#navbarcontainer {
+  background: #c7e380;
+  padding: 10px;
+  color:#60820D;
+}
+
+#navbar {
+  margin: auto; /* center in viewport */
+  width: 960px;
+  overflow:hidden;
+}
+
 .at_bar {
   float:right;
   background: #77d37d;
@@ -48,74 +60,68 @@ a:link, a:active {
 }
 
 .search-box {
-	border-radius: 5px;	
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	margin: 20px auto 10px;
-	width: 525px;	
-	background: #f3f3f3;
-	font-size: 150%;
-	padding: 10px;
-        display: block;
-        overflow: auto;
+  border-radius: 5px;	
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin: 20px auto 10px;
+  width: 525px;	
+  background: #f3f3f3;
+  font-size: 150%;
+  padding: 10px;
+  display: block;
+  overflow: auto;
 }
 
 .search-results .search-box {
-	width: auto;	
+  width: auto;	
 }
-
-/*
-.search-results .search-box input.uiw-input {
-	width: 780px
-}
-*/
 
 .search-box * {
-	vertical-align: middle	
+  vertical-align: middle	
 }
 
 .search-box input.uiw-input2 {
   width: 390px;
-	height:	28px;
-	padding: 5px;
-	margin-left: 10px;
-	border:1px solid #CCC;
-	box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-	-webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);	
+  height:	28px;
+  padding: 5px;
+  margin-left: 10px;
+  border:1px solid #CCC;
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);	
 }
 
 .search-box input.uiw-input {
-        width: 300px;
-        height: 28px;
-        padding: 5px;
-        margin-left: 10px;
-        border:1px solid #CCC;
-        box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-        -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 28px;
+  padding: 5px;
+  margin-left: 10px;
+  border:1px solid #CCC;
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .search-box input.uiw-button {
-	border-radius: 0 5px 5px 0;	
-	-moz-border-radius: 0 5px 5px 0;
-	-webkit-border-radius-topright: 5px;
-	-webkit-border-radius-bottomright: 5px;
+  border-radius: 0 5px 5px 0;	
+  -moz-border-radius: 0 5px 5px 0;
+  -webkit-border-radius-topright: 5px;
+  -webkit-border-radius-bottomright: 5px;
 /*
 	box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);	
 */
-	background: url(../images/button-grad.png) #22a72a repeat-x;
-	color: #fff;
-	margin-left: -3px;
-    overflow: visible;
-    cursor: pointer;
-    font-weight: bold;
-    border: 1px solid #090;
-    text-shadow: 0 0 3px #060;
-	height:	40px;
-	padding: 5px;
+  background: url(../images/button-grad.png) #22a72a repeat-x;
+  color: #fff;
+  margin-left: -3px;
+  overflow: visible;
+  cursor: pointer;
+  font-weight: bold;
+  border: 1px solid #090;
+  text-shadow: 0 0 3px #060;
+  height:	40px;
+  padding: 5px;
 }
 
 .search-box input.uiw-button:hover {
@@ -306,4 +312,9 @@ opacity: .5;
 .cleanlist li {
   margin-left:0px;
   list-style:none;
+}
+
+#activefilters {
+  padding 0px 0px 0px 0px;
+  padding-bottom: 0px;
 }

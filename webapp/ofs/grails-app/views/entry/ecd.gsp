@@ -62,7 +62,23 @@
     </g:if>
 
   </head>
-  <body class="search-results">
+  <body class="search-results yui3-skin-sam">
+
+    <div id="navbarcontainer">
+      <div id="navbar">
+        OFS &gt;
+        <g:link controller="search" action="search">Home</g:link> &gt;
+        <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
+          <a href="${request.getHeader('referer')}">Search Results</a>
+        </g:if>
+
+      </div>
+   </div>
+
+    <div class="yui3-g main">
+      <div class="yui3-u-2-3">
+
+
     <h1>
       <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
         <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
@@ -286,9 +302,17 @@
 
       <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}">Other Information: ${entry['other_info_s']}<br/></g:if>
 
-</div>
+   </div>
+
+    <div class="yui3-u-1-3">
+      Adspace 1
+    </div>
+  </div> <!-- end yui3-g main-->
+
     <script language="JavaScript">
       map2();
     </script>
+
+
 </body>
 </html>

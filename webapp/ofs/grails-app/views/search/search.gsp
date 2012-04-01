@@ -22,13 +22,20 @@
   </head>
 
   <body class="search-results yui3-skin-sam">
+    <div id="navbarcontainer">
+      <div id="navbar">
+        OFS &gt; 
+        <g:link controller="search" action="search">Home</g:link>
+      </div>
+    </div>
+
 
     <!-- Search bar -->
     <div class="yui3-g main"> 
       <div class="yui3-u" style="width:100%"> 
         <div class="yui3-g"> 
           <div class="yui3-u" style="width:100%"> 
-            <form method="get" > 
+            <form method="get">
               <div class="search-box">
                 <g:message code="ofs.search.keywordprompt"/>:<input class="uiw-input" type="text" name="keywords" value="${params.keywords?.encodeAsHTML()}"/>&nbsp;&nbsp;&nbsp;
                 <g:message code="ofs.search.placeprompt"/>:<input id="place-input" class="uiw-input" type="text" name="placename" value="${params.placename?.encodeAsHTML()}"/>
@@ -36,6 +43,7 @@
                 <input class="uiw-button" value="Search" type="submit"/> 
 
                 <g:if test="${params.subject != null || params.flags != null || params.authority != null || params.restp != null || place != null}">
+                <font size="-1">
                   <ul class="cleanlist" id="activefilters">
                     <g:if test="${place != null}"><li class="cleanlist">Search Near "${place.fqn}".<br/> Guessed Place Wrong?  <g:link action="search" controller="search" params="${['keywords':params.q]}">Query again as keywords only</g:link></li></g:if>
                     <g:if test="${params.restp != null}"><li class="cleanlist"><g:message code="cv.restp"/>: <g:message code="cv.restp.${params.restp}"/></li></g:if>
@@ -43,10 +51,10 @@
                     <g:if test="${params.flags != null}"><li class="cleanlist"><g:message code="cv.flags"/>: <g:message code="cv.flags.${params.flags}"/></li></g:if>
                     <g:if test="${params.authority != null}"><li class="cleanlist"><g:message code="cv.authority_shortcode"/>: <g:message code="cv.authority_shortcode.${params.authority}"/></li></g:if>
                   </ul>
+                </font>
                 </g:if>
               </div> 
             </form> 
-            <a href="/ofs">Home</a>
           </div> 
         </div>
       </div> 
