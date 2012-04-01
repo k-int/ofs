@@ -64,58 +64,64 @@ def go(db) {
     }
   }
 
+  def max_auth_count = 20
+
   db.ofstedauth.find().sort(lastCheck:1).each { authority_info ->
-
-    def pageno = 0;
-    def rectype = "16";
-    def moredata = true
-    println("Processing ${authority_info.authcode} last checked on ${authority_info.lastCheck}");
-
-    while ( ( moredata ) && ( pageno < 1000 ) ) {
-      def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authority_info.authcode}/any/any?page=${pageno}"
-      println "Collecting [${new Date().toString()}][auth=${authority_info.authcode}][page=${pageno}][rcount=${rcount}][ecount=${ecount}] ${next_page_url}"
   
-      def next_page = new URL( next_page_url ).withReader { r ->
-        new XmlSlurper( new Parser() ).parse( r )
-      }
+    if ( max_auth_count > 0 ) {
   
-      // println next_page
+      def pageno = 0;
+      def rectype = "16";
+      def moredata = true
+      println("Processing ${authority_info.authcode} last checked on ${authority_info.lastCheck}");
   
-      // def results_list = next_page.body.'**'.findAll { it.name() == 'ul' && it.@class.text() == 'resultsList' }
-      def results_list = next_page.body.'**'.find { it.name() == 'ul' && it.@class.text() == 'resultsList' }
-  
-      // println "Results of results_list = ${results_list}"
-  
-      if ( results_list != null ) {
-        println("got results list.... page=${pageno}")
-        results_list.li.each {
-          def new_prov_url = it.h2.a.@href.text();
-          try {
-            processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authority_info.authcode);
-            rcount++;
-          }
-          catch ( Exception e ) {
-            e.printStackTrace();
-            ecount++;
-          }
+      while ( ( moredata ) && ( pageno < 1000 ) ) {
+        def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authority_info.authcode}/any/any?page=${pageno}"
+        println "Collecting [${new Date().toString()}][auth=${authority_info.authcode}][page=${pageno}][rcount=${rcount}][ecount=${ecount}] ${next_page_url}"
+    
+        def next_page = new URL( next_page_url ).withReader { r ->
+          new XmlSlurper( new Parser() ).parse( r )
         }
-        pageno++;
+    
+        // println next_page
+    
+        // def results_list = next_page.body.'**'.findAll { it.name() == 'ul' && it.@class.text() == 'resultsList' }
+        def results_list = next_page.body.'**'.find { it.name() == 'ul' && it.@class.text() == 'resultsList' }
+    
+        // println "Results of results_list = ${results_list}"
+    
+        if ( results_list != null ) {
+          println("got results list.... page=${pageno}")
+          results_list.li.each {
+            def new_prov_url = it.h2.a.@href.text();
+            try {
+              processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authority_info.authcode);
+              rcount++;
+            }
+            catch ( Exception e ) {
+              e.printStackTrace();
+              ecount++;
+            }
+          }
+          pageno++;
+        }
+        else {
+          moredata = false;
+        }
       }
-      else {
-        moredata = false;
+  
+      try {
+        synchronized(this) {
+          Thread.sleep(5000);
+        }
       }
-    }
-
-    try {
-      synchronized(this) {
-        Thread.sleep(5000);
+      catch ( Exception e ) {
       }
+  
+      authority_info.lastCheck = System.currentTimeMillis();
+      db.ofstedauth.save(authority_info);
+      max_auth_count--;
     }
-    catch ( Exception e ) {
-    }
-
-    authority_info.lastCheck = System.currentTimeMillis();
-    db.ofstedauth.save(authority_info);
   }
 
   println "Done"
