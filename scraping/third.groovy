@@ -12,6 +12,14 @@ println "Open mongo";
 def mongo = new com.gmongo.GMongo()
 def db = mongo.getDB("ofs_source_reconcilliation")
 
+try {
+  synchronized(this) {
+    Thread.sleep(5000);
+  }
+}
+catch ( Exception e ) {
+}
+
 println "Grab page...";
 go(db);
 
@@ -19,6 +27,9 @@ db.close();
 
 
 def go(db) {
+
+  def rcount = 0;
+  def ecount = 0;
   def gHTML = new URL( 'http://www.ofsted.gov.uk/inspection-reports/find-inspection-report' ).withReader { r ->
     new XmlSlurper( new Parser() ).parse( r )
   }
@@ -62,7 +73,7 @@ def go(db) {
 
     while ( ( moredata ) && ( pageno < 1000 ) ) {
       def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authority_info.authcode}/any/any?page=${pageno}"
-      println "Collecting [${authority_info.authcode}][${pageno}]${next_page_url}"
+      println "Collecting [${new Date().toString()}][auth=${authority_info.authcode}][page=${pageno}][rcount=${rcount}][ecount=${ecount}] ${next_page_url}"
   
       def next_page = new URL( next_page_url ).withReader { r ->
         new XmlSlurper( new Parser() ).parse( r )
@@ -79,13 +90,28 @@ def go(db) {
         println("got results list.... page=${pageno}")
         results_list.li.each {
           def new_prov_url = it.h2.a.@href.text();
-          processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authority_info.authcode);
+          try {
+            processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authority_info.authcode);
+            rcount++;
+          }
+          catch ( Exception e ) {
+            e.printStackTrace();
+            ecount++;
+          }
         }
         pageno++;
       }
       else {
         moredata = false;
       }
+    }
+
+    try {
+      synchronized(this) {
+        Thread.sleep(5000);
+      }
+    }
+    catch ( Exception e ) {
     }
 
     authority_info.lastCheck = System.currentTimeMillis();
@@ -98,8 +124,6 @@ def go(db) {
 def processProvider(provurl,db,authid) {
 
   println("Processing ${provurl}")
-
-
 
   def prov_page = new URL( provurl ).withReader { r ->
     new XmlSlurper( new Parser() ).parse( r )
@@ -196,12 +220,12 @@ def processProvider(provurl,db,authid) {
     result.postcode = addr_components[addr_components.size()-1]
     result.lastModified = System.currentTimeMillis();
 
-    println(result);
+    // println(result);
 
     db.ofsted.save(result);
   }
   else {
     // println "No div with id middleColumn";
   }
-
+  println("prov complete");
 }

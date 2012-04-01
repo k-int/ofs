@@ -110,20 +110,51 @@ auth_endpoint.request(POST) {
 
   response.success = { resp, data ->
     println("response status: ${resp.statusLine}")
-    println("Response data code: ${data?.code}");
+    println("Response data : ${data}");
+    println("Done...")
+    def access_token = data.access_token
+    def token_type = data.token_type
+    def expires_in = data.expires_in
+    println("access token is ${access_token}");
+    getData(access_token)
   }
 
-  response.failure = { resp, reader ->
+  response.failure = { resp, data ->
     println( resp )
     println( resp.statusLine )
     resp.headers.each { h ->
       println(h);
     }
 
-    println("dump....");
-    System.out << reader;
+    println(data);
   }
 
 }
 
+def getData(access_token) {
+  println("getData");
+  def restClient = new RESTClient( 'https://www.googleapis.com/')
+  restClient.request(GET) { request ->
+    uri.path = 'analytics/v3/data/ga'
+    uri.query = [
+      'access_token':access_token,
+      'ids':'ga:44708105',
+      'dimensions':'ga:pagePath',
+      'metrics':'ga:visits',
+      'start-date':'2012-03-01',
+      'end-date':'2012-03-31',
+      'max-results':50
+    ]
 
+    response.success = { resp, data ->
+      println("success");
+    }
+   
+    response.failure = { resp, reader ->
+      println("failure - dumping response");
+      System.out << reader;
+      println("\ndone");
+    }
+  }
+  println("getData complete");
+}
