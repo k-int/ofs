@@ -17,9 +17,10 @@
 
         <title><g:layoutTitle default="Search the UK Directory of Child care, registered Childminders and Family Information" /></title>
 
-        <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset.css" type="text/css"/> 
-        <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts.css" type="text/css"/> 
-        <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base.css" type="text/css"/>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.1/build/cssreset/reset.css" type="text/css"/> 
+        <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.1/build/cssfonts/fonts.css" type="text/css"/> 
+        <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.1/build/cssbase/base.css" type="text/css"/>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/3.4.1/build/cssgrids/grids-min.css" type="text/css">
 
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
 
@@ -30,9 +31,49 @@
         <g:javascript library="application" />
 
     </head>
+
     <body class="yui3-skin-sam  yui-skin-sam">
+      <div id="pageheader">
+        <div id="headerinner">
+          <h1 style="display:inline;">Open Family Services</h1>
+
+          <!-- AddThis Button BEGIN -->
+          <div class="addthis_toolbox addthis_default_style at_bar">
+            <a class="addthis_button" style="float: left">Share:  </a>
+            <a class="addthis_button_preferred_1" style="text-decoration:none;"></a>
+            <a class="addthis_button_preferred_2" style="text-decoration:none;"></a>
+            <a class="addthis_button_preferred_3" style="text-decoration:none;"></a>
+            <a class="addthis_button_preferred_4" style="text-decoration:none;"></a>
+            <a class="addthis_button_google_plusone"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
+            <script type="text/javascript">var addthis_config = {"data_track_clickback":true, "data_track_addressbar":true};</script>
+            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=${grailsApplication.config.ofs.addthis.code}"></script><br/>
+          </div>
+        </div>
+      </div>
 
         <g:layoutBody />
+
+    <div id="footercontainer">
+      <div id="footer">
+        <hr/>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Local Authorities</a>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=9">Channel Partners</a>
+
+        <div id="google_translate_element"></div>
+
+        <script>
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+          }, 'google_translate_element');
+        }
+        </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> <br/>
+      </div>
+    </div>
+
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -66,6 +107,5 @@
   document.oncopy = addLink;
 
 </script>
-
     </body>
 </html>
