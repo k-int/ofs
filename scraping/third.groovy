@@ -23,7 +23,7 @@ catch ( Exception e ) {
 println "Grab page...";
 go(db);
 
-db.close();
+mongo.close();
 
 
 def go(db) {
