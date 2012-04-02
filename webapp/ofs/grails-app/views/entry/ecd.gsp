@@ -305,7 +305,7 @@
 
      <br/>
      <div class="greenpane">
-        Is this information incorrect or out of date? Please contact info at openfamilysrvices dot org dot uk
+        Is this information incorrect or out of date? Please contact info at openfamilyservices dot org dot uk
       </div>
 
    </div>

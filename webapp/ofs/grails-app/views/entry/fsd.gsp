@@ -235,7 +235,7 @@
       <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
 
       <div class="greenpane">
-        Is this information incorrect or out of date? Please contact info at openfamilysrvices dot org dot uk 
+        Is this information incorrect or out of date? Please contact info at openfamilyservices dot org dot uk 
       </div>
 
     </div>
