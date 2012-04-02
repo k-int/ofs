@@ -12,23 +12,28 @@ def mongo = new com.gmongo.GMongo()
 def db = mongo.getDB("ofs_source_reconcilliation")
 
 println 'Grab page...'
-go(db);
+go(db, '887');
 
-db.close();
+mongo.close();
 
-
-def go(db) {
-  def max_batch_size = 10;
+def go(db, authcode) {
+  def max_batch_size = 100;
   def maxts = db.config.findOne(propname='maxts')
   if ( maxts == null ) {
     maxts = [ propname:'maxts', value:0 ]
     db.config.save(maxts);
   }
+  else {
+    // In testing, reprocess evey time
+    maxts.value = 0;
+    db.config.save(maxts);
+  }
   
-  db.ofsted.find( [ lastModified : [ $gt : maxts.value ] ] ).sort(lastModified:1).limit(max_batch_size).each { rec ->
+  def ctr = 0;
+  db.ofsted.find( [ lastModified : [ $gt : maxts.value ], authority:authcode ] ).sort(lastModified:1).limit(max_batch_size).each { rec ->
     maxts.value = rec.lastModified
     post(rec);
-    println("processed, maxts.value updated to ${rec.lastModified}");
+    println("processed[${ctr++}], ${authcode} records, maxts.value updated to ${rec.lastModified}");
   }
 
   db.config.save(maxts);
@@ -114,5 +119,6 @@ def post(rec) {
   }
 
   def result = writer.toString();
+  println(result);
 
 }

@@ -63,7 +63,7 @@ def go(db) {
     }
     else {
       println("update existing record for ${authid}");
-      authority_info.authcode = authid;
+      authority_info.name = so.text();
       authority_info.lastSeen = System.currentTimeMillis();
       db.ofstedauth.save(authority_info);
     }
