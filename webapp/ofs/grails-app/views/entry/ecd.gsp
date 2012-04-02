@@ -62,7 +62,23 @@
     </g:if>
 
   </head>
-  <body class="search-results">
+  <body class="search-results yui3-skin-sam">
+
+    <div id="navbarcontainer">
+      <div id="navbar">
+        OFS &gt;
+        <g:link controller="search" action="search">Home</g:link> &gt;
+        <g:if test="${( ( request.getHeader('referer') != null ) && ( request.getHeader('referer').toLowerCase().contains('/ofs')) )}">
+          <a href="${request.getHeader('referer')}">Search Results</a>
+        </g:if>
+
+      </div>
+   </div>
+
+    <div class="yui3-g main">
+      <div class="yui3-u-2-3">
+
+
     <h1>
       <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
         <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
@@ -96,10 +112,6 @@
         </div>
       </g:if>
 
-    <div id="rightpanel" style="float:right; width:250px;"> 
-      <div id="map" style="width: 250px; height: 250px;"></div>
-      <div style="text-align: center; margin-top:15px; width: 250px;">Please contact the provider for exact location</div>
-    </div>
 
   <h2>Basic Details</h2>
 
@@ -121,6 +133,11 @@
       </g:else>
       </br>
 
+    <div>
+      <div id="rightpanel" style="float:right; width:250px;"> 
+        <div id="map" style="width: 250px; height: 250px;"></div>
+        <div style="text-align: center; margin-top:15px; width: 250px;">Please contact the provider for exact location</div>
+      </div>
       <h2>Contact Details</h2>
       <h3>Address</h3>
       <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
@@ -136,6 +153,7 @@
       <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">
         Fax: <span class="tel"><span class="type">fax</span><span class="value">${entry['fax']}</span></span><br/>
       </g:if>
+      </div>
 
       <h2>General</h2>
 
@@ -285,9 +303,38 @@
 
       <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}">Other Information: ${entry['other_info_s']}<br/></g:if>
 
-</div>
+     <br/>
+     <div class="greenpane">
+        Is this information incorrect or out of date? Please contact info at openfamilyservices dot org dot uk
+      </div>
+
+   </div>
+  </div>
+
+    <div class="yui3-u-1-3">
+        <div style="padding:10px;">
+
+<script type="text/javascript"><!--
+google_ad_client = "${grailsApplication.config.ofs.adsense.clientcode}";
+/* OFSRight1 */
+google_ad_slot = "${grailsApplication.config.ofs.adsense.adslot}";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+        </div>
+      </div>
+    </div>
+  </div> <!-- end yui3-g main-->
+
     <script language="JavaScript">
       map2();
     </script>
+
+
 </body>
 </html>

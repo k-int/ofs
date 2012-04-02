@@ -1,6 +1,5 @@
 #!/usr/bin/groovy
 
-
 @Grapes([
   @Grab(group='com.gmongo', module='gmongo', version='0.9.2'),
   @Grab(group='org.apache.httpcomponents', module='httpmime', version='4.1.2'),
@@ -161,9 +160,6 @@ def genecd(rec) {
   }
 
   def result = writer.toString();
-
-  new File('./rec.xml') << result
-
   result;
 }
 
@@ -192,5 +188,4 @@ def post(rec, target_service, orig_rec) {
       println("Done\n\n");
     }
   }
-    
 }
