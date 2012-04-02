@@ -59,7 +59,7 @@
         </div> 
 
         <div style="padding:30px; text-align:justify;"><p>OFS is a national online directory of family services containing information about Ofsted registered Childcare such as Nurseries, Pre-schools, Childminders and Out of School Clubs. There are also many Support Groups, Parent &amp; Toddler Groups, Children’s Centre Activities and Targeted Services available to help with family life;  as well as things to do for Leisure and Holiday Activities. The information comes directly from participating Local Authorities across England who verify the information to ensure its accuracy.  Information about national services is also available in a single search.</p>
-        <p>Want to chat? Join our family forum at <a href="http://www.openfamilyforum.org.uk"/>OpenFamilyForum</a></p>
+        <p>Want to chat? Join our family forum at <a href="http://www.openfamilyforum.org.uk"/>OpenFamilyForum</a>. Want to find contact details for your local Family Information Service? You can <a href="http://www.openfamilyforum.org.uk/fis-map.html">View the map of UK Family Information Service departments</a> </p>
         </div>
       </div>    
 
