@@ -56,11 +56,16 @@ def go(db) {
       println("New record for authority ${authid}");
       authority_info = [:]
       authority_info.authcode = authid;
+      authority_info.name = so.text();
       authority_info.lastCheck = 0;
+      authority_info.lastSeen = System.currentTimeMillis();
       db.ofstedauth.save(authority_info);
     }
     else {
       println("update existing record for ${authid}");
+      authority_info.authcode = authid;
+      authority_info.lastSeen = System.currentTimeMillis();
+      db.ofstedauth.save(authority_info);
     }
   }
 
