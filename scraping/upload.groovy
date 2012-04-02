@@ -16,6 +16,8 @@ import groovyx.net.http.*
 import org.apache.http.entity.mime.*
 import org.apache.http.entity.mime.content.*
 import java.nio.charset.Charset
+import org.apache.http.*
+import org.apache.http.protocol.*
 
 def mongo = new com.gmongo.GMongo()
 def db = mongo.getDB("ofs_source_reconcilliation")
@@ -26,7 +28,7 @@ go(db, '887');
 mongo.close();
 
 def go(db, authcode) {
-  def max_batch_size = 100;
+  def max_batch_size = 1;
   def maxts = db.config.findOne(propname='maxts')
 
   if ( maxts == null ) {
@@ -39,13 +41,23 @@ def go(db, authcode) {
     db.config.save(maxts);
   }
   
-  def dpp = new HTTPBuilder('http://aggregator.openfamilyservices.org.uk/dpp/provider/upload');
-  dpp.auth.basic 'ofs', '*****************'
+  def dpp = new RESTClient('http://aggregator.openfamilyservices.org.uk/')
+
+  // Add preemtive auth
+  dpp.client.addRequestInterceptor( new HttpRequestInterceptor() {
+    void process(HttpRequest httpRequest, HttpContext httpContext) {
+      String auth = "ofs:***************".bytes.encodeBase64().toString()
+      httpRequest.addHeader('Authorization', 'Basic ' + auth);
+    }
+  })
+
+  // dpp.auth.basic 'ofs', 'ofs_upload_6652'
 
   def ctr = 0;
   db.ofsted.find( [ lastModified : [ $gt : maxts.value ], authority:authcode ] ).sort(lastModified:1).limit(max_batch_size).each { rec ->
     maxts.value = rec.lastModified
     def ecdrec = genecd(rec);
+    post(ecdrec,dpp,rec);
     println("processed[${ctr++}], ${authcode} records, maxts.value updated to ${rec.lastModified}");
   }
 
@@ -70,7 +82,7 @@ def genecd(rec) {
                       'xmlns:con' : 'http://www.govtalk.gov.uk/people/ContactTypes',
                       'xmlns:apd' : 'http://www.govtalk.gov.uk/people/AddressAndPersonalDetails',
                       'xmlns:bs7666' : 'http://www.govtalk.gov.uk/people/bs7666',
-                      'xmlns:xsi' : ' http://www.w3.org/2001/XMLSchema-instance') {
+                      'xmlns:xsi' : 'http://www.w3.org/2001/XMLSchema-instance') {
     'DC.Title'(rec.name)
     'DC.Identifier'(rec.uri)
     'Description' {
@@ -136,28 +148,35 @@ def genecd(rec) {
   }
 
   def result = writer.toString();
+
+  new File('./rec.xml') << result
+
   result;
 }
 
 
-def post(rec, target_service) {
+def post(rec, target_service, orig_rec) {
 
+  byte[] rec_as_bytes = rec.getBytes('UTF-8')
+  println("Attempting post... [${rec_as_bytes.length}]");
   target_service.request(POST) { request ->
     requestContentType = 'multipart/form-data'
-
+    uri.path='dpp/provider/upload'
     def multipart_entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     multipart_entity.addPart("owner", new StringBody( 'ofsted', 'text/plain', Charset.forName('UTF-8')))
-    def uploaded_file_body_part = new org.apache.http.entity.mime.content.ByteArrayBody(rec.getBytes(), 'text/xml', 'filename.xml')
+    def uploaded_file_body_part = new org.apache.http.entity.mime.content.ByteArrayBody(rec_as_bytes, 'text/xml', 'filename.xml')
     multipart_entity.addPart("upload", uploaded_file_body_part);
 
     request.entity = multipart_entity
 
-    response.success { resp, data ->
+    response.success = { resp, data ->
       println("OK");
     }
 
-    response.failure { resp ->
-      println("Error ${resp}");
+    response.failure = { resp ->
+      println("Error - ${resp.status}");
+      System.out << resp
+      println("Done\n\n");
     }
   }
     
