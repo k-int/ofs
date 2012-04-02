@@ -303,10 +303,17 @@
 
       <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}">Other Information: ${entry['other_info_s']}<br/></g:if>
 
+     <br/>
+     <div class="greenpane">
+        Is this information incorrect or out of date? Please contact info at openfamilysrvices dot org dot uk
+      </div>
+
    </div>
+  </div>
 
     <div class="yui3-u-1-3">
         <div style="padding:10px;">
+
 <script type="text/javascript"><!--
 google_ad_client = "${grailsApplication.config.ofs.adsense.clientcode}";
 /* OFSRight1 */
@@ -318,9 +325,9 @@ google_ad_height = 600;
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
+
         </div>
       </div>
-
     </div>
   </div> <!-- end yui3-g main-->
 

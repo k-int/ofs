@@ -234,8 +234,8 @@
 
       <g:if test="${(entry['other_info_s'] != null ) && ( entry['other_info_s'].length() > 0 )}"><li>Other Information: ${entry['other_info_s']}</li></g:if>
 
-      <div style="border:1px solid black;">
-        Is this information incorrect or out of date? <a href="/ofs/directory/${params.authority}/${params.id}/feedback">Please Leave Us Feedback</a>
+      <div class="greenpane">
+        Is this information incorrect or out of date? Please contact info at openfamilysrvices dot org dot uk 
       </div>
 
     </div>
