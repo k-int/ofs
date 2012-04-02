@@ -112,7 +112,6 @@
               </div>
             </g:if>
       
-          <div id="map" style="width: 250px; height: 250px; float:right"></div>
       
       
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}">
@@ -135,21 +134,24 @@
       
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><div><strong>Last Modified</strong> ${entry['modified'].substring(0,entry['modified'].indexOf("T"))}</div></g:if>
       
-      <h2>Site Details</h2>
+      <div>
+        <div id="map" style="width: 250px; height: 250px; float:right"></div>
+        <h2>Site Details</h2>
       
-            <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
-            <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
-            <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
-            <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
-            <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
-            <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
+        <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
+        <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
+        <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
+        <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
+        <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
+        <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
       
-            <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">
-              Telephone: <span class="tel"><span class="value"><a href="callto:${entry['telephone']}">${entry['telephone']}</a></span></span><br/>
-            </g:if>
+        <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">
+          Telephone: <span class="tel"><span class="value"><a href="callto:${entry['telephone']}">${entry['telephone']}</a></span></span><br/>
+        </g:if>
       
-            <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: <a href="mailto:${entry['email']}">${entry['email']}</a><br/></g:if>
-            <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Fax: ${entry['fax']}<br/></g:if>
+        <g:if test="${(entry['email'] != null ) && ( entry['email'].length() > 0 )}">Email: <a href="mailto:${entry['email']}">${entry['email']}</a><br/></g:if>
+        <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">Fax: ${entry['fax']}<br/></g:if>
+      </div>
       
       <g:if test="${srcdoc != null}">
         <g:if test="${srcdoc.AreaCovered.size() > 0}">

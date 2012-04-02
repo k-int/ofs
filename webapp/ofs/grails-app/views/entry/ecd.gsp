@@ -112,10 +112,6 @@
         </div>
       </g:if>
 
-    <div id="rightpanel" style="float:right; width:250px;"> 
-      <div id="map" style="width: 250px; height: 250px;"></div>
-      <div style="text-align: center; margin-top:15px; width: 250px;">Please contact the provider for exact location</div>
-    </div>
 
   <h2>Basic Details</h2>
 
@@ -137,6 +133,11 @@
       </g:else>
       </br>
 
+    <div>
+      <div id="rightpanel" style="float:right; width:250px;"> 
+        <div id="map" style="width: 250px; height: 250px;"></div>
+        <div style="text-align: center; margin-top:15px; width: 250px;">Please contact the provider for exact location</div>
+      </div>
       <h2>Contact Details</h2>
       <h3>Address</h3>
       <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
@@ -152,6 +153,7 @@
       <g:if test="${(entry['fax'] != null ) && ( entry['fax'].length() > 0 )}">
         Fax: <span class="tel"><span class="type">fax</span><span class="value">${entry['fax']}</span></span><br/>
       </g:if>
+      </div>
 
       <h2>General</h2>
 
