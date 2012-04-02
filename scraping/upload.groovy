@@ -40,13 +40,19 @@ def go(db, authcode) {
     maxts.value = 0;
     db.config.save(maxts);
   }
+
+  def ofs_pass = ""
+  System.in.withReader {
+    print 'ofs pass:'
+    ofs_pass = it.readLine()
+  }
   
   def dpp = new RESTClient('http://aggregator.openfamilyservices.org.uk/')
 
   // Add preemtive auth
   dpp.client.addRequestInterceptor( new HttpRequestInterceptor() {
     void process(HttpRequest httpRequest, HttpContext httpContext) {
-      String auth = "ofs:********".bytes.encodeBase64().toString()
+      String auth = "ofs:${ofs_pass}".bytes.encodeBase64().toString()
       httpRequest.addHeader('Authorization', 'Basic ' + auth);
     }
   })
