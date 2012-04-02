@@ -52,8 +52,9 @@ def go(db, authcode) {
   // Add preemtive auth
   dpp.client.addRequestInterceptor( new HttpRequestInterceptor() {
     void process(HttpRequest httpRequest, HttpContext httpContext) {
-      String auth = "ofs:${ofs_pass}".bytes.encodeBase64().toString()
-      httpRequest.addHeader('Authorization', 'Basic ' + auth);
+      String auth = "ofs:${ofs_pass}"
+      String enc_auth = auth.bytes.encodeBase64().toString()
+      httpRequest.addHeader('Authorization', 'Basic ' + enc_auth);
     }
   })
 
@@ -105,8 +106,14 @@ def genecd(rec) {
       'ConsentVisibleAddress'(true)
       'SettingDetails' {
         'TelephoneNumber' {
-          if ( rec.contact.size() > 0 )
-            'apd:TelNationalNumber'(rec.contact[0])
+          if ( rec.contact.size() > 0 ) {
+            if ( ( rec.contact[0].startsWith('Telephone number: ') ) && ( rec.contact[0].length() > 18 ) ) {
+              'apd:TelNationalNumber'(rec.contact[0].substring(18))
+            }
+            else {
+              'apd:TelNationalNumber'(rec.contact[0])
+            }
+          }
         }
         'PostalAddress' {
           'apd:A_5LineAddress' {
