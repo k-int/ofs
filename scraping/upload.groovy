@@ -46,7 +46,7 @@ def go(db, authcode) {
   // Add preemtive auth
   dpp.client.addRequestInterceptor( new HttpRequestInterceptor() {
     void process(HttpRequest httpRequest, HttpContext httpContext) {
-      String auth = "ofs:ofs_upload_6652".bytes.encodeBase64().toString()
+      String auth = "ofs:********".bytes.encodeBase64().toString()
       httpRequest.addHeader('Authorization', 'Basic ' + auth);
     }
   })
