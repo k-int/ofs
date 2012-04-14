@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><g:layoutTitle default="Grails" /></title>
+        <title><g:layoutTitle default="OFS Search Results" /></title>
 
         <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset.css" type="text/css"/> 
         <link rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts.css" type="text/css"/> 
@@ -15,8 +15,49 @@
 
     </head>
     <body class="search-results yui3-skin-sam">
+      <div id="pageheader">
+        <div id="headerinner">
+          <h1 style="display:inline;">
+            Search results for "${keywords}"
+            <g:if test="${params.placename != null}">Near "${params.placename}"</g:if>
+          </h1>
+
+          <!-- AddThis Button BEGIN -->
+          <div class="addthis_toolbox addthis_default_style at_bar">
+            <a class="addthis_button" style="float: left">Share:  </a>
+            <a class="addthis_button_preferred_1" style="text-decoration:none;"></a>
+            <a class="addthis_button_preferred_2" style="text-decoration:none;"></a>
+            <a class="addthis_button_preferred_3" style="text-decoration:none;"></a>
+            <a class="addthis_button_preferred_4" style="text-decoration:none;"></a>
+            <a class="addthis_button_google_plusone"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
+            <script type="text/javascript">var addthis_config = {"data_track_clickback":true, "data_track_addressbar":true};</script>
+            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=${grailsApplication.config.ofs.addthis.code}"></script><br/>
+          </div>
+        </div>
+      </div>
 
         <g:layoutBody />
+
+    <div id="footercontainer">
+      <div id="footer">
+        <hr/>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=96">Local Authorities</a>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=399">Channel Partners</a>
+
+        <div id="google_translate_element"></div>
+
+        <script>
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+          }, 'google_translate_element');
+        }
+        </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> <br/>
+      </div>
+    </div>
 
 <script type="text/javascript">
   var _gaq = _gaq || [];

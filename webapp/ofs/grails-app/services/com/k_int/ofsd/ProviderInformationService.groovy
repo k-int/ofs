@@ -40,6 +40,7 @@ class ProviderInformationService {
       'North_Lincolnshire_Council' :                  ["subscriptionType":"basic", "name":"North Lincolnshire Council", "showLogo":true],
       'North_Somerset_Council' :                      ["subscriptionType":"basic", "name":"North Somerset", "showLogo":true],
       'North_Yorkshire_County_Council' :              ["subscriptionType":"basic", "name":"North Yorkshire County Council", "showLogo":true],
+      'ofsted' :                                      ["subscriptionType":"basic", "name":"Ofsted", "showLogo":true],
       'Oxfordshire_County_Council' :                  ["subscriptionType":"basic", "name":"Oxfordshire", "showLogo":true],
       'Rochdale_Metropolitan_Borough_Council' :       ["subscriptionType":"basic", "name":"Rochdale", "showLogo":true],
       'Sheffield_City_Council' :                      ["subscriptionType":"basic", "name":"Sheffield", "showLogo":true],

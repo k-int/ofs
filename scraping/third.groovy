@@ -12,13 +12,24 @@ println "Open mongo";
 def mongo = new com.gmongo.GMongo()
 def db = mongo.getDB("ofs_source_reconcilliation")
 
+try {
+  synchronized(this) {
+    Thread.sleep(5000);
+  }
+}
+catch ( Exception e ) {
+}
+
 println "Grab page...";
 go(db);
 
-db.close();
+mongo.close();
 
 
 def go(db) {
+
+  def rcount = 0;
+  def ecount = 0;
   def gHTML = new URL( 'http://www.ofsted.gov.uk/inspection-reports/find-inspection-report' ).withReader { r ->
     new XmlSlurper( new Parser() ).parse( r )
   }
@@ -39,36 +50,82 @@ def go(db) {
     println "processing authority with code ${so.@value.text()} ${so.text()}"
   
     def authid = so.@value.text()
-    def pageno = 0;
-    def rectype = "16";
-    def moredata = true
   
-    while ( ( moredata ) && ( pageno < 100 ) ) {
-      def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authid}/any/any?page=${pageno}"
-      println "Collecting [${authid}][${pageno}]${next_page_url}"
+    def authority_info = db.ofstedauth.findOne(authcode:authid);
+    if ( authority_info == null ) {
+      println("New record for authority ${authid}");
+      authority_info = [:]
+      authority_info.authcode = authid;
+      authority_info.name = so.text();
+      authority_info.lastCheck = 0;
+      authority_info.lastSeen = System.currentTimeMillis();
+      db.ofstedauth.save(authority_info);
+    }
+    else {
+      println("update existing record for ${authid}");
+      authority_info.name = so.text();
+      authority_info.lastSeen = System.currentTimeMillis();
+      db.ofstedauth.save(authority_info);
+    }
+  }
+
+  def max_auth_count = 20
+
+  db.ofstedauth.find().sort(lastCheck:1).each { authority_info ->
   
-      def next_page = new URL( next_page_url ).withReader { r ->
-        new XmlSlurper( new Parser() ).parse( r )
-      }
+    if ( max_auth_count > 0 ) {
   
-      // println next_page
+      def pageno = 0;
+      def rectype = "16";
+      def moredata = true
+      println("Processing ${authority_info.authcode} last checked on ${authority_info.lastCheck}");
   
-      // def results_list = next_page.body.'**'.findAll { it.name() == 'ul' && it.@class.text() == 'resultsList' }
-      def results_list = next_page.body.'**'.find { it.name() == 'ul' && it.@class.text() == 'resultsList' }
-  
-      // println "Results of results_list = ${results_list}"
-  
-      if ( results_list != null ) {
-        println("got results list.... page=${pageno}")
-        results_list.li.each {
-          def new_prov_url = it.h2.a.@href.text();
-          processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authid);
+      while ( ( moredata ) && ( pageno < 1000 ) ) {
+        def next_page_url = "http://www.ofsted.gov.uk/inspection-reports/find-inspection-report/results/type/${rectype}/authority/${authority_info.authcode}/any/any?page=${pageno}"
+        println "Collecting [${new Date().toString()}][auth=${authority_info.authcode}][page=${pageno}][rcount=${rcount}][ecount=${ecount}] ${next_page_url}"
+    
+        def next_page = new URL( next_page_url ).withReader { r ->
+          new XmlSlurper( new Parser() ).parse( r )
         }
-        pageno++;
+    
+        // println next_page
+    
+        // def results_list = next_page.body.'**'.findAll { it.name() == 'ul' && it.@class.text() == 'resultsList' }
+        def results_list = next_page.body.'**'.find { it.name() == 'ul' && it.@class.text() == 'resultsList' }
+    
+        // println "Results of results_list = ${results_list}"
+    
+        if ( results_list != null ) {
+          println("got results list.... page=${pageno}")
+          results_list.li.each {
+            def new_prov_url = it.h2.a.@href.text();
+            try {
+              processProvider("http://www.ofsted.gov.uk${new_prov_url}",db,authority_info.authcode);
+              rcount++;
+            }
+            catch ( Exception e ) {
+              e.printStackTrace();
+              ecount++;
+            }
+          }
+          pageno++;
+        }
+        else {
+          moredata = false;
+        }
       }
-      else {
-        moredata = false;
+  
+      try {
+        synchronized(this) {
+          Thread.sleep(5000);
+        }
       }
+      catch ( Exception e ) {
+      }
+  
+      authority_info.lastCheck = System.currentTimeMillis();
+      db.ofstedauth.save(authority_info);
+      max_auth_count--;
     }
   }
 
@@ -78,8 +135,6 @@ def go(db) {
 def processProvider(provurl,db,authid) {
 
   println("Processing ${provurl}")
-
-
 
   def prov_page = new URL( provurl ).withReader { r ->
     new XmlSlurper( new Parser() ).parse( r )
@@ -134,7 +189,39 @@ def processProvider(provurl,db,authid) {
       // println "regnode = ${regnode.parent().text()}"
       result.regdate = regnode.parent().text().substring(22);
     }
+
+    // regtype
+    def regtype = details.'**'.find { it.name() == 'strong' && it.text() == 'Register type:' }
+    if ( regtype ) {
+      result.regtype = regtype.parent().text().substring(15);
+    }
+
       
+
+    // Find conditions... "The registered person:"
+    def trp_para = details.'**'.find { it.name() == 'p' && it.text() == 'The registered person:' }
+    if ( trp_para ) {
+      def trp_div = trp_para.parent()
+      def trp_ul = trp_div.find { it.name() == 'ul' }
+      result.conditions = []
+      trp_ul?.li.each { cond ->
+        result.conditions.add(cond.text())
+      }
+    }
+
+    result.reports = []
+    // Previous reports
+    def prev_rep_tab = details.'**'.find { it.name() == 'table' && it.@summary.text() == 'Previous reports' }
+    if ( prev_rep_tab ) {
+      prev_rep_tab.tbody.tr.each { pr ->
+        if ( pr.td[0] ) {
+          result.reports.add([uri:pr.td[0].a.@href.text(),
+                               description:pr.td[0].text(),
+                               inspdate:pr.td[1].text(),
+                               pubdate:pr.td[2].text()]);
+        }
+      }
+    }
 
     // println "Addr components: ${addr_components}";
     // println "Contact number components: ${contact_number_components}";
@@ -142,11 +229,14 @@ def processProvider(provurl,db,authid) {
     result.address = addr_components
     result.contact = contact_number_components
     result.postcode = addr_components[addr_components.size()-1]
+    result.lastModified = System.currentTimeMillis();
+
+    // println(result);
 
     db.ofsted.save(result);
   }
   else {
     // println "No div with id middleColumn";
   }
-
+  println("prov complete");
 }

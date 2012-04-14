@@ -1,10 +1,8 @@
 #!/usr/bin/groovy
 
-@GrabResolver(name='es', root='https://oss.sonatype.org/content/repositories/releases')
-// @Grab(group='com.gmongo', module='gmongo', version='0.9.2')
+// @GrabResolver(name='es', root='https://oss.sonatype.org/content/repositories/releases')
 @Grapes([
   @Grab(group='org.apache.httpcomponents', module='httpmime', version='4.1.2'),
-  @Grab(group='com.gmongo', module='gmongo', version='0.9.2'),
   @Grab(group='org.apache.httpcomponents', module='httpclient', version='4.0'),
   @Grab(group='org.codehaus.groovy.modules.http-builder', module='http-builder', version='0.5.0'),
   @Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.6'),
@@ -12,6 +10,8 @@
 ])
 
 
+
+// Various resources used
 // Following https://developers.google.com/accounts/docs/OAuth2ServiceAccount
 // Useful info from http://www.mkyong.com/java/java-sha-hashing-example/ 
 // OAuth flow here: https://developers.google.com/accounts/docs/OAuth2#scenarios
@@ -19,12 +19,7 @@
 // http://www.coderanch.com/t/134042/Security/Reading-file-keypair
 // http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html
 // Java client for google apis hg clone https://code.google.com/p/google-api-java-client/
-// http://2.2.codereview.appspot.com/5703045/patch/3001/4004 -- KeyStore.getInstance("PKCS12"), new FileInputStream(p12File), storePass, alias, keyPass);
-// ry {
-// -      KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-//        keyStore.load(keyStream, storePass.toCharArray());
-//        return (PrivateKey) keyStore.getKey(alias, keyPass.toCharArray());
-//      } finally {
+
 import org.codehaus.jackson.map.ObjectMapper
 import org.apache.commons.codec.binary.Base64
 import java.security.MessageDigest;
@@ -38,16 +33,21 @@ import org.apache.http.entity.mime.content.*
 import java.nio.charset.Charset
 import java.security.*;
 
-// Build the assertion
+long timenow = System.currentTimeMillis() / 1000
+
+// Build the header
 def jwt_header = ["alg":"RS256","typ":"JWT"]
+
+// Build the required claims
 def required_claims = [
-  "iss":"230924794467@developer.gserviceaccount.com",
-  "scope":"https://www.googleapis.com/auth/analytics",
+  "iss":"230924794467-fst7uv7801hlnvi43fesqd91lfr7252i@developer.gserviceaccount.com",
+  "scope":"https://www.googleapis.com/auth/analytics.readonly",
   "aud":"https://accounts.google.com/o/oauth2/token",
-  "exp":1328554385,
-  "iat":1328550785
+  "exp":timenow+3600, //  - Adjust for timezone
+  "iat":timenow
 ]
 
+// Convert maps into json
 ObjectMapper mapper = new ObjectMapper();
 StringWriter sw = new StringWriter();
 mapper.writeValue(sw, jwt_header);
@@ -59,73 +59,102 @@ def required_claims_string = sw.toString()
 
 println("map: ${jwt_header_string} ${required_claims_string}");
 
-// We post the assertion to https://accounts.google.com/o/oauth2/token
-
-// String encoded_header = new String(Base64.encodeBase64(jwt_header_string.getBytes()));
+// Encode header
 String encoded_header = Base64.encodeBase64URLSafeString(jwt_header_string.getBytes());
-// String encoded_required_claims = new String(Base64.encodeBase64(required_claims_string.getBytes()));
+
+// Encode required claims
 String encoded_required_claims = Base64.encodeBase64URLSafeString(required_claims_string.getBytes());
 
+// Generate string we will sign
 String jwt_to_sign="${encoded_header}.${encoded_required_claims}"
 
-
-// 
+// Load .p2 file.
 println("Load p12 file (a PKCS12 cert)");
 KeyStore ks = KeyStore.getInstance("PKCS12");
-FileInputStream fis = new FileInputStream("/tmp/4f6ec4d2d8eed3a23ebd78584ea16ebfa0aaa95b-privatekey.p12");
-ks.load(fis, "password".toCharArray());
 
-println("Process...");
+// In testing, point this at the key file downloaded from google
+FileInputStream fis = new FileInputStream("/tmp/d8f6e2b7ceda999b6ec791cede28b7fe66cbd1e8-privatekey.p12");
+ks.load(fis, "notasecret".toCharArray());
 
-// get my private key
-KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry("privateKeyAlias", password);
-PrivateKey privateKey = pkEntry.getPrivateKey();
+// get my private key from the kestore (.p12 file)
+PrivateKey key = ks.getKey("privatekey", "notasecret".toCharArray());
 
-Key key = null;
-Certificate cert = null;
-ks.aliases().each {
-  String keyName = (String)it.nextElement();
-  println("process key ${keyName}");
-  key = ks.getKey(keyName,"notasecret".toCharArray());
-  cert = ks.getCertificate(keyName);
-}
-
-// KeyPair kp = new KeyPair(cert.getPublicKey(),(PrivateKey)key);
-
-
+// Create the signature for the header and required claims
 Signature instance = Signature.getInstance("SHA256withRSA");
 instance.initSign(key);
 instance.update(jwt_to_sign.getBytes());
 byte[] digest_result = instance.sign();
 
-// String signature_string = new String(Base64.encodeBase64(digest_result))
+// encode signature
 String signature_string = Base64.encodeBase64URLSafeString(digest_result)
 
+// Debug - display request
 println("req: ${jwt_to_sign}.${signature_string}");
 
-def auth_endpoint = new RESTClient( 'https://accounts.google.com/o/oauth2/token' )
+
+// Create rest endpoint
+def auth_endpoint = new RESTClient( 'https://accounts.google.com/' )
 
 auth_endpoint.request(POST) {
 
   requestContentType = URLENC
 
-  // response.path = 'update.xml',
+  uri.path='o/oauth2/token'
+
   body = [ 
-    grant_type:'assertion',
-    assertion_type:'http://oauth.net/grant_type/jwt/1.0/bearer',
+    'grant_type':'assertion',
+    'assertion_type':'http://oauth.net/grant_type/jwt/1.0/bearer',
     'assertion':"${jwt_to_sign}.${signature_string}"
   ]
 
 
   response.success = { resp, data ->
     println("response status: ${resp.statusLine}")
-    println("Response data code: ${data?.code}");
+    println("Response data : ${data}");
+    println("Done...")
+    def access_token = data.access_token
+    def token_type = data.token_type
+    def expires_in = data.expires_in
+    println("access token is ${access_token}");
+    getData(access_token)
   }
 
-  response.failure = { resp ->
+  response.failure = { resp, data ->
+    println( resp )
     println( resp.statusLine )
+    resp.headers.each { h ->
+      println(h);
+    }
+
+    println(data);
   }
 
 }
 
+def getData(access_token) {
+  println("getData");
+  def restClient = new RESTClient( 'https://www.googleapis.com/')
+  restClient.request(GET) { request ->
+    uri.path = 'analytics/v3/data/ga'
+    uri.query = [
+      'access_token':access_token,
+      'ids':'ga:44708105',
+      'dimensions':'ga:pagePath',
+      'metrics':'ga:visits',
+      'start-date':'2012-03-01',
+      'end-date':'2012-03-31',
+      'max-results':50
+    ]
 
+    response.success = { resp, data ->
+      println("success");
+    }
+   
+    response.failure = { resp, reader ->
+      println("failure - dumping response");
+      System.out << reader;
+      println("\ndone");
+    }
+  }
+  println("getData complete");
+}
