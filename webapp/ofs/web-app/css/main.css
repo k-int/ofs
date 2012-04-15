@@ -218,7 +218,7 @@ div.srchprompt {
   width: 960px;
   overflow:hidden;
   text-align:center;
-  padding: 30px;
+  /* padding: 30px; */
 }
 
 div.maintitle {
