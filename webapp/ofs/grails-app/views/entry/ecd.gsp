@@ -76,9 +76,7 @@
    </div>
 
     <div class="yui3-g main">
-      <div class="yui3-u-2-3">
-
-
+      <div class="yui3-u-5-6">
     <h1>
       <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
         <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
@@ -311,21 +309,20 @@
    </div>
   </div>
 
-    <div class="yui3-u-1-3">
-        <div style="padding:10px;">
+    <div class="yui3-u-1-6">
+      <div style="padding:10px;">
 
 <script type="text/javascript"><!--
-google_ad_client = "${grailsApplication.config.ofs.adsense.clientcode}";
-/* OFSRight1 */
-google_ad_slot = "${grailsApplication.config.ofs.adsense.adslot}";
-google_ad_width = 120;
+google_ad_client = "ca-pub-8968806895227089";
+/* ECDDetails */
+google_ad_slot = "4511447338";
+google_ad_width = 160;
 google_ad_height = 600;
 //-->
 </script>
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
-
         </div>
       </div>
     </div>
