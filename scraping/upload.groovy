@@ -21,12 +21,25 @@ import org.apache.http.protocol.*
 def mongo = new com.gmongo.GMongo()
 def db = mongo.getDB("ofs_source_reconcilliation")
 
-println 'Grab page...'
-go(db, '887');
+def codes_to_process = [ 301, 302, 370, 800, 822, 303, 330, 889, 890, 350, 837, 867, 380, 304, 846, 801, 305, 825, 351, 381, 873, 202, 823, 895, 896, 201, 908, 331, 306, 909, 841, 831, 830, 878, 371, 835, 332, 840, 307, 811, 845, 308, 881, 390, 916, 203, 204, 876, 205, 850, 309, 310, 805, 311, 884, 919, 312, 313, 921, 420, 206, 207, 886, 810, 314, 382, 340, 208, 888, 383, 856, 855, 209, 925, 341, 821, 352, 887, 315, 806, 826, 391, 316, 926, 812, 813, 802, 392, 815, 928, 929, 892, 891, 353, 931, 874, 879, 836, 851, 870, 317, 807, 318, 354, 372, 857, 355, 333, 343, 373, 893, 871, 334, 933, 803, 393, 852, 882, 210, 342, 860, 356, 808, 861, 935, 394, 936, 319, 866, 357, 894, 883, 880, 211, 358, 384, 335, 320, 212, 877, 937, 869, 938, 213, 359, 868, 344, 872, 336, 885, 816 ];
+
+def ofs_pass = ""
+System.in.withReader {
+  print 'ofs pass:'
+  ofs_pass = it.readLine()
+}
+  
+codes_to_process.each { code ->
+  log.debug("Process ${code}");
+  go(db,ofs_pass,"${code}");
+}
+
+// println 'Grab page...'
+// go(db, '887');
 
 mongo.close();
 
-def go(db, authcode) {
+def go(db, ofs_pass, authcode) {
   def max_batch_size = 1000;
   def maxts = db.config.findOne(propname='maxts')
 
@@ -40,12 +53,6 @@ def go(db, authcode) {
     db.config.save(maxts);
   }
 
-  def ofs_pass = ""
-  System.in.withReader {
-    print 'ofs pass:'
-    ofs_pass = it.readLine()
-  }
-  
   def dpp = new RESTClient('http://aggregator.openfamilyservices.org.uk/')
 
   // Add preemtive auth
