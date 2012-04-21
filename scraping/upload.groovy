@@ -30,7 +30,7 @@ System.in.withReader {
 }
   
 codes_to_process.each { code ->
-  log.debug("Process ${code}");
+  println("Process ${code}");
   go(db,ofs_pass,"${code}");
 }
 
@@ -40,11 +40,15 @@ codes_to_process.each { code ->
 mongo.close();
 
 def go(db, ofs_pass, authcode) {
-  def max_batch_size = 1000;
-  def maxts = db.config.findOne(propname='maxts')
+  def max_batch_size = 10000;
+  
+  def maxts = db.config.findOne(propname="${authcode}-maxts")
+
+  println("Inside go for ${authcode}");
 
   if ( maxts == null ) {
-    maxts = [ propname:'maxts', value:0 ]
+    println("Create new tracking config for this authority");
+    maxts = [ propname:"${authcode}-maxts", value:0 ]
     db.config.save(maxts);
   }
   else {
@@ -74,6 +78,7 @@ def go(db, ofs_pass, authcode) {
     println("processed[${ctr++}], ${authcode} records, maxts.value updated to ${rec.lastModified}");
   }
 
+  println("Updating maxts ${maxts}");
   db.config.save(maxts);
 }
 
