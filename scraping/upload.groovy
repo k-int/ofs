@@ -74,7 +74,7 @@ def go(db, ofs_pass, authcode) {
   db.ofsted.find( [ lastModified : [ $gt : maxts.value ], authority:authcode ] ).sort(lastModified:1).limit(max_batch_size).each { rec ->
     maxts.value = rec.lastModified
     def ecdrec = genecd(rec);
-    if ( !alreadyPresent(rec.ofstedId,dpp) {
+    if ( !alreadyPresent(rec.ofstedId,dpp)) {
       post(ecdrec,dpp,rec,authcode);
     }
     println("processed[${ctr++}], ${authcode} records, maxts.value updated to ${rec.lastModified}");
@@ -214,23 +214,27 @@ def alreadyPresent(ofstedcode, target_service) {
   def result = true;
   println("Checking if ${ofstedcode} already present");
   try {
-    target_service.request(GET) { request ->
+    target_service.request(GET, ContentType.JSON) { request ->
       uri.path='index/aggr/select'
       uri.query = [
         q:"ofsted_urn_s:${ofstedcode}",
         fl:'dc.title,ofsted_urn_s,dc.identifier,aggr.internal.id',
-        ws:'json'
+        wt:'json'
       ]
       response.success = { resp, data ->
         if ( data.response.numFound == 0 ) {
           println("Record ${ofstedcode} not present in service.. uploading!");
           result = false
         }
+        else {
+          println("Record ${ofstedcode} already present (${data.response.numFound} times) Not uploading.");
+        }
       }
       response.failure = { resp ->
         println("Error - ${resp.status}");
         System.out << resp
       }
+    }
   }
   catch ( Exception e ) {
     e.printStackTrace();
