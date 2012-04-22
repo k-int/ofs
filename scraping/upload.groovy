@@ -42,13 +42,13 @@ mongo.close();
 def go(db, ofs_pass, authcode) {
   def max_batch_size = 10000;
   
-  def maxts = db.config.findOne(propname="${authcode}-maxts")
+  def maxts = db.config.findOne(propname="${authcode}-maxts".toString())
 
   println("Inside go for ${authcode}");
 
   if ( maxts == null ) {
     println("Create new tracking config for this authority");
-    maxts = [ propname:"${authcode}-maxts", value:0 ]
+    maxts = [ propname:"${authcode}-maxts".toString(), value:0 ]
     db.config.save(maxts);
   }
   else {
@@ -62,7 +62,7 @@ def go(db, ofs_pass, authcode) {
   // Add preemtive auth
   dpp.client.addRequestInterceptor( new HttpRequestInterceptor() {
     void process(HttpRequest httpRequest, HttpContext httpContext) {
-      String auth = "ofs:${ofs_pass}"
+      String auth = "admin:${ofs_pass}"
       String enc_auth = auth.bytes.encodeBase64().toString()
       httpRequest.addHeader('Authorization', 'Basic ' + enc_auth);
     }
@@ -74,7 +74,9 @@ def go(db, ofs_pass, authcode) {
   db.ofsted.find( [ lastModified : [ $gt : maxts.value ], authority:authcode ] ).sort(lastModified:1).limit(max_batch_size).each { rec ->
     maxts.value = rec.lastModified
     def ecdrec = genecd(rec);
-    post(ecdrec,dpp,rec);
+    if ( !alreadyPresent(rec.ofstedId,dpp) {
+      post(ecdrec,dpp,rec,authcode);
+    }
     println("processed[${ctr++}], ${authcode} records, maxts.value updated to ${rec.lastModified}");
   }
 
@@ -176,28 +178,62 @@ def genecd(rec) {
 }
 
 
-def post(rec, target_service, orig_rec) {
+def post(rec, target_service, orig_rec, authority) {
 
   byte[] rec_as_bytes = rec.getBytes('UTF-8')
   println("Attempting post... [${rec_as_bytes.length}]");
-  target_service.request(POST) { request ->
-    requestContentType = 'multipart/form-data'
-    uri.path='dpp/provider/upload'
-    def multipart_entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-    multipart_entity.addPart("owner", new StringBody( 'ofsted', 'text/plain', Charset.forName('UTF-8')))
-    def uploaded_file_body_part = new org.apache.http.entity.mime.content.ByteArrayBody(rec_as_bytes, 'text/xml', 'filename.xml')
-    multipart_entity.addPart("upload", uploaded_file_body_part);
+  try {
+    target_service.request(POST) { request ->
+      requestContentType = 'multipart/form-data'
+      uri.path='dpp/provider/upload'
+      def multipart_entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+      multipart_entity.addPart("owner", new StringBody( 'ofsted', 'text/plain', Charset.forName('UTF-8')))
+      def uploaded_file_body_part = new org.apache.http.entity.mime.content.ByteArrayBody(rec_as_bytes, 'text/xml', 'filename.xml')
+      multipart_entity.addPart("upload", uploaded_file_body_part);
 
-    request.entity = multipart_entity
+      request.entity = multipart_entity
 
-    response.success = { resp, data ->
-      println("OK");
-    }
+      response.success = { resp, data ->
+        println("OK - Record uploaded. Authority:${authority}, URI:${orig_rec.uri}")
+      }
 
-    response.failure = { resp ->
-      println("Error - ${resp.status}");
-      System.out << resp
-      println("Done\n\n");
+      response.failure = { resp ->
+        println("Error - ${resp.status}. Authority:${authority}, URI:${orig_rec.uri}");
+        System.out << resp
+        println("Done\n\n");
+      }
     }
   }
+  catch ( Exception e ) {
+    e.printStackTrace();
+  }
+}
+
+def alreadyPresent(ofstedcode, target_service) {
+  // http://aggregator.openfamilyservices.org.uk/index/aggr/select?q=ofsted_urn_s:300808&fl=dc.title,ofsted_urn_s,dc.identifier&wt=json
+  def result = true;
+  println("Checking if ${ofstedcode} already present");
+  try {
+    target_service.request(GET) { request ->
+      uri.path='index/aggr/select'
+      uri.query = [
+        q:"ofsted_urn_s:${ofstedcode}",
+        fl:'dc.title,ofsted_urn_s,dc.identifier,aggr.internal.id',
+        ws:'json'
+      ]
+      response.success = { resp, data ->
+        if ( data.response.numFound == 0 ) {
+          println("Record ${ofstedcode} not present in service.. uploading!");
+          result = false
+        }
+      }
+      response.failure = { resp ->
+        println("Error - ${resp.status}");
+        System.out << resp
+      }
+  }
+  catch ( Exception e ) {
+    e.printStackTrace();
+  }
+  result
 }
