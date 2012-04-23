@@ -70,8 +70,8 @@ class ProviderInformationService {
       if ( provider_shortcode != null ) {
         if ( members[provider_shortcode]?.sourceDisclaimer != null )
           result = "(${members[provider_shortcode]?.sourceDisclaimer})"
-        else if ( ( members[provider_shortcode]?.subscriptionType == 'basic' ) || ( members[provider_shortcode]?.subscriptionType == 'subscriber' ) )
-          result = "(an active contributor to Open Family Services)"
+        // else if ( ( members[provider_shortcode]?.subscriptionType == 'basic' ) || ( members[provider_shortcode]?.subscriptionType == 'subscriber' ) )
+        //   result = "(an active contributor to Open Family Services)"
       }
 
       result
