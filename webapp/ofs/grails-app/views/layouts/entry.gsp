@@ -50,6 +50,8 @@
         <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=96">Local Authorities</a>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=399">Channel Partners</a>
+        <a href="http://www.openfamilyforum.org.uk/">Forum</a>
+        <a href="http://www.openfamilyforum.org.uk/fis-map.html">Find your Local FIS</a>
 
         <div id="google_translate_element"></div>
 
