@@ -156,6 +156,10 @@ class SiteMapindexController {
                  'xsi:schemaLocation':'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
                  'xmlns':'http://www.sitemaps.org/schemas/sitemap/0.9',
                  'targetNamespace':'http://www.sitemaps.org/schemas/sitemap/0.9') {
+        url() {
+          loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}")
+          lastmod(default_date)
+        }
         cache_entry.urls.each { rec ->
           url() {
             loc("${grailsApplication.config.ofs.frontend}/ofs/directory/${params.authority}/${rec[0]}")
