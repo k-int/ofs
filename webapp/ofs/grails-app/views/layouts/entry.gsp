@@ -29,7 +29,14 @@
             <a class="addthis_button_preferred_4" style="text-decoration:none;"></a>
             <a class="addthis_button_google_plusone"></a>
             <a class="addthis_counter addthis_bubble_style"></a>
-            <script type="text/javascript">var addthis_config = {"data_track_clickback":true, "data_track_addressbar":true};</script>
+            <script type="text/javascript">
+              var addthis_config = {"data_track_clickback":true, "data_track_addressbar":true};
+              var addthis_share = {
+                templates : {
+                  twitter : "Check out {{title}} on {{url}} via @OpenFamilyS"
+                }
+              };
+            </script>
             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=${grailsApplication.config.ofs.addthis.code}"></script><br/>
           </div>
         </div>
@@ -43,6 +50,8 @@
         <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=96">Local Authorities</a>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=399">Channel Partners</a>
+        <a href="http://www.openfamilyforum.org.uk/">Forum</a>
+        <a href="http://www.openfamilyforum.org.uk/fis-map.html">Find your Local FIS</a>
 
         <div id="google_translate_element"></div>
 
@@ -85,6 +94,20 @@
       body_element.removeChild(newdiv);
     },0);
   }
+
+  function onAddThisShare(event) {
+    var targetUrl = window.location.href;
+    var network = event.service;
+    var action = 'share';
+    if (event.service == 'facebook_like') {
+      // Name Facebook Like actions specifically
+      action = 'like';
+      network = 'facebook';
+    }
+    _gaq.push(['_trackSocial', network, action]);
+  }
+
+  addthis.addEventListener('addthis.menu.share', onAddThisShare);
 
   document.oncopy = addLink;
 </script>
