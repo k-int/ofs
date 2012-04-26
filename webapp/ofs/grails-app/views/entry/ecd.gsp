@@ -138,12 +138,17 @@
       </div>
       <h2>Contact Details</h2>
       <h3>Address</h3>
+      <g:if test="${( srcdoc != null ) && ( srcdoc.ProviderDetails?.ConsentVisibleAddress>?.text() == 'false' ) }">
+        Witheld by request of provider. Please contact via details below.
+      </g:if>
+      <g:else>
       <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
       <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
       <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
       <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
       <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
       <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
+      </g:else>
       <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">
         Telephone: <span class="tel"><span class="value"><a href="callto:${entry['telephone']}">${entry['telephone']}</a></span></span><br/>
       </g:if>
