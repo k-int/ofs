@@ -138,7 +138,7 @@
       </div>
       <h2>Contact Details</h2>
       <h3>Address</h3>
-      <g:if test="${( srcdoc != null ) && ( srcdoc.ProviderDetails?.ConsentVisibleAddress>?.text() == 'false' ) }">
+      <g:if test="${( srcdoc != null ) && ( srcdoc.ProviderDetails?.ConsentVisibleAddress?.text() == 'false' ) }">
         Witheld by request of provider. Please contact via details below.
       </g:if>
       <g:else>
