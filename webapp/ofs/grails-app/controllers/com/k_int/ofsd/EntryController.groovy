@@ -61,6 +61,10 @@ class EntryController {
           break;
         case 'Service':
           result['srcdoc'] = fetchdoc(ApplicationHolder.application.config.ofs.host,dpp_url);
+          if ( result.srcdoc ) {
+            result.srcdoc.declareNamespace(apd: 'http://www.govtalk.gov.uk/people/AddressAndPersonalDetails', 
+                                           bs7666: 'http://www.govtalk.gov.uk/people/bs7666')
+          }
           render(view:'fsd',model:result)
           break;
       }
@@ -84,7 +88,8 @@ class EntryController {
   def fetchdoc(base,targ) {
     println "Fetching ${targ}"
     // def http = new HTTPBuilder( base )
-    def result = dppRestBuilder.get( path : targ, query : ['apikey' : ApplicationHolder.application.config.ofs.dpp.apikey] )
+    def result = dppRestBuilder.get( path : targ, 
+                                     query : ['apikey' : ApplicationHolder.application.config.ofs.dpp.apikey] )
 
     // println "Got ${result}"
     result

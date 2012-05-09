@@ -137,7 +137,7 @@
       <div>
         <div id="map" style="width: 250px; height: 250px; float:right"></div>
         <h2>Site Details</h2>
-      
+        <g:if test="${srcdoc.ContactDetails.Address.'apd:BS7666Address'.'bs7666:PAON'}">${srcdoc.ContactDetails.Address.'apd:BS7666Address'.'bs7666:PAON'}<br/></g:if>      
         <g:if test="${(entry['address.line1'] != null ) && ( entry['address.line1'].length() > 0 )}">${entry['address.line1']}<br/></g:if>
         <g:if test="${(entry['address.line2'] != null ) && ( entry['address.line2'].length() > 0 )}">${entry['address.line2']}<br/></g:if>
         <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
