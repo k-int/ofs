@@ -1,6 +1,7 @@
 package com.k_int.ofsd
 
 import org.springframework.context.i18n.LocaleContextHolder as LCH
+import com.k_int.iep.datamodel.*
 
 class ProviderInformationService {
 
@@ -59,7 +60,27 @@ class ProviderInformationService {
     ]
 
     def lookupProviderInformation(provider_shortcode) {
-      members[provider_shortcode]
+      def in_mem_code = members[provider_shortcode]
+      
+
+      def result = IEPProvider.findByShortCode(provider_shortcode)
+
+      if ( !result ) {
+        result = in_mem_code
+      }
+      else {
+        if ( ! result.subscriptionType ) {
+          if ( in_mem_code?.subscriptionType == 'basic' ) {
+            result.subscriptionType = IEPSubscriptionType.findByCode('basic') ?: new IEPSubscriptionType(code:'basic', description:'Basic').save()
+          }
+          else {
+            result.subscriptionType = IEPSubscriptionType.findByCode('none') ?: new IEPSubscriptionType(code:'none', description:'None').save()
+          }
+          result.save();
+        }
+      }
+
+      result
     }
 
     def getDisclaimer(provider_shortcode) {
