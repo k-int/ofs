@@ -68,6 +68,7 @@
       <div id="footer">
         <hr/>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=9">About</a>
+        <a href="http://partners.openfamilyservices.org.uk/?page_id=595">Privacy and Cookie Policy</a>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=96">Local Authorities</a>
         <a href="http://partners.openfamilyservices.org.uk/?page_id=399">Parents and Families</a>
         <a href="http://www.openfamilyforum.org.uk/">Forum</a>
