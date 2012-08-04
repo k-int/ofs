@@ -73,6 +73,7 @@
         <a href="http://partners.openfamilyservices.org.uk/?page_id=399">Parents and Families</a>
         <a href="http://www.openfamilyforum.org.uk/">Forum</a>
         <a href="http://www.openfamilyforum.org.uk/fis-map.html">Find your Local FIS</a>
+        <a href="https://plus.google.com/115050907953700068487" rel="publisher">Find us on Google+</a>
 
         <div id="google_translate_element"></div>
 
