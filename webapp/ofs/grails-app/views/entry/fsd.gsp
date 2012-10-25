@@ -76,11 +76,11 @@
       </div>
    </div>
 
-    <div class="yui3-g main">
+    <div class="yui3-g main"  itemscope itemtype="http://schema.org/ChildCare">
       <div class="yui3-u-5-6">
       
       <g:if test="${(entry['website'] != null ) && ( entry['website'].length() > 0 )}">
-        <h1>
+        <h1 itemprop="name">
           <g:if test="${entry['website'].toLowerCase().startsWith('http')}">
             <a href="${entry['website']}">${entry['dc.title']}</a>
           </g:if>
@@ -90,7 +90,7 @@
         </h1>
       </g:if>
       <g:else>
-        <h1>${entry['dc.title']}</h1>
+        <h1 itemprop="name">${entry['dc.title']}</h1>
       </g:else>
       
             <g:if test="${entry['dc.subject.orig_s'] != null}">
@@ -115,7 +115,7 @@
       
       
       <g:if test="${(entry['dc.description'] != null ) && ( entry['dc.description'].length() > 0 )}">
-      <div class="description">${entry['dc.description']}</div>
+        <div  itemprop="description" class="description">${entry['dc.description']}</div>
       </g:if>
       
       
@@ -134,7 +134,7 @@
       
       <g:if test="${(entry['modified'] != null ) && ( entry['modified'].length() > 0 )}"><div><strong>Last Modified</strong> ${entry['modified'].substring(0,entry['modified'].indexOf("T"))}</div></g:if>
       
-      <div>
+      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
         <div id="map" style="width: 250px; height: 250px; float:right"></div>
         <h2>Site Details</h2>
         <g:if test="${srcdoc.ContactDetails.Address.'apd:BS7666Address'.'bs7666:PAON'}">${srcdoc.ContactDetails.Address.'apd:BS7666Address'.'bs7666:PAON'}<br/></g:if>      
@@ -143,7 +143,7 @@
         <g:if test="${(entry['address.line3'] != null ) && ( entry['address.line3'].length() > 0 )}">${entry['address.line3']}<br/></g:if>
         <g:if test="${(entry['address.line4'] != null ) && ( entry['address.line4'].length() > 0 )}">${entry['address.line4']}<br/></g:if>
         <g:if test="${(entry['address.line5'] != null ) && ( entry['address.line5'].length() > 0 )}">${entry['address.line5']}<br/></g:if>
-        <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}">${entry['address.postcode']}<br/></g:if>
+        <g:if test="${(entry['address.postcode'] != null ) && ( entry['address.postcode'].length() > 0 )}"><span itemprop="postalCode">${entry['address.postcode']}</span><br/></g:if>
       
         <g:if test="${(entry['telephone'] != null ) && ( entry['telephone'].length() > 0 )}">
           Telephone: <span class="tel"><span class="value"><a href="callto:${entry['telephone']}">${entry['telephone']}</a></span></span><br/>
